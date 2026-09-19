@@ -168,58 +168,9 @@ router.post('/competencies', verifyCsrfToken, (req, res) => {
   res.redirect(`/admin/competencies?school_id=${schoolId}&class_year=${classYear}`);
 });
 
-router.post('/competencies/:id', verifyCsrfToken, (req, res) => {
-  const id = parseInt(req.params.id, 10);
-  const existing = db.prepare('SELECT * FROM competencies WHERE id = ?').get(id);
-  if (!existing) {
-    req.flash('error', 'Competency not found.');
-    return res.redirect('/admin/competencies');
-  }
-
-  const title = (req.body.title || '').trim();
-  const category = (req.body.category || '').trim() || 'General';
-  const dentalYear = (req.body.dental_year || '').trim() || null;
-  const description = (req.body.description || '').trim();
-  const dueLabel = (req.body.due_label || '').trim();
-  const sourcePage = parseInt(req.body.source_page, 10);
-  const sortOrder = parseInt(req.body.sort_order, 10);
-
-  if (!title) {
-    req.flash('error', 'Title is required.');
-    return res.redirect(`/admin/competencies?school_id=${existing.school_id}&class_year=${existing.class_year}`);
-  }
-
-  db.prepare(
-    `UPDATE competencies SET title = ?, category = ?, dental_year = ?, description = ?, due_label = ?, source_page = ?,
-       sort_order = ?, updated_at = datetime('now')
-     WHERE id = ?`
-  ).run(
-    title,
-    category,
-    dentalYear,
-    description || null,
-    dueLabel || null,
-    Number.isInteger(sourcePage) ? sourcePage : null,
-    Number.isInteger(sortOrder) ? sortOrder : existing.sort_order,
-    id
-  );
-
-  req.flash('success', 'Competency updated.');
-  res.redirect(`/admin/competencies?school_id=${existing.school_id}&class_year=${existing.class_year}`);
-});
-
-router.post('/competencies/:id/delete', verifyCsrfToken, (req, res) => {
-  const id = parseInt(req.params.id, 10);
-  const existing = db.prepare('SELECT * FROM competencies WHERE id = ?').get(id);
-  if (!existing) {
-    req.flash('error', 'Competency not found.');
-    return res.redirect('/admin/competencies');
-  }
-  db.prepare('DELETE FROM competencies WHERE id = ?').run(id);
-  req.flash('success', 'Competency deleted.');
-  res.redirect(`/admin/competencies?school_id=${existing.school_id}&class_year=${existing.class_year}`);
-});
-
+// NOTE: this must stay registered before POST /competencies/:id — Express
+// matches routes in registration order, and :id would otherwise swallow
+// "copy" as a literal id value.
 router.post('/competencies/copy', verifyCsrfToken, (req, res) => {
   const schoolId = parseInt(req.body.school_id, 10);
   const fromYear = parseInt(req.body.from_year, 10);
@@ -274,6 +225,58 @@ router.post('/competencies/copy', verifyCsrfToken, (req, res) => {
 
   req.flash('success', `Copied ${sourceCompetencies.length} competenc${sourceCompetencies.length === 1 ? 'y' : 'ies'} from ${fromYear} to ${toYear}.`);
   res.redirect(`/admin/competencies?school_id=${schoolId}&class_year=${toYear}`);
+});
+
+router.post('/competencies/:id', verifyCsrfToken, (req, res) => {
+  const id = parseInt(req.params.id, 10);
+  const existing = db.prepare('SELECT * FROM competencies WHERE id = ?').get(id);
+  if (!existing) {
+    req.flash('error', 'Competency not found.');
+    return res.redirect('/admin/competencies');
+  }
+
+  const title = (req.body.title || '').trim();
+  const category = (req.body.category || '').trim() || 'General';
+  const dentalYear = (req.body.dental_year || '').trim() || null;
+  const description = (req.body.description || '').trim();
+  const dueLabel = (req.body.due_label || '').trim();
+  const sourcePage = parseInt(req.body.source_page, 10);
+  const sortOrder = parseInt(req.body.sort_order, 10);
+
+  if (!title) {
+    req.flash('error', 'Title is required.');
+    return res.redirect(`/admin/competencies?school_id=${existing.school_id}&class_year=${existing.class_year}`);
+  }
+
+  db.prepare(
+    `UPDATE competencies SET title = ?, category = ?, dental_year = ?, description = ?, due_label = ?, source_page = ?,
+       sort_order = ?, updated_at = datetime('now')
+     WHERE id = ?`
+  ).run(
+    title,
+    category,
+    dentalYear,
+    description || null,
+    dueLabel || null,
+    Number.isInteger(sourcePage) ? sourcePage : null,
+    Number.isInteger(sortOrder) ? sortOrder : existing.sort_order,
+    id
+  );
+
+  req.flash('success', 'Competency updated.');
+  res.redirect(`/admin/competencies?school_id=${existing.school_id}&class_year=${existing.class_year}`);
+});
+
+router.post('/competencies/:id/delete', verifyCsrfToken, (req, res) => {
+  const id = parseInt(req.params.id, 10);
+  const existing = db.prepare('SELECT * FROM competencies WHERE id = ?').get(id);
+  if (!existing) {
+    req.flash('error', 'Competency not found.');
+    return res.redirect('/admin/competencies');
+  }
+  db.prepare('DELETE FROM competencies WHERE id = ?').run(id);
+  req.flash('success', 'Competency deleted.');
+  res.redirect(`/admin/competencies?school_id=${existing.school_id}&class_year=${existing.class_year}`);
 });
 
 // ---------- Competency items ----------

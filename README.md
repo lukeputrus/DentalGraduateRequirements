@@ -12,7 +12,7 @@ A web app for dental students to track the clinical competencies they need to pa
 
 ## Tech stack
 
-Node.js + Express, server-rendered EJS views, SQLite (`better-sqlite3`), session-based auth (`express-session`), `bcryptjs` for password hashing, `helmet` for security headers, hand-rolled CSRF protection, and the `@anthropic-ai/sdk` for the AI assistant. No frontend build step — plain CSS and a few small vanilla-JS enhancement files.
+Node.js + Express, server-rendered EJS views, SQLite via Node's built-in `node:sqlite` module (no native dependency to install or compile — this is why `npm install` never needs a C++ toolchain, Python, or a matching prebuilt binary for your platform), session-based auth (`express-session`), `bcryptjs` for password hashing, `helmet` for security headers, hand-rolled CSRF protection, and the `@anthropic-ai/sdk` for the AI assistant. No frontend build step — plain CSS and a few small vanilla-JS enhancement files. Requires Node 22+ (`node:sqlite` is still marked experimental upstream — you'll see a harmless one-line warning on startup; the API itself has been solid).
 
 ## Getting started
 
