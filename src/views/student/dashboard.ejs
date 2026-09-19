@@ -1,0 +1,125 @@
+<%- include('../partials/header', { title: 'My Checklist' }) %>
+
+<% if (needsSetup) { %>
+  <h1>My Competency Tracker</h1>
+  <div class="card">
+    <p>You haven't set your dental school and graduation year yet, so we can't show your requirements.</p>
+    <a class="btn btn-primary" href="/account/profile">Set up my profile</a>
+  </div>
+<% } else { %>
+  <% const r = 80; const circumference = 2 * Math.PI * r; const offset = circumference * (1 - summary.percent / 100); %>
+  <div class="tracker-overline"><%= school.name %></div>
+  <div class="tracker-title">Class of <%= currentUser.class_year %> Competency Tracker</div>
+
+  <div class="card ring-card">
+    <div class="ring-wrap">
+      <svg viewBox="0 0 180 180">
+        <circle class="ring-track" cx="90" cy="90" r="<%= r %>"></circle>
+        <circle class="ring-progress" cx="90" cy="90" r="<%= r %>"
+          stroke-dasharray="<%= circumference.toFixed(2) %>"
+          stroke-dashoffset="<%= offset.toFixed(2) %>"></circle>
+      </svg>
+      <div class="ring-center">
+        <div class="ring-pct"><%= summary.percent %>%</div>
+        <div class="ring-sub">Passed</div>
+      </div>
+    </div>
+    <div class="ring-caption"><b><%= summary.passed %></b> of <b><%= summary.total %></b> competencies passed</div>
+  </div>
+
+  <div class="stat-grid">
+    <div class="stat-tile passed"><span class="stat-dot"></span><div class="value"><%= summary.passed %></div><div class="label">Passed</div></div>
+    <div class="stat-tile eligible"><span class="stat-dot"></span><div class="value"><%= summary.eligible %></div><div class="label">Eligible / ready</div></div>
+    <div class="stat-tile prereqs"><span class="stat-dot"></span><div class="value"><%= summary.prereqs_in_progress %></div><div class="label">Prereqs in progress</div></div>
+    <div class="stat-tile notstarted"><span class="stat-dot"></span><div class="value"><%= summary.not_started %></div><div class="label">Not started</div></div>
+    <% if (summary.needs_retest > 0) { %>
+    <div class="stat-tile retest"><span class="stat-dot"></span><div class="value"><%= summary.needs_retest %></div><div class="label">Needs retest</div></div>
+    <% } %>
+  </div>
+
+  <% if (groups.length === 0) { %>
+    <div class="card"><p>Your school hasn't published competencies for your graduation year yet. Check back later or contact your program administrator.</p></div>
+  <% } else { %>
+
+  <div class="section-label">Browse by category</div>
+  <div class="category-grid">
+    <% categorySummaries.forEach(function (cs) { %>
+      <% const slug = cs.category.toLowerCase().replace(/[^a-z0-9]+/g, '-'); %>
+      <a class="category-card" href="#cat-<%= slug %>">
+        <div class="cat-name"><%= cs.category %></div>
+        <div class="category-bar-outer"><div class="category-bar-inner" data-percent="<%= cs.percent %>"></div></div>
+        <div class="category-frac"><%= cs.passed %> / <%= cs.total %> passed</div>
+      </a>
+    <% }) %>
+  </div>
+
+  <div class="controls">
+    <input type="search" id="comp-search" placeholder="Search competencies…" aria-label="Search competencies">
+    <button type="button" class="filter-chip active" data-filter="all">All</button>
+    <button type="button" class="filter-chip" data-filter="not_started">Not started</button>
+    <button type="button" class="filter-chip" data-filter="prereqs_in_progress">In progress</button>
+    <button type="button" class="filter-chip" data-filter="eligible">Eligible</button>
+    <button type="button" class="filter-chip" data-filter="passed">Passed</button>
+    <% if (summary.needs_retest > 0) { %><button type="button" class="filter-chip" data-filter="needs_retest">Needs retest</button><% } %>
+  </div>
+
+  <% groups.forEach(function (group) { %>
+    <% const slug = group.category.toLowerCase().replace(/[^a-z0-9]+/g, '-'); %>
+    <section class="competency-category-block" id="cat-<%= slug %>">
+      <h2 class="mt-0"><%= group.category %></h2>
+      <div class="requirement-list">
+        <% group.items.forEach(function (comp) { %>
+          <div class="requirement-item competency-card" id="comp-<%= comp.id %>" data-status="<%= comp.status %>" data-search="<%= (comp.title + ' ' + comp.category).toLowerCase() %>">
+            <div class="requirement-main">
+              <span class="status-badge status-<%= comp.status %>"><%= statusLabels[comp.status] %></span>
+              <strong><%= comp.title %></strong>
+              <% if (comp.dental_year) { %><span class="dsyear-badge"><%= comp.dental_year %></span><% } %>
+            </div>
+            <% if (comp.description) { %><p class="muted"><%= comp.description %></p><% } %>
+            <% if (comp.due_label) { %><div class="due-label"><%= comp.due_label %></div><% } %>
+
+            <% if (comp.items.length > 0) { %>
+            <div class="item-list">
+              <% comp.items.forEach(function (item) { %>
+                <div class="item-row">
+                  <span class="item-label"><%= item.label %></span>
+                  <div class="item-controls">
+                    <% if (item.item_type === 'count') { %>
+                      <span class="item-count"><%= item.current_count %> / <%= item.target_count %></span>
+                      <div class="stepper">
+                        <form method="POST" action="/student/items/<%= item.item_id %>/decrement">
+                          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                          <button type="submit" class="step-btn minus" aria-label="Decrease">&minus;</button>
+                        </form>
+                        <form method="POST" action="/student/items/<%= item.item_id %>/increment">
+                          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                          <button type="submit" class="step-btn plus" aria-label="Increase">&plus;</button>
+                        </form>
+                      </div>
+                    <% } else { %>
+                      <form method="POST" action="/student/items/<%= item.item_id %>/toggle">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                        <button type="submit" class="btn btn-small check-toggle <%= item.current_count > 0 ? 'done' : '' %>">
+                          <%= item.current_count > 0 ? '✓ Done' : 'Mark done' %>
+                        </button>
+                      </form>
+                    <% } %>
+                  </div>
+                </div>
+              <% }) %>
+            </div>
+            <% } %>
+
+            <% if (comp.exam_status === 'needs_retest' && comp.exam_notes) { %>
+              <p class="muted">Instructor notes: <%= comp.exam_notes %></p>
+            <% } %>
+            <% if (comp.source_page) { %><div class="source-cite">Source: Competency manual, p. <%= comp.source_page %></div><% } %>
+          </div>
+        <% }) %>
+      </div>
+    </section>
+  <% }) %>
+  <% } %>
+<% } %>
+
+<%- include('../partials/footer') %>

@@ -1,0 +1,42 @@
+<%- include('../../partials/header', { title: 'Manage Schools' }) %>
+<h1>Dental Schools</h1>
+<p class="muted">This list powers the dropdown students use to select their school. Add any school that's missing.</p>
+<% if (error) { %><div class="flash flash-error"><%= error %></div><% } %>
+
+<div class="card">
+  <h2 class="mt-0">Add a school</h2>
+  <form method="POST" action="/admin/schools" class="form-row">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    <label>School name
+      <input type="text" name="name" placeholder="e.g. University of Example School of Dentistry" required>
+    </label>
+    <div style="align-self: flex-end;">
+      <button type="submit" class="btn btn-primary">Add school</button>
+    </div>
+  </form>
+</div>
+
+<div class="card">
+  <table>
+    <thead><tr><th>School</th><th>Students</th><th>Competencies</th><th></th></tr></thead>
+    <tbody>
+      <% schools.forEach(function (school) { %>
+        <tr>
+          <td><%= school.name %></td>
+          <td><%= school.student_count %></td>
+          <td><%= school.competency_count %></td>
+          <td class="actions-cell text-right">
+            <a class="btn btn-small" href="/admin/competencies?school_id=<%= school.id %>">Competencies</a>
+            <% if (school.student_count === 0) { %>
+            <form method="POST" action="/admin/schools/<%= school.id %>/delete" class="inline-form" data-confirm="Remove <%= school.name %>?">
+              <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+              <button type="submit" class="btn btn-small btn-danger">Remove</button>
+            </form>
+            <% } %>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+<%- include('../../partials/footer') %>

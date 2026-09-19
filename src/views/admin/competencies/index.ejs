@@ -1,0 +1,217 @@
+<%- include('../../partials/header', { title: 'Manage Competencies' }) %>
+<h1>Competencies</h1>
+<p class="muted">Each competency is a gradeable exam a student must pass. It can have prerequisite items — one-time steps ("check") or repeated case counts ("count") — that a student clears before they're eligible to sit the exam. Competencies are set per school and per graduating class year, so an incoming class's changed requirements never affect students already tracking the old set.</p>
+<% if (error) { %><div class="flash flash-error"><%= error %></div><% } %>
+
+<div class="card">
+  <h2 class="mt-0">Choose a school &amp; class year</h2>
+  <form method="GET" action="/admin/competencies" class="form-row">
+    <label>Dental school
+      <select name="school_id" required>
+        <option value="">Select a school&hellip;</option>
+        <% schools.forEach(function (school) { %>
+          <option value="<%= school.id %>" <%= selectedSchool && selectedSchool.id === school.id ? 'selected' : '' %>><%= school.name %></option>
+        <% }) %>
+      </select>
+    </label>
+    <label>Graduating class year
+      <input type="number" name="class_year" min="2000" max="2100" value="<%= classYear || '' %>" placeholder="e.g. 2028" required>
+    </label>
+    <div class="align-end">
+      <button type="submit" class="btn btn-primary">Manage</button>
+    </div>
+  </form>
+</div>
+
+<% if (existingSets.length > 0) { %>
+<div class="card">
+  <h2 class="mt-0">Existing competency sets</h2>
+  <table>
+    <thead><tr><th>School</th><th>Class year</th><th>Competencies</th><th></th></tr></thead>
+    <tbody>
+      <% existingSets.forEach(function (set) { %>
+        <tr>
+          <td><%= set.school_name %></td>
+          <td>Class of <%= set.class_year %></td>
+          <td><%= set.count %></td>
+          <td class="text-right"><a class="btn btn-small" href="/admin/competencies?school_id=<%= set.school_id %>&class_year=<%= set.class_year %>">Manage</a></td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+<% } %>
+
+<% if (selectedSchool && classYear) { %>
+<div class="card">
+  <div class="page-header">
+    <h2 class="mt-0"><%= selectedSchool.name %> &mdash; Class of <%= classYear %></h2>
+  </div>
+
+  <% if (competencies.length === 0) { %>
+    <p class="muted">No competencies yet for this class year.</p>
+  <% } else { %>
+  <div class="competency-admin-list">
+    <% competencies.forEach(function (comp) { %>
+    <details class="competency-edit" id="comp-<%= comp.id %>">
+      <summary>
+        <span class="comp-summary-title"><%= comp.category %> &middot; <%= comp.title %></span>
+        <span class="muted"><%= comp.dental_year || '—' %> &middot; <%= comp.items.length %> item<%= comp.items.length === 1 ? '' : 's' %></span>
+      </summary>
+
+      <form method="POST" action="/admin/competencies/<%= comp.id %>" class="mb-16">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        <div class="form-row">
+          <label>Category
+            <input type="text" name="category" value="<%= comp.category %>">
+          </label>
+          <label>Dental year
+            <select name="dental_year">
+              <option value="" <%= !comp.dental_year ? 'selected' : '' %>>—</option>
+              <option value="DS3" <%= comp.dental_year === 'DS3' ? 'selected' : '' %>>DS3</option>
+              <option value="DS4" <%= comp.dental_year === 'DS4' ? 'selected' : '' %>>DS4</option>
+            </select>
+          </label>
+          <label class="narrow">Order
+            <input type="number" name="sort_order" value="<%= comp.sort_order %>">
+          </label>
+        </div>
+        <label>Title
+          <input type="text" name="title" value="<%= comp.title %>" required>
+        </label>
+        <label>Description (shown to students)
+          <textarea name="description" rows="2"><%= comp.description || '' %></textarea>
+        </label>
+        <div class="form-row">
+          <label>Due (optional, free text)
+            <input type="text" name="due_label" value="<%= comp.due_label || '' %>" placeholder="e.g. Due May 2027">
+          </label>
+          <label>Source page (optional)
+            <input type="number" name="source_page" value="<%= comp.source_page || '' %>" placeholder="Manual page #">
+          </label>
+        </div>
+        <div class="form-row justify-end">
+          <button type="submit" class="btn btn-small no-grow">Save competency</button>
+          <button type="submit" formaction="/admin/competencies/<%= comp.id %>/delete" class="btn btn-small btn-danger no-grow" data-confirm="Delete competency '<%= comp.title %>' and all its items? This cannot be undone.">Delete competency</button>
+        </div>
+      </form>
+
+      <h3 class="mb-0">Prerequisite items</h3>
+      <% if (comp.items.length === 0) { %>
+        <p class="muted">No items yet — this competency is immediately eligible with no prerequisites.</p>
+      <% } %>
+      <div class="requirement-list mb-16">
+        <% comp.items.forEach(function (item) { %>
+        <form method="POST" action="/admin/competency-items/<%= item.id %>" class="requirement-edit-row">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+          <div class="form-row">
+            <label class="grow-2">Label
+              <input type="text" name="label" value="<%= item.label %>" required>
+            </label>
+            <label>Type
+              <select name="item_type">
+                <option value="check" <%= item.item_type === 'check' ? 'selected' : '' %>>One-time (check)</option>
+                <option value="count" <%= item.item_type === 'count' ? 'selected' : '' %>>Repeated (count)</option>
+              </select>
+            </label>
+            <label class="narrow">Target #
+              <input type="number" name="target_count" min="1" value="<%= item.target_count %>">
+            </label>
+          </div>
+          <div class="form-row justify-end">
+            <button type="submit" class="btn btn-small no-grow">Save item</button>
+            <button type="submit" formaction="/admin/competency-items/<%= item.id %>/delete" class="btn btn-small btn-danger no-grow" data-confirm="Delete item '<%= item.label %>'?">Delete item</button>
+          </div>
+        </form>
+        <% }) %>
+      </div>
+
+      <h4 class="mb-0">Add an item</h4>
+      <form method="POST" action="/admin/competencies/<%= comp.id %>/items">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        <div class="form-row">
+          <label class="grow-2">Label
+            <input type="text" name="label" required placeholder="e.g. Perform supervised IAN injections">
+          </label>
+          <label>Type
+            <select name="item_type">
+              <option value="check">One-time (check)</option>
+              <option value="count">Repeated (count)</option>
+            </select>
+          </label>
+          <label class="narrow">Target #
+            <input type="number" name="target_count" min="1" value="1">
+          </label>
+          <div class="align-end">
+            <button type="submit" class="btn btn-small">Add item</button>
+          </div>
+        </div>
+      </form>
+    </details>
+    <% }) %>
+  </div>
+  <% } %>
+</div>
+
+<div class="card">
+  <h2 class="mt-0">Add a competency</h2>
+  <form method="POST" action="/admin/competencies">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    <input type="hidden" name="school_id" value="<%= selectedSchool.id %>">
+    <input type="hidden" name="class_year" value="<%= classYear %>">
+    <div class="form-row">
+      <label>Category
+        <input type="text" name="category" placeholder="e.g. Oral Surgery, Pediatric" value="General">
+      </label>
+      <label>Dental year
+        <select name="dental_year">
+          <option value="">—</option>
+          <option value="DS3">DS3</option>
+          <option value="DS4">DS4</option>
+        </select>
+      </label>
+    </div>
+    <label>Title
+      <input type="text" name="title" required placeholder="e.g. Local Anesthesia (IAN) Competency">
+    </label>
+    <label>Description (optional, shown to students)
+      <textarea name="description" rows="2"></textarea>
+    </label>
+    <div class="form-row">
+      <label>Due (optional, free text)
+        <input type="text" name="due_label" placeholder="e.g. Due May 2027">
+      </label>
+      <label>Source page (optional)
+        <input type="number" name="source_page" placeholder="Manual page #">
+      </label>
+    </div>
+    <button type="submit" class="btn btn-primary">Add competency</button>
+  </form>
+</div>
+
+<% if (otherYears.length > 0) { %>
+<div class="card">
+  <h2 class="mt-0">Copy from another class year</h2>
+  <p class="muted">Only available when <%= classYear %> has no competencies yet &mdash; copies every competency and its items in one step, useful when a new class's requirements start from last year's list.</p>
+  <% if (competencies.length === 0) { %>
+  <form method="POST" action="/admin/competencies/copy" class="form-row">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    <input type="hidden" name="school_id" value="<%= selectedSchool.id %>">
+    <input type="hidden" name="to_year" value="<%= classYear %>">
+    <label>Copy from
+      <select name="from_year" required>
+        <% otherYears.forEach(function (set) { %>
+          <option value="<%= set.class_year %>">Class of <%= set.class_year %> (<%= set.count %> competencies)</option>
+        <% }) %>
+      </select>
+    </label>
+    <div class="align-end">
+      <button type="submit" class="btn">Copy to <%= classYear %></button>
+    </div>
+  </form>
+  <% } %>
+</div>
+<% } %>
+
+<% } %>
+<%- include('../../partials/footer') %>

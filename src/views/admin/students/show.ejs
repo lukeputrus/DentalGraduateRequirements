@@ -1,0 +1,106 @@
+<%- include('../../partials/header', { title: student.full_name }) %>
+<div class="page-header">
+  <h1 class="mt-0"><%= student.full_name %></h1>
+  <a class="btn" href="/admin/students">&larr; Back to students</a>
+</div>
+<% if (error) { %><div class="flash flash-error"><%= error %></div><% } %>
+
+<div class="card">
+  <h2 class="mt-0">Account info</h2>
+  <form method="POST" action="/admin/students/<%= student.id %>">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    <div class="form-row">
+      <label>Full name
+        <input type="text" name="full_name" value="<%= student.full_name %>" required>
+      </label>
+      <label>Username
+        <input type="text" name="username" value="<%= student.username %>" required pattern="[a-zA-Z0-9._-]{3,32}">
+      </label>
+    </div>
+    <label>Email
+      <input type="email" name="email" value="<%= student.email || '' %>">
+    </label>
+    <div class="form-row">
+      <label>Dental school
+        <select name="school_id" required>
+          <% schools.forEach(function (school) { %>
+            <option value="<%= school.id %>" <%= String(student.school_id) === String(school.id) ? 'selected' : '' %>><%= school.name %></option>
+          <% }) %>
+        </select>
+      </label>
+      <label>Expected graduation year
+        <input type="number" name="class_year" min="2000" max="2100" value="<%= student.class_year || '' %>" required>
+      </label>
+    </div>
+    <button type="submit" class="btn btn-primary">Save account info</button>
+  </form>
+</div>
+
+<div class="card">
+  <h2 class="mt-0">Password</h2>
+  <p class="muted">If the student lost their password, generate a new temporary one here and share it with them. They'll be required to set their own on next login.</p>
+  <form method="POST" action="/admin/students/<%= student.id %>/reset-password" data-confirm="Generate a new temporary password for <%= student.full_name %>? Their current password will stop working immediately.">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    <button type="submit" class="btn">Generate new temporary password</button>
+  </form>
+</div>
+
+<div class="card">
+  <h2 class="mt-0">Progress</h2>
+  <% if (!student.school_id || !student.class_year) { %>
+    <p class="muted">This student hasn't been assigned a school and class year yet.</p>
+  <% } else if (groups.length === 0) { %>
+    <p class="muted">No competencies have been published yet for this school's Class of <%= student.class_year %>.</p>
+  <% } else { %>
+    <div class="progress-bar" role="progressbar" aria-valuenow="<%= summary.percent %>" aria-valuemin="0" aria-valuemax="100">
+      <div class="progress-bar-fill" data-percent="<%= summary.percent %>"></div>
+    </div>
+    <div class="muted mb-16"><%= summary.passed %> of <%= summary.total %> competencies passed (<%= summary.percent %>%) &middot; <%= summary.eligible %> eligible &middot; <%= summary.prereqs_in_progress %> in progress &middot; <%= summary.not_started %> not started<% if (summary.needs_retest > 0) { %> &middot; <%= summary.needs_retest %> need retest<% } %></div>
+
+    <% groups.forEach(function (group) { %>
+      <h3><%= group.category %></h3>
+      <div class="requirement-list mb-20">
+        <% group.items.forEach(function (comp) { %>
+          <div class="requirement-item" id="comp-<%= comp.id %>">
+            <div class="requirement-main">
+              <span class="status-badge status-<%= comp.status %>"><%= statusLabels[comp.status] %></span>
+              <strong><%= comp.title %></strong>
+              <% if (comp.dental_year) { %><span class="muted">(<%= comp.dental_year %>)</span><% } %>
+            </div>
+            <% if (comp.description) { %><p class="muted"><%= comp.description %></p><% } %>
+            <% if (comp.items.length > 0) { %>
+            <ul class="item-readonly-list">
+              <% comp.items.forEach(function (item) { %>
+                <li><%= item.label %>: <strong><%= item.current_count %> / <%= item.target_count %></strong></li>
+              <% }) %>
+            </ul>
+            <% } %>
+            <form method="POST" action="/admin/students/<%= student.id %>/competencies/<%= comp.id %>/exam" class="requirement-form">
+              <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+              <label class="inline-label">Exam outcome
+                <select name="exam_status">
+                  <option value="not_attempted" <%= comp.exam_status === 'not_attempted' ? 'selected' : '' %>>Not attempted</option>
+                  <option value="passed" <%= comp.exam_status === 'passed' ? 'selected' : '' %>>Passed</option>
+                  <option value="needs_retest" <%= comp.exam_status === 'needs_retest' ? 'selected' : '' %>>Needs retest</option>
+                </select>
+              </label>
+              <label class="inline-label grow">Notes
+                <input type="text" name="notes" value="<%= comp.exam_notes || '' %>" placeholder="Optional notes" maxlength="500">
+              </label>
+              <button type="submit" class="btn btn-small">Save</button>
+            </form>
+          </div>
+        <% }) %>
+      </div>
+    <% }) %>
+  <% } %>
+</div>
+
+<div class="card">
+  <h2 class="mt-0">Danger zone</h2>
+  <form method="POST" action="/admin/students/<%= student.id %>/delete">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    <button type="submit" class="btn btn-danger" data-confirm="Permanently delete the account for <%= student.full_name %>? This cannot be undone.">Delete student account</button>
+  </form>
+</div>
+<%- include('../../partials/footer') %>

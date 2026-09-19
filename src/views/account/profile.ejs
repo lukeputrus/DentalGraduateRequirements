@@ -1,0 +1,40 @@
+<%- include('../partials/header', { title: 'My Profile' }) %>
+<h1>My Profile</h1>
+<% if (error) { %><div class="flash flash-error"><%= error %></div><% } %>
+
+<div class="card">
+  <form method="POST" action="/account/profile">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    <label>Full name
+      <input type="text" name="full_name" value="<%= currentUser.full_name %>" required>
+    </label>
+    <label>Email
+      <input type="email" name="email" value="<%= currentUser.email || '' %>">
+    </label>
+    <label>Username
+      <input type="text" value="<%= currentUser.username %>" disabled>
+      <small class="muted">Contact an admin to change your username.</small>
+    </label>
+    <% if (currentUser.role === 'student') { %>
+    <label>Dental school
+      <select name="school_id" required>
+        <option value="">Select a school&hellip;</option>
+        <% schools.forEach(function (school) { %>
+          <option value="<%= school.id %>" <%= currentUser.school_id === school.id ? 'selected' : '' %>><%= school.name %></option>
+        <% }) %>
+      </select>
+    </label>
+    <label>Expected graduation year
+      <input type="number" name="class_year" min="2000" max="2100" value="<%= currentUser.class_year || '' %>" required>
+    </label>
+    <% } %>
+    <button type="submit" class="btn btn-primary">Save changes</button>
+  </form>
+</div>
+
+<div class="card">
+  <h2 class="mt-0">Password</h2>
+  <p class="muted">Change your password from the dedicated page.</p>
+  <a class="btn" href="/account/change-password">Change password</a>
+</div>
+<%- include('../partials/footer') %>

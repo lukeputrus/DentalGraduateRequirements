@@ -1,0 +1,17 @@
+<%- include('../partials/header', { title: 'Log in' }) %>
+<div class="auth-card">
+  <h1>Log in</h1>
+  <p class="muted">Dental Graduate Requirements Tracker</p>
+  <% if (error) { %><div class="flash flash-error"><%= error %></div><% } %>
+  <form method="POST" action="/login">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    <label>Username
+      <input type="text" name="username" value="<%= username %>" autofocus required autocomplete="username">
+    </label>
+    <label>Password
+      <input type="password" name="password" required autocomplete="current-password">
+    </label>
+    <button type="submit" class="btn btn-primary">Log in</button>
+  </form>
+</div>
+<%- include('../partials/footer') %>

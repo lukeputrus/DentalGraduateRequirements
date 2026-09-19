@@ -1,0 +1,1107 @@
+[
+  {
+    "category": "Oral Surgery",
+    "dental_year": "DS3",
+    "title": "Local Anesthesia (IAN) Competency",
+    "description": "Administer a conventional inferior alveolar nerve block on a patient scheduled in the OS Clinic for a procedure that needs it, then stay for the entire procedure. A full-time (or formerly full-time) Oral Surgery faculty member must be physically present for the injection and will question you afterward. You must finish DOS 8220 Pain and Anxiety Control first, and complete the competency by the end of April of your DS3 year.",
+    "source_page": 5,
+    "items": [
+      {
+        "label": "Complete DOS 8220 Pain and Anxiety Control",
+        "item_type": "check",
+        "target_count": 1
+      },
+      {
+        "label": "Pass the supervised IAN block competency on an OS Clinic patient",
+        "item_type": "check",
+        "target_count": 1
+      }
+    ],
+    "uncertain": null
+  },
+  {
+    "category": "Oral Surgery",
+    "dental_year": "DS4",
+    "title": "Single Tooth Extraction Competency",
+    "description": "Perform a single simple extraction in the OS Clinic with full-time OS faculty physically present for the anesthesia and the extraction. No incisors and no teeth with more than 40% bone loss - either disqualifies the case and fails the competency. Use a different faculty member than the one who supervised your IAN competency, and finish by the end of April of DS4.",
+    "source_page": 9,
+    "items": [
+      {
+        "label": "Complete 8 extractions",
+        "item_type": "count",
+        "target_count": 8
+      },
+      {
+        "label": "Complete all DS3 (DOS 8310 Clinical Oral Surgery) requirements",
+        "item_type": "check",
+        "target_count": 1
+      },
+      {
+        "label": "Pass the supervised single tooth extraction competency",
+        "item_type": "check",
+        "target_count": 1
+      }
+    ],
+    "uncertain": null
+  },
+  {
+    "category": "Oral Surgery",
+    "dental_year": "DS4",
+    "title": "Oral Surgery Referral Competency",
+    "description": "Present a case you would refer to an Oral and Maxillofacial Surgeon in private practice because the treatment is too complex for a general dentist, and defend the referral to full-time OS faculty. The patient does not need to be physically present. Complete it by the end of the DS4 year.",
+    "source_page": 13,
+    "items": [
+      {
+        "label": "Complete all DS3 (DOS 8310 Clinical Oral Surgery) requirements",
+        "item_type": "check",
+        "target_count": 1
+      },
+      {
+        "label": "Pass the Oral Surgery Referral competency with OS faculty",
+        "item_type": "check",
+        "target_count": 1
+      }
+    ],
+    "uncertain": null
+  },
+  {
+    "category": "Oral Surgery",
+    "dental_year": "DS4",
+    "title": "Nitrous Oxide Sedation Competencies (Adult/Geriatric & Child/Adolescent)",
+    "description": "You must pass two separate nitrous oxide sedation competencies: one on an adult/geriatric patient in the OS Clinic and one on a child/adolescent patient in the Pediatric Clinic. At least one of the two must be done on a real patient; starting in Winter of DS4 the other may be done as a simulated case (high-fidelity simulator, or a consenting adult volunteer for the adult version). Both must be finished by the end of the DS4 year.",
+    "source_page": 16,
+    "items": [
+      {
+        "label": "Observe nitrous oxide sedation administration (OS or Pediatric Clinic)",
+        "item_type": "count",
+        "target_count": 1
+      },
+      {
+        "label": "Complete all DS3 (DOS 8310 Clinical Oral Surgery) requirements",
+        "item_type": "check",
+        "target_count": 1
+      },
+      {
+        "label": "Pass the Adult/Geriatric Nitrous Oxide Sedation Competency",
+        "item_type": "check",
+        "target_count": 1
+      },
+      {
+        "label": "Pass the Child/Adolescent Nitrous Oxide Sedation Competency",
+        "item_type": "check",
+        "target_count": 1
+      }
+    ],
+    "uncertain": null
+  },
+  {
+    "category": "Oral Surgery",
+    "dental_year": "DS4",
+    "title": "Medical Emergency Response Simulation Competencies",
+    "description": "You are scheduled for five separate simulation-lab rotations, each one a different medical emergency, and you must pass all five. Cases are not given out in advance. As the DS4 you lead the response and direct a DS3 partner, who may only act on your instructions. All five must be completed by the end of the DS4 year.",
+    "source_page": 27,
+    "items": [
+      {
+        "label": "Complete one simulation-lab experience/observation of each of the 5 emergency scenarios during DOS 8310",
+        "item_type": "count",
+        "target_count": 5
+      },
+      {
+        "label": "Pass the Allergic Reaction simulation competency rotation",
+        "item_type": "check",
+        "target_count": 1
+      },
+      {
+        "label": "Pass the Angina/Heart Attack simulation competency rotation",
+        "item_type": "check",
+        "target_count": 1
+      },
+      {
+        "label": "Pass the Epilepsy & Seizures simulation competency rotation",
+        "item_type": "check",
+        "target_count": 1
+      },
+      {
+        "label": "Pass the Hypoglycemia simulation competency rotation",
+        "item_type": "check",
+        "target_count": 1
+      },
+      {
+        "label": "Pass the Syncope simulation competency rotation",
+        "item_type": "check",
+        "target_count": 1
+      }
+    ],
+    "uncertain": null
+  },
+  {
+    "category": "Pediatric",
+    "dental_year": "DS3",
+    "title": "Pediatric Pit and Fissure Sealant Competency",
+    "description": "Place pit and fissure sealants on a fully erupted, decay-free permanent molar in a pediatric patient, under pediatric faculty (dentist or hygienist) supervision. You must apply the isolation yourself, use appropriate behavior management, never leave the child alone in the chair, and stay for the rest of the scheduled treatment. Due by April of the DS3 year.",
+    "source_page": 35,
+    "items": [
+      {
+        "label": "Complete 1 pit and fissure sealant experience",
+        "item_type": "count",
+        "target_count": 1
+      },
+      {
+        "label": "Pass the pit and fissure sealant competency on a pediatric patient",
+        "item_type": "check",
+        "target_count": 1
+      }
+    ],
+    "uncertain": null
+  },
+  {
+    "category": "Pediatric",
+    "dental_year": "DS3",
+    "title": "Pediatric Prophylaxis & Prevention Plan Competency",
+    "description": "Challenge this on your second pediatric prophylaxis patient. As the DS3 you gather all the assessment information yourself, perform the prophy (scale, polish, floss), apply fluoride, enter the Prevention Plan in the axiUm Diagnostic Summary, and present it to the parent/guardian for signature. Due by April of the DS3 year.",
+    "source_page": 38,
+    "items": [
+      {
+        "label": "Complete prophylaxis on 1 pediatric patient (D1120 or D1110)",
+        "item_type": "count",
+        "target_count": 1
+      },
+      {
+        "label": "Pass the prophylaxis & prevention plan competency on your 2nd pediatric prophy patient",
+        "item_type": "check",
+        "target_count": 1
+      }
+    ],
+    "uncertain": null
+  },
+  {
+    "category": "Pediatric",
+    "dental_year": "DS3",
+    "title": "Primary Dentition Pulpotomy Typodont Competency",
+    "description": "Perform a pulpotomy on tooth #K on your own pediatric typodont during a Pediatric Clinic rotation when you are not assigned a patient, with a pediatric dentist supervising. Faculty will question you afterward on indications, contraindications and patient management. Cannot be done on the Titan Teeth Mobile Bus. Due by April of the DS3 year.",
+    "source_page": 42,
+    "items": [
+      {
+        "label": "Complete 1 pulpotomy experience",
+        "item_type": "count",
+        "target_count": 1
+      },
+      {
+        "label": "Pass the typodont pulpotomy competency on tooth #K",
+        "item_type": "check",
+        "target_count": 1
+      }
+    ],
+    "uncertain": null
+  },
+  {
+    "category": "Pediatric",
+    "dental_year": "DS3",
+    "title": "Primary Tooth Class II Composite Typodont Competency",
+    "description": "Prepare and restore a Class II composite on a mandibular first primary molar on your pediatric typodont during a Pediatric Clinic rotation. You must also calculate the maximum local anesthetic dose for the case and present it to faculty. Cannot be done on the Mobile Bus. Due by April of the DS3 year.",
+    "source_page": 44,
+    "items": [
+      {
+        "label": "Complete 1 Class II composite preparation & restoration experience",
+        "item_type": "count",
+        "target_count": 1
+      },
+      {
+        "label": "Pass the typodont Class II composite competency (mandibular 1st primary molar)",
+        "item_type": "check",
+        "target_count": 1
+      }
+    ],
+    "uncertain": null
+  },
+  {
+    "category": "Pediatric",
+    "dental_year": "DS3",
+    "title": "Primary Tooth Stainless Steel Crown Typodont Competency",
+    "description": "Prepare and restore a mandibular second primary molar with a stainless steel crown on your pediatric typodont during a Pediatric Clinic rotation. You must also calculate the maximum local anesthetic dose for the case. Cannot be done on the Mobile Bus. Due by April of the DS3 year.",
+    "source_page": 48,
+    "items": [
+      {
+        "label": "Complete 1 stainless steel crown preparation & restoration experience",
+        "item_type": "count",
+        "target_count": 1
+      },
+      {
+        "label": "Pass the typodont stainless steel crown competency (mandibular 2nd primary molar)",
+        "item_type": "check",
+        "target_count": 1
+      }
+    ],
+    "uncertain": null
+  },
+  {
+    "category": "Pediatric",
+    "dental_year": "DS4",
+    "title": "Pediatric Clinical Treatment Planning Competency",
+    "description": "As the DS4 you personally complete the whole workup on a pediatric patient - health history, caries risk, clinical exam, odontogram, ordering and taking radiographs - and build a sequenced treatment plan plus Diagnostic Summary, then present it to the parent/guardian for signature. The patient must be a new or recall patient needing radiographs with moderate to extensive clinical decay. Grade caps at 70% if not done by April of DS4.",
+    "source_page": 52,
+    "items": [
+      {
+        "label": "Complete 2 treatment planning procedures on pediatric patients (D0150 or D0120)",
+        "item_type": "count",
+        "target_count": 2
+      },
+      {
+        "label": "Pass the pediatric clinical treatment planning competency",
+        "item_type": "check",
+        "target_count": 1
+      }
+    ],
+    "uncertain": null
+  },
+  {
+    "category": "Pediatric",
+    "dental_year": "DS4",
+    "title": "Pediatric Clinical Class I Restorative Competency",
+    "description": "One competency you can satisfy with either restorative material: a 2-surface occlusolingual Class I amalgam or a 2-surface occlusolingual Class I composite on a pediatric patient. The tooth may be primary or permanent but must have at least one proximal and one occlusal contact. You must calculate the maximum local anesthetic dose and manage the child's behavior throughout. Grade caps at 70% if not done by April of DS4.",
+    "source_page": 57,
+    "items": [
+      {
+        "label": "Complete 2 restorative procedures on pediatric patients",
+        "item_type": "count",
+        "target_count": 2
+      },
+      {
+        "label": "Pass the Class I restorative competency using either a Class I amalgam or Class I composite (2-surface OL)",
+        "item_type": "check",
+        "target_count": 1
+      }
+    ],
+    "uncertain": null
+  },
+  {
+    "category": "Pediatric",
+    "dental_year": "DS4",
+    "title": "Pediatric Clinical Class II or SSC Restorative Competency",
+    "description": "One competency satisfiable three ways: a Class II amalgam, a Class II composite, or a stainless steel crown on a pediatric patient. The tooth may be primary or permanent but must have at least one proximal and one occlusal contact. You must calculate the maximum local anesthetic dose and manage the child's behavior throughout. Grade caps at 70% if not done by April of DS4.",
+    "source_page": 63,
+    "items": [
+      {
+        "label": "Complete 2 restorative procedures on pediatric patients",
+        "item_type": "count",
+        "target_count": 2
+      },
+      {
+        "label": "Pass the competency using a Class II amalgam, Class II composite, or stainless steel crown",
+        "item_type": "check",
+        "target_count": 1
+      }
+    ],
+    "uncertain": null
+  },
+  {
+    "category": "Pediatric",
+    "dental_year": "DS4",
+    "title": "Pediatric Typodont-Based Space Maintainer Competency",
+    "description": "Faculty give you a case on your pediatric typodont; you diagnose which space maintainer is indicated, plan the code, adapt bands, take an impression, pour study models and write the laboratory prescription. Getting the diagnosis wrong fails the competency on the spot and you must retest another day. No prerequisite experiences. Grade caps at 70% if not done by April of DS4.",
+    "source_page": 73,
+    "items": [
+      {
+        "label": "Pass the typodont space maintainer competency (diagnosis, bands, impression, models, lab prescription)",
+        "item_type": "check",
+        "target_count": 1
+      }
+    ],
+    "uncertain": null
+  },
+  {
+    "category": "Pediatric",
+    "dental_year": "DS4",
+    "title": "Dental Trauma Electronic Case-Based Competency",
+    "description": "A scheduled electronic case-based exam taken on Blackboard using Respondus Lockdown Browser and Monitor, covering dental trauma emergency treatment, prescriptions, pulpal options, restoration, extraction and follow-up. You must score 70% or higher. Held in the Winter semester of DS4 - bring your University laptop, charger and an ethernet cord.",
+    "source_page": 76,
+    "items": [
+      {
+        "label": "Pass the Dental Trauma electronic case-based exam with 70% or higher",
+        "item_type": "check",
+        "target_count": 1
+      }
+    ],
+    "uncertain": null
+  },
+  {
+    "category": "Simulated Case Exams",
+    "dental_year": "DS3",
+    "title": "Radiographic Diagnostic Exam Simulated Competency Exam",
+    "description": "A scheduled Blackboard exam (Respondus Lockdown Browser and Monitor) on identifying normal radiographic landmarks, diagnosing oral pathology on radiographs, and managing the diagnosis. You must score 70% or higher. Taken in the Fall semester of DS3 - see the DCL 8321 syllabus for the date.",
+    "source_page": 79,
+    "items": [
+      {
+        "label": "Pass the Radiographic Diagnostic Exam with 70% or higher",
+        "item_type": "check",
+        "target_count": 1
+      }
+    ],
+    "uncertain": null
+  },
+  {
+    "category": "Simulated Case Exams",
+    "dental_year": "DS3",
+    "title": "Radiology Technical Error Simulated Competency Exam",
+    "description": "A scheduled Blackboard exam (Respondus Lockdown Browser and Monitor) on identifying normal radiographic landmarks, spotting radiographic technical errors and correcting them. You must score 70% or higher. Taken in the Fall semester of DS3 - see the DCL 8321 syllabus for the date.",
+    "source_page": 80,
+    "items": [
+      {
+        "label": "Pass the Radiology Technical Error exam with 70% or higher",
+        "item_type": "check",
+        "target_count": 1
+      }
+    ],
+    "uncertain": null
+  },
+  {
+    "category": "Simulated Case Exams",
+    "dental_year": "DS4",
+    "title": "8411 Treatment Planning Simulated Case Competency Exam",
+    "description": "A scheduled Blackboard case-based exam on building a comprehensive treatment plan: writing medical consultations, deciding on antibiotic management, writing prescriptions and spotting interactions with the patient's prescription, OTC and recreational drugs. You must score 70% or higher. Taken in the Summer semester of DS4 - see the DCL 8411 syllabus.",
+    "source_page": 81,
+    "items": [
+      {
+        "label": "Pass the 8411 Treatment Planning exam with 70% or higher",
+        "item_type": "check",
+        "target_count": 1
+      }
+    ],
+    "uncertain": null
+  },
+  {
+    "category": "Simulated Case Exams",
+    "dental_year": "DS4",
+    "title": "Endodontic Referral Simulated Patient Competency Exam",
+    "description": "A scheduled Blackboard case-based exam on diagnosing pulpal and periapical pain requiring endodontic treatment and judging whether a general dentist can handle the case or it needs referral. You must score 70% or higher. Taken in the Summer semester of DS4 - see the DCL 8411 syllabus.",
+    "source_page": 83,
+    "items": [
+      {
+        "label": "Pass the Endodontic Referral exam with 70% or higher",
+        "item_type": "check",
+        "target_count": 1
+      }
+    ],
+    "uncertain": null
+  },
+  {
+    "category": "Simulated Case Exams",
+    "dental_year": "DS4",
+    "title": "Diagnosis, Oral Pathology, and Radiology (DOR) Simulated Competency Exam",
+    "description": "A scheduled Blackboard exam combining radiographic landmarks, technical errors and their correction, radiographic diagnosis of oral pathology, and management of the diagnosis. You must score 70% or higher. Taken in the Fall semester of DS4 - see the DCL 8421 syllabus.",
+    "source_page": 85,
+    "items": [
+      {
+        "label": "Pass the DOR exam with 70% or higher",
+        "item_type": "check",
+        "target_count": 1
+      }
+    ],
+    "uncertain": null
+  },
+  {
+    "category": "Simulated Case Exams",
+    "dental_year": "DS4",
+    "title": "Oral Pathology Simulated Competency Exam",
+    "description": "A scheduled Blackboard exam on diagnosing and managing hard and soft tissue oral pathology clinically and radiographically, judging case difficulty and deciding when to refer. You must score 70% or higher. Taken in the Fall semester of DS4 - see the DCL 8421 syllabus.",
+    "source_page": 87,
+    "items": [
+      {
+        "label": "Pass the Oral Pathology exam with 70% or higher",
+        "item_type": "check",
+        "target_count": 1
+      }
+    ],
+    "uncertain": null
+  },
+  {
+    "category": "Simulated Case Exams",
+    "dental_year": "DS4",
+    "title": "8431 Treatment Planning Simulated Case Competency Exam",
+    "description": "A scheduled Blackboard case-based exam on treatment planning for a medically complex patient: medical consultations, antibiotic and pain management, prescriptions, drug interactions (including recreational drugs) and when consent can or cannot be obtained. You must score 70% or higher. Taken in the Winter semester of DS4 - see the DCL 8431 syllabus.",
+    "source_page": 89,
+    "items": [
+      {
+        "label": "Pass the 8431 Treatment Planning exam with 70% or higher",
+        "item_type": "check",
+        "target_count": 1
+      }
+    ],
+    "uncertain": null
+  },
+  {
+    "category": "Mock ADEX",
+    "dental_year": "DS4",
+    "title": "Endodontic Mock ADEX",
+    "description": "A blind-graded, 3-hour typodont exam in which you complete access, canal preparation and obturation on anterior tooth #8 and access preparation with canal identification on posterior tooth #14. Bring your Acadental typodont with a full complement of teeth and replace any abraded ones beforehand. Scheduled in Summer of DS4 (morning, with the Prosthodontic Mock ADEX in the afternoon); any Critical Deficiency is a failure.",
+    "source_page": 95,
+    "items": [
+      {
+        "label": "Complete the DCL 8331 Practice Endodontic Mock ADEX",
+        "item_type": "check",
+        "target_count": 1
+      },
+      {
+        "label": "Pass the Endodontic Mock ADEX (#8 anterior and #14 posterior procedures in 3 hours)",
+        "item_type": "check",
+        "target_count": 1
+      }
+    ],
+    "uncertain": null
+  },
+  {
+    "category": "Mock ADEX",
+    "dental_year": "DS4",
+    "title": "Prosthodontic Mock ADEX",
+    "description": "A blind-graded, 3-hour typodont exam covering three preparations: an all-ceramic crown on maxillary incisor #9, and zirconia bridge abutment crowns on molar #3 and premolar #5. Bring your Acadental typodont with all teeth intact. Scheduled in Summer of DS4 (afternoon, same day as the Endodontic Mock ADEX); any Critical Deficiency is a failure.",
+    "source_page": 101,
+    "items": [
+      {
+        "label": "Complete the DCL 8331 Practice Prosthodontic Mock ADEX",
+        "item_type": "check",
+        "target_count": 1
+      },
+      {
+        "label": "Pass the Prosthodontic Mock ADEX (#9 all-ceramic, #3 and #5 zirconia abutment preparations in 3 hours)",
+        "item_type": "check",
+        "target_count": 1
+      }
+    ],
+    "uncertain": null
+  },
+  {
+    "category": "Mock ADEX",
+    "dental_year": "DS4",
+    "title": "Restorative Mock ADEX",
+    "description": "A blind-graded clinic-floor exam of up to 6 hours on a Modu Pro typodont: a Class II preparation and restoration on #30 and a Class III composite preparation and restoration on #7, with isolation required for each. Each preparation is graded at the evaluation station before you may restore it. Attendance at the mandatory orientation is required, and a no-show or late start counts as a failed attempt. Scheduled in Winter of DS4.",
+    "source_page": 106,
+    "items": [
+      {
+        "label": "Complete 60 surfaces of restorations (Class I, II, III, IV, V and cores, evaluated based on contacts)",
+        "item_type": "count",
+        "target_count": 60
+      },
+      {
+        "label": "Attend the mandatory Restorative Mock ADEX orientation",
+        "item_type": "check",
+        "target_count": 1
+      },
+      {
+        "label": "Pass the Restorative Mock ADEX (Class II on #30 and Class III composite on #7, preparation and restoration)",
+        "item_type": "check",
+        "target_count": 1
+      }
+    ],
+    "uncertain": null
+  },
+  {
+    "category": "Periodontal",
+    "dental_year": "DS4",
+    "title": "Subgingival Calculus Detection Competency",
+    "description": "On a patient of yours scheduled for a periodontal exam or periodontal treatment, faculty privately assign 12 surfaces across 5 or more teeth in a quadrant and you must explore each one and record whether subgingival calculus is present. You need at least 10 of 12 correct, and you must upload the worksheet to XComp to be graded. Must be supervised by a periodontist or dental hygienist (not a resident) and finished in one 2.5-hour session.",
+    "source_page": 115,
+    "items": [
+      {
+        "label": "Complete at least 1 periodontal treatment (D1110, D4346, D4341, D4342, D4910 or D4910-1)",
+        "item_type": "count",
+        "target_count": 1
+      },
+      {
+        "label": "Correctly identify at least 10 of 12 assigned surfaces and upload the worksheet to XComp",
+        "item_type": "check",
+        "target_count": 1
+      }
+    ],
+    "uncertain": "DS year inferred from the 'must be completed by end of the DS4 year' deadline; the manual's Periodontal/Radiology sections are not split into DS3/DS4 subsections."
+  },
+  {
+    "category": "Periodontal",
+    "dental_year": "DS4",
+    "title": "Periodontal Maintenance Competencies 1 & 2",
+    "description": "You must pass two separate periodontal maintenance competencies, each on a patient scheduled for D4910 with a previous or current periodontitis diagnosis in at least two quadrants (including a molar, one of which had D4341). Each requires full-mouth probing, plaque index, customized oral hygiene instruction and the full prophy, all inside one 2.5-hour session. Once you have five D4910 treatments logged, Dental Hygiene faculty email you eligibility in axiUm - you must show that email to the supervising periodontist or hygienist.",
+    "source_page": 120,
+    "items": [
+      {
+        "label": "Complete 5 periodontal maintenance (D4910) treatments and obtain the axiUm eligibility email",
+        "item_type": "count",
+        "target_count": 5
+      },
+      {
+        "label": "Pass Periodontal Maintenance Competency 1",
+        "item_type": "check",
+        "target_count": 1
+      },
+      {
+        "label": "Pass Periodontal Maintenance Competency 2",
+        "item_type": "check",
+        "target_count": 1
+      }
+    ],
+    "uncertain": "DS year inferred from the 'must be completed by end of the DS4 year' deadline; the manual's Periodontal/Radiology sections are not split into DS3/DS4 subsections."
+  },
+  {
+    "category": "Periodontal",
+    "dental_year": "DS4",
+    "title": "Periodontal Examination, Diagnosis, and Treatment Planning Competency",
+    "description": "Complete a full periodontal workup - exam, charting, diagnosis, prognosis and treatment plan on both pages of the axiUm Periodontal Evaluation Form - in a single 2.5-hour session with a periodontist supervising. The patient must be new or undiagnosed for 24 months, with periodontitis in at least two quadrants including a molar and one D4341 quadrant, and must be the same patient you use for the Periodontal Re-evaluation Competency. You need the Dental Hygiene faculty eligibility email before attempting.",
+    "source_page": 126,
+    "items": [
+      {
+        "label": "Complete 20 D0120 and/or D0150 examinations, at least 2 with a periodontitis diagnosis",
+        "item_type": "count",
+        "target_count": 20
+      },
+      {
+        "label": "Obtain the competency eligibility email from the designated Dental Hygiene faculty",
+        "item_type": "check",
+        "target_count": 1
+      },
+      {
+        "label": "Pass the periodontal exam, diagnosis and treatment planning competency",
+        "item_type": "check",
+        "target_count": 1
+      }
+    ],
+    "uncertain": "DS year inferred from the 'must be completed by end of the DS4 year' deadline; the manual's Periodontal/Radiology sections are not split into DS3/DS4 subsections."
+  },
+  {
+    "category": "Periodontal",
+    "dental_year": "DS4",
+    "title": "Periodontal Scaling and Root Planing Competencies 1 & 2",
+    "description": "You must pass two separate scaling and root planing competencies, on different dates. Each patient must have at least 6 teeth including a molar with calculus present and be scheduled for D4341 (two D4342 quadrants may substitute for one competency). Each includes patient education, plaque index and the full SRP within one 2.5-hour session, supervised by a periodontist or dental hygienist (not a resident).",
+    "source_page": 131,
+    "items": [
+      {
+        "label": "Complete 8 quadrants of nonsurgical scaling and root planing (D4341 or D4342) and obtain the axiUm eligibility email",
+        "item_type": "count",
+        "target_count": 8
+      },
+      {
+        "label": "Pass Periodontal Scaling and Root Planing Competency 1",
+        "item_type": "check",
+        "target_count": 1
+      },
+      {
+        "label": "Pass Periodontal Scaling and Root Planing Competency 2 (on a different date)",
+        "item_type": "check",
+        "target_count": 1
+      }
+    ],
+    "uncertain": "DS year inferred from the 'must be completed by end of the DS4 year' deadline; the manual's Periodontal/Radiology sections are not split into DS3/DS4 subsections."
+  },
+  {
+    "category": "Periodontal",
+    "dental_year": "DS4",
+    "title": "Periodontal Re-evaluation Competency",
+    "description": "Re-evaluate the outcome of periodontal therapy on the same patient you used for the Periodontal Examination, Diagnosis, and Treatment Planning Competency: full periodontal charting, both pages of the Periodontal Evaluation Form, patient education, and touch-up scaling of any remaining calculus, all in one 2.5-hour session with a periodontist. Note that re-evaluations after D4346 do not count toward the prerequisite, and two D4342 quadrants count as one.",
+    "source_page": 136,
+    "items": [
+      {
+        "label": "Complete 8 quadrants of periodontal re-evaluation (D43411) following D4341 or D4342 treatment",
+        "item_type": "count",
+        "target_count": 8
+      },
+      {
+        "label": "Pass the periodontal re-evaluation competency",
+        "item_type": "check",
+        "target_count": 1
+      }
+    ],
+    "uncertain": "DS year inferred from the 'must be completed by end of the DS4 year' deadline; the manual's Periodontal/Radiology sections are not split into DS3/DS4 subsections."
+  },
+  {
+    "category": "Periodontal Care Collaboration",
+    "dental_year": "DS4",
+    "title": "Periodontal Care Collaboration Competency",
+    "description": "Co-manage a periodontal patient with a dental hygiene student across two separately evaluated XComp blocks: Block 01 is the data collection appointment (D0120/D0150 or D4910) and Block 02 is the periodontal treatment/re-evaluation appointment. Two of the three steps - diagnosis, treatment and re-evaluation - must actually be done in collaboration, and appointments must be coordinated in advance so both students have chart access. You must finish the Periodontal Care Collaboration Experience first; due by the end of DS4.",
+    "source_page": 143,
+    "items": [
+      {
+        "label": "Complete the Periodontal Care Collaboration Experience",
+        "item_type": "check",
+        "target_count": 1
+      },
+      {
+        "label": "Pass Block 01 - Data Collection Appointment",
+        "item_type": "check",
+        "target_count": 1
+      },
+      {
+        "label": "Pass Block 02 - Periodontal Treatment Appointment",
+        "item_type": "check",
+        "target_count": 1
+      }
+    ],
+    "uncertain": "DS year inferred from the 'must be completed by end of the DS4 year' deadline; the manual's Periodontal/Radiology sections are not split into DS3/DS4 subsections."
+  },
+  {
+    "category": "Radiology",
+    "dental_year": "DS4",
+    "title": "Full Mouth Series (FMS) Competencies 1 & 2",
+    "description": "You must pass two full mouth series competencies, each with a minimum of 18 exposures taken on digital sensors, mounted with the FMS 20 template in MiPACS and self-evaluated in the scanning room before presenting to radiology faculty. Each must be finished in one 2.5-hour session. Three or more technique SNMs, any Daily Decision Making SNM, or one mounting SNM fails the attempt.",
+    "source_page": 149,
+    "items": [
+      {
+        "label": "Complete 3 full mouth series, each with a minimum of 18 exposures",
+        "item_type": "count",
+        "target_count": 3
+      },
+      {
+        "label": "Pass FMS Competency 1",
+        "item_type": "check",
+        "target_count": 1
+      },
+      {
+        "label": "Pass FMS Competency 2",
+        "item_type": "check",
+        "target_count": 1
+      }
+    ],
+    "uncertain": "DS year inferred from the 'must be completed by end of the DS4 year' deadline; the manual's Periodontal/Radiology sections are not split into DS3/DS4 subsections."
+  },
+  {
+    "category": "Radiology",
+    "dental_year": "DS4",
+    "title": "Panoramic Competency",
+    "description": "Take a diagnostic-quality panoramic radiograph under radiology faculty supervision, selecting the bite stick and image settings and positioning the patient yourself, then evaluate the image against the rubric. The patient must have 16 or more teeth with anterior teeth, premolars and molars present in both arches - a fully edentulous patient cannot be used. One 2.5-hour session; due by the end of DS4.",
+    "source_page": 158,
+    "items": [
+      {
+        "label": "Complete 2 panoramic radiographs",
+        "item_type": "count",
+        "target_count": 2
+      },
+      {
+        "label": "Pass the panoramic competency",
+        "item_type": "check",
+        "target_count": 1
+      }
+    ],
+    "uncertain": "DS year inferred from the 'must be completed by end of the DS4 year' deadline; the manual's Periodontal/Radiology sections are not split into DS3/DS4 subsections."
+  },
+  {
+    "category": "Oral Diagnosis",
+    "dental_year": "DS4",
+    "title": "Oral Diagnosis (OD1) Competency",
+    "description": "A comprehensive new-patient workup spread over two 2-hour appointments (three only with CL approval): health history, medications in eRx, intra/extra oral exam, caries risk, your own radiographic interpretation, full periodontal charting and the Periodontal Evaluation Form, impressions and the diagnostic summary. The patient must be new to the school with extensive disease, at least two disciplines and 5-6 restorable carious teeth. Two faculty evaluate it - a periodontist for the periodontal portion and your CL for everything else.",
+    "source_page": 161,
+    "items": [
+      {
+        "label": "Complete 5 OD appointments (D0150, D01501, D01502, D0003A; offsite rotations excluded)",
+        "item_type": "count",
+        "target_count": 5
+      },
+      {
+        "label": "Complete 1 Medication History Experience",
+        "item_type": "count",
+        "target_count": 1
+      },
+      {
+        "label": "Pass the OD1 competency (periodontist and CL evaluations)",
+        "item_type": "check",
+        "target_count": 1
+      }
+    ],
+    "uncertain": null
+  },
+  {
+    "category": "Oral Diagnosis",
+    "dental_year": "DS4",
+    "title": "Oral Diagnosis, Treatment Planning, and Consent (OD2) Competency",
+    "description": "The full comprehensive workup of OD1 plus a sequenced treatment plan with alternatives, presented to the patient for consent, across up to three 2-hour appointments (four only with CL approval). The case must be a new patient with at least three disciplines, Phase I and Phase II treatment, and at least 3-4 restorable carious teeth. You must upload intraoral and cast photos and the treatment planning worksheet to XComp and have your CL review the printed case at least 24 hours before the final appointment.",
+    "source_page": 172,
+    "items": [
+      {
+        "label": "Complete 12 OD appointments (D0150, D01501, D01502, D0003A; offsite rotations excluded)",
+        "item_type": "count",
+        "target_count": 12
+      },
+      {
+        "label": "Pass the Medication History Competency",
+        "item_type": "check",
+        "target_count": 1
+      },
+      {
+        "label": "Pass the OD2 competency (periodontist and CL evaluations)",
+        "item_type": "check",
+        "target_count": 1
+      }
+    ],
+    "uncertain": null
+  },
+  {
+    "category": "Medically Complex",
+    "dental_year": "DS4",
+    "title": "Medication History Competency",
+    "description": "Pick a patient case with six or more medications, then use LexiDrug through axiUm to document every drug's name, specific category, dosage and interval, its significant adverse effects, what a dentist could prescribe and any interactions. Prepare it as a Word document and present it to your assigned faculty at a scheduled appointment, where they will ask clinically relevant questions. Remove the patient's name from any screenshots - leaving it in is a HIPAA violation and an automatic failure. Due by the end of Summer semester of DS4.",
+    "source_page": 187,
+    "items": [
+      {
+        "label": "Complete 2 Medication History Experiences (one with Dr. R. Daniel, one with Dr. A. Gupta)",
+        "item_type": "count",
+        "target_count": 2
+      },
+      {
+        "label": "Pass the Medication History Competency on a case with 6 or more medications",
+        "item_type": "check",
+        "target_count": 1
+      }
+    ],
+    "uncertain": null
+  },
+  {
+    "category": "Medically Complex",
+    "dental_year": "DS4",
+    "title": "Medically Complex Patient Competency Paper",
+    "description": "Write and submit a paper on Blackboard about a patient you diagnosed and treated who has at least two medical conditions requiring several medications, documented medical consult or recent labs, and treatment in at least two disciplines. The paper must include the chart number or it fails. This case cannot be reused for the Geriatric paper, the Special Needs competency, or the Case Presentation. Due in the Fall semester of DS4.",
+    "source_page": 190,
+    "items": [
+      {
+        "label": "Treat 1 patient with a medically complex condition",
+        "item_type": "count",
+        "target_count": 1
+      },
+      {
+        "label": "Pass the Medication History Competency",
+        "item_type": "check",
+        "target_count": 1
+      },
+      {
+        "label": "Submit the Medically Complex Patient Competency Paper on Blackboard",
+        "item_type": "check",
+        "target_count": 1
+      }
+    ],
+    "uncertain": null
+  },
+  {
+    "category": "Medically Complex",
+    "dental_year": "DS4",
+    "title": "Geriatric Patient Competency Paper",
+    "description": "Write and submit a paper on Blackboard about a patient aged 65 or older in the medium or high dependency category whom you treatment planned and treated in at least two disciplines, and who has medical, social, physical or psychological issues requiring modification of care. The paper must include the chart number to be graded. This case cannot be reused for the Medically Complex paper, the Special Needs competency, or the Case Presentation. Due in the Winter semester of DS4.",
+    "source_page": 195,
+    "items": [
+      {
+        "label": "Treat 1 geriatric patient (age 65 or older)",
+        "item_type": "count",
+        "target_count": 1
+      },
+      {
+        "label": "Submit the Geriatric Patient Competency Paper on Blackboard",
+        "item_type": "check",
+        "target_count": 1
+      }
+    ],
+    "uncertain": null
+  },
+  {
+    "category": "Medically Complex",
+    "dental_year": "DS4",
+    "title": "Special Needs Patient Assessment & Management Competency",
+    "description": "Two parts: clinic faculty observe you treating a patient with a permanent physical or psychological disability - including how you modified scheduling, treatment and patient education - and separately you upload the Special Needs Competency Paper to XComp within one week of that appointment. The patient must be flagged as special needs on the medical history (Q#26); controlled medical conditions, glasses, hearing aids and temporary injuries do not qualify. Missing the one-week upload window or omitting the chart number fails the competency.",
+    "source_page": 199,
+    "items": [
+      {
+        "label": "Treat 1 patient with a special need, excluding OD and POE appointments",
+        "item_type": "count",
+        "target_count": 1
+      },
+      {
+        "label": "Pass the clinical interaction and modification component with clinic faculty",
+        "item_type": "check",
+        "target_count": 1
+      },
+      {
+        "label": "Upload the Special Needs Competency Paper to XComp within one week of the appointment",
+        "item_type": "check",
+        "target_count": 1
+      }
+    ],
+    "uncertain": "DS year is ambiguous: the manual says it cannot be attempted until D3 Fall but must be completed by end of the DS4 year; recorded as DS4 based on the deadline."
+  },
+  {
+    "category": "Quality Assurance",
+    "dental_year": "DS4",
+    "title": "Chart Review Competency",
+    "description": "First complete chart audits on every patient in your patient family using the Microsoft Form for your clinic group, fixing and getting CL approval for any corrections as you go. Then schedule an in-person meeting with your CL, who randomly selects one chart (a patient treated in the previous year, not edentulous) for a full audit - no corrections are allowed once that chart is selected. Bring your laptop. Must be started and passed during the Fall semester of DS4; any bolded Critical Error on the rubric fails it.",
+    "source_page": 205,
+    "items": [
+      {
+        "label": "Complete 2 Chart Review Experiences during Winter of the DS3 year",
+        "item_type": "count",
+        "target_count": 2
+      },
+      {
+        "label": "Complete chart audits on all patients in your patient family via the Microsoft Form",
+        "item_type": "check",
+        "target_count": 1
+      },
+      {
+        "label": "Pass the in-person Chart Review Competency meeting with your CL",
+        "item_type": "check",
+        "target_count": 1
+      }
+    ],
+    "uncertain": null
+  },
+  {
+    "category": "Quality Assurance",
+    "dental_year": "DS4",
+    "title": "Completed Treatment Review Competency",
+    "description": "A capstone review with your CL of a patient on whom you rendered treatment in at least three disciplines (oral surgery, periodontics, restorative, prosthodontics, endodontics). Schedule the patient for an exam on a day your CL is in clinic, make sure all forms, radiographs and the treatment plan are current, and be ready to answer questions on diagnoses, sequencing, unrendered planned treatment and medical modifications. Typically takes one hour; due by the end of DS4.",
+    "source_page": 210,
+    "items": [
+      {
+        "label": "Complete a combination of 5 Phase I and Phase II cases",
+        "item_type": "count",
+        "target_count": 5
+      },
+      {
+        "label": "Pass the Completed Treatment Review competency with your CL",
+        "item_type": "check",
+        "target_count": 1
+      }
+    ],
+    "uncertain": null
+  },
+  {
+    "category": "Dental Emergency",
+    "dental_year": "DS4",
+    "title": "Dental Emergency Competency",
+    "description": "Diagnose and treat a genuinely new emergency patient (no prior record at Detroit Mercy Dental, no outside referral) with odontogenic pain, taking them out of pain the same day. You must recognize if the case needs specialty referral - referring disqualifies the case but is not a failure, whereas missing the need to refer is a failure. Faculty administering the local anesthetic also fails it. After passing, submit the Dental Emergency Competency Microsoft Form within one week.",
+    "source_page": 214,
+    "items": [
+      {
+        "label": "Complete 10 dental emergency cases (D0140) at the Corktown campus",
+        "item_type": "count",
+        "target_count": 10
+      },
+      {
+        "label": "Pass the Dental Emergency Competency on a qualifying new patient",
+        "item_type": "check",
+        "target_count": 1
+      },
+      {
+        "label": "Submit the Dental Emergency Competency Microsoft Form within one week",
+        "item_type": "check",
+        "target_count": 1
+      }
+    ],
+    "uncertain": null
+  },
+  {
+    "category": "Endodontic Treatment",
+    "dental_year": "DS4",
+    "title": "Endodontic Treatment Competency",
+    "description": "Complete root canal treatment on an anterior or premolar with a favorable or better prognosis (molars only if you have already done a molar RCT plus a GPD on a different molar), under endodontic faculty supervision. Exactly five radiographs are required - pre-op, working length, MAF, MC and post-op - each with a faculty check, and you lose credit if you exceed 10 films for a single canal or 15 for multiple canals. The competency is not marked pass until the final restoration has actually been placed and the E-code completed.",
+    "source_page": 221,
+    "items": [
+      {
+        "label": "Complete treatment for 2 endodontic patient cases",
+        "item_type": "count",
+        "target_count": 2
+      },
+      {
+        "label": "Pass the Endodontic Treatment Competency, including placement of the final restoration",
+        "item_type": "check",
+        "target_count": 1
+      }
+    ],
+    "uncertain": null
+  },
+  {
+    "category": "Prosthodontic",
+    "dental_year": "DS4",
+    "title": "Laboratory Prescription Competencies",
+    "description": "You must complete a separate Laboratory Prescription Competency alongside each of the five prosthodontic procedure competencies - five in total. Each time, you write the lab prescription in axiUm for the most vital aspect of that prosthesis (for example the crown fabrication, the RPD framework casting, or the denture processing), get a faculty check, and complete code D0002.A. Every one must be evaluated by both your Clinic Lead and a prosthodontist, and all must be done by the end of DS4.",
+    "source_page": 227,
+    "items": [
+      {
+        "label": "Laboratory Prescription Competency paired with the Complete Denture Competency",
+        "item_type": "check",
+        "target_count": 1
+      },
+      {
+        "label": "Laboratory Prescription Competency paired with the Removable Partial Denture Competency",
+        "item_type": "check",
+        "target_count": 1
+      },
+      {
+        "label": "Laboratory Prescription Competency paired with the Single Definitive Indirect Restoration Competency",
+        "item_type": "check",
+        "target_count": 1
+      },
+      {
+        "label": "Laboratory Prescription Competency paired with the Fixed Partial Denture Competency",
+        "item_type": "check",
+        "target_count": 1
+      },
+      {
+        "label": "Laboratory Prescription Competency paired with the Implant Indirect Restoration Competency",
+        "item_type": "check",
+        "target_count": 1
+      }
+    ],
+    "uncertain": null
+  },
+  {
+    "category": "Prosthodontic",
+    "dental_year": "DS4",
+    "title": "Complete Denture Competency",
+    "description": "Fabricate and deliver a complete denture across roughly six appointments - final impression, jaw relations, anterior and posterior try-ins, delivery with clinical remount, and the 24-hour check - with both your Clinic Lead and a prosthodontist evaluating at every faculty check. The competency is not complete until the 24-hour check is done. The opposing arch must occlude with premolars and at least a first molar, and failing to recognize a need for pre-prosthetic surgery fails the competency. The paired Laboratory Prescription Competency must be completed before the case goes for processing.",
+    "source_page": 230,
+    "items": [
+      {
+        "label": "Complete a minimum of 3 arches of removable prosthesis, at least 1 of them a complete denture started from the initial impression",
+        "item_type": "count",
+        "target_count": 3
+      },
+      {
+        "label": "Pass the Complete Denture Competency through the 24-hour check",
+        "item_type": "check",
+        "target_count": 1
+      }
+    ],
+    "uncertain": null
+  },
+  {
+    "category": "Prosthodontic",
+    "dental_year": "DS4",
+    "title": "Removable Partial Denture Competency",
+    "description": "Fabricate and deliver a removable partial denture across roughly five appointments - surveyed diagnostic casts and RPD design, intraoral preparations and final impression, framework try-in, tooth set-up try-in, and delivery - with both your Clinic Lead and a prosthodontist evaluating at every faculty check. Phase I must be complete for the patient, and failing to recognize inadequate arch space or a need for pre-prosthetic surgery fails the competency. The paired Laboratory Prescription Competency must be completed before framework fabrication.",
+    "source_page": 241,
+    "items": [
+      {
+        "label": "Complete a minimum of 3 arches of removable prosthesis, at least 1 of them a definitive RPD started from the initial impression",
+        "item_type": "count",
+        "target_count": 3
+      },
+      {
+        "label": "Pass the Removable Partial Denture Competency",
+        "item_type": "check",
+        "target_count": 1
+      }
+    ],
+    "uncertain": null
+  },
+  {
+    "category": "Prosthodontic",
+    "dental_year": "DS4",
+    "title": "Single Definitive Indirect Restoration Competency",
+    "description": "Prepare, provisionalize and cement one definitive single crown - all-ceramic, full-metal or porcelain-fused-to-metal - over roughly three appointments, evaluated by both your Clinic Lead and an assigned full-time faculty member. The tooth must have an occlusal and a proximal contact, must not have been previously prepared for an extracoronal restoration, and any core build-up must be finished first. Implant-retained crowns, interim crowns and teeth needing an indirect post and core do not qualify. The paired Laboratory Prescription Competency must also be completed.",
+    "source_page": 254,
+    "items": [
+      {
+        "label": "Complete 7 indirect restorations on patients (crowns, FPDs or onlays; 1 must be a definitive crown, 1 a definitive FPD, and 4 must use a digital workflow)",
+        "item_type": "count",
+        "target_count": 7
+      },
+      {
+        "label": "Pass the Single Definitive Indirect Restoration Competency (all-ceramic, full-metal or PFM crown)",
+        "item_type": "check",
+        "target_count": 1
+      }
+    ],
+    "uncertain": null
+  },
+  {
+    "category": "Prosthodontic",
+    "dental_year": "DS4",
+    "title": "Fixed Partial Denture Competency",
+    "description": "Prepare, provisionalize and deliver a fixed partial denture with all-ceramic, full-metal or porcelain-fused-to-metal retainers, within a maximum of three appointments, evaluated by both your Clinic Lead and an assigned full-time faculty member. It may be done on a patient or on a typodont. For a patient case, Phase I must be complete, the abutments must have occlusal and proximal contacts, and any core build-ups must be done first. The paired Laboratory Prescription Competency must also be completed.",
+    "source_page": 273,
+    "items": [
+      {
+        "label": "Complete 1 definitive fixed partial denture (FPD) on a patient",
+        "item_type": "count",
+        "target_count": 1
+      },
+      {
+        "label": "Pass the Fixed Partial Denture Competency (all-ceramic, full-metal or PFM retainer)",
+        "item_type": "check",
+        "target_count": 1
+      }
+    ],
+    "uncertain": null
+  },
+  {
+    "category": "Prosthodontic",
+    "dental_year": "DS4",
+    "title": "Implant Indirect Restoration Competency",
+    "description": "Restore a single implant with either a cement-retained or screw-retained crown over two appointments - open-tray impression and healing abutment, then abutment placement, try-in, radiographic verification and delivery - evaluated by both your Clinic Lead and a prosthodontist. It may be done on a patient or, from DS4 onward, on a provided typodont with a placed implant. A patient case requires Phase I complete and an implant that was placed at Detroit Mercy with a surgical guide. You must also upload the required radiograph and completed-code screenshots to Blackboard, and complete the paired Laboratory Prescription Competency.",
+    "source_page": 293,
+    "items": [
+      {
+        "label": "Complete 1 implant-retained indirect restoration on a patient",
+        "item_type": "count",
+        "target_count": 1
+      },
+      {
+        "label": "Pass the Implant Indirect Restoration Competency (cement-retained or screw-retained)",
+        "item_type": "check",
+        "target_count": 1
+      }
+    ],
+    "uncertain": null
+  },
+  {
+    "category": "Restorative",
+    "dental_year": "DS4",
+    "title": "Class II Direct Restoration Competency",
+    "description": "One competency satisfiable with either material: prepare and restore a Class II amalgam or a Class II composite, both prep and restoration by you, within 2.5 hours. The patient must be a patient of record with a treatment plan, PA and bitewing within one year, and the tooth must be vital with opposing and adjacent teeth. Rubber dam isolation and caries removal are assessed. Two faculty grade it, one of whom must be a Clinic Lead.",
+    "source_page": 308,
+    "items": [
+      {
+        "label": "Complete 65 surfaces of direct restorations using amalgam and/or composite",
+        "item_type": "count",
+        "target_count": 65
+      },
+      {
+        "label": "Pass the Class II Direct Restoration Competency (amalgam or composite, preparation and restoration)",
+        "item_type": "check",
+        "target_count": 1
+      }
+    ],
+    "uncertain": null
+  },
+  {
+    "category": "Restorative",
+    "dental_year": "DS4",
+    "title": "Class III Direct Restoration Competency",
+    "description": "Prepare and restore a Class III composite, both prep and restoration by you, within 2.5 hours. The patient must be a patient of record with a treatment plan and a PA within one year, and the tooth must be vital with opposing and adjacent teeth. Rubber dam isolation and caries removal are assessed. Two faculty grade it, one of whom must be a Clinic Lead.",
+    "source_page": 314,
+    "items": [
+      {
+        "label": "Complete 65 surfaces of direct restorations using amalgam and/or composite",
+        "item_type": "count",
+        "target_count": 65
+      },
+      {
+        "label": "Pass the Class III Direct Restoration Competency (composite, preparation and restoration)",
+        "item_type": "check",
+        "target_count": 1
+      }
+    ],
+    "uncertain": null
+  },
+  {
+    "category": "Substance Use Disorder (SUD) Simulated Patient OSCE",
+    "dental_year": "DS3",
+    "title": "Substance Use Disorder (SUD) Simulated Patient OSCE",
+    "description": "An OSCE with a live standardized patient, who also evaluates you, on screening a pain-management patient for substance use severity and delivering an appropriate brief intervention, referral to treatment and medication management. You must pass the SUD Patient Experience assessment before you are allowed to sit it. Due during the Winter semester of DS3 - see the DCL 8331 syllabus; additional details and the rubric come through Blackboard.",
+    "source_page": 319,
+    "items": [
+      {
+        "label": "Pass the Substance Use Disorder (SUD) Patient Experience assessment",
+        "item_type": "check",
+        "target_count": 1
+      },
+      {
+        "label": "Pass the SUD Simulated Patient OSCE with the standardized patient",
+        "item_type": "check",
+        "target_count": 1
+      }
+    ],
+    "uncertain": null
+  }
+]

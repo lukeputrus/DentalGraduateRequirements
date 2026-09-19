@@ -1,0 +1,45 @@
+<%- include('../partials/header', { title: 'Admin Dashboard' }) %>
+<h1>Admin Dashboard</h1>
+
+<div class="stat-row">
+  <div class="stat-tile">
+    <div class="value"><%= studentCount %></div>
+    <div class="label">Students</div>
+  </div>
+  <div class="stat-tile">
+    <div class="value"><%= schoolCount %></div>
+    <div class="label">Dental schools</div>
+  </div>
+  <div class="stat-tile">
+    <div class="value"><%= competencyCount %></div>
+    <div class="label">Competencies defined</div>
+  </div>
+</div>
+
+<div class="page-header">
+  <h2 class="mt-0">Quick links</h2>
+</div>
+<div class="form-row mb-24">
+  <a class="btn btn-primary" href="/admin/students/new">+ New student account</a>
+  <a class="btn" href="/admin/competencies">Manage competencies</a>
+  <a class="btn" href="/admin/schools">Manage schools</a>
+</div>
+
+<div class="card">
+  <h2 class="mt-0">Students by school</h2>
+  <% if (studentsBySchool.every(function (s) { return s.student_count === 0; })) { %>
+    <p class="muted">No students yet. <a href="/admin/students/new">Create the first student account</a>.</p>
+  <% } else { %>
+  <table>
+    <thead><tr><th>School</th><th>Students</th></tr></thead>
+    <tbody>
+      <% studentsBySchool.forEach(function (row) { %>
+        <% if (row.student_count > 0) { %>
+        <tr><td><%= row.school_name %></td><td><%= row.student_count %></td></tr>
+        <% } %>
+      <% }) %>
+    </tbody>
+  </table>
+  <% } %>
+</div>
+<%- include('../partials/footer') %>

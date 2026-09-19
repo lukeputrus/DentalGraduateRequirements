@@ -1,0 +1,21 @@
+<div id="assistant-root" data-csrf="<%= csrfToken %>">
+  <button id="assistant-toggle" class="assistant-toggle" type="button" aria-label="Ask AI assistant">💬</button>
+  <div id="assistant-panel" class="assistant-panel">
+    <div class="assistant-header">
+      <span>Ask AI</span>
+      <button id="assistant-close" type="button" aria-label="Close">&times;</button>
+    </div>
+    <div id="assistant-messages" class="assistant-messages"></div>
+    <form id="assistant-form" class="assistant-form">
+      <div class="assistant-file-row">
+        <button type="button" id="assistant-attach-btn">📎 Attach file</button>
+        <span id="assistant-file-name"></span>
+        <input type="file" id="assistant-file-input" accept=".pdf,image/png,image/jpeg,image/webp,image/gif" hidden>
+      </div>
+      <div class="assistant-input-row">
+        <input type="text" id="assistant-text-input" placeholder="Ask about your requirements…" maxlength="4000" autocomplete="off">
+        <button type="submit" class="assistant-send-btn" aria-label="Send">&#10148;</button>
+      </div>
+    </form>
+  </div>
+</div>

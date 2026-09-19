@@ -1,0 +1,7 @@
+<%- include('../partials/header', { title: 'Not allowed' }) %>
+<div class="card">
+  <h1>Not allowed</h1>
+  <p class="muted"><%= typeof message !== 'undefined' && message ? message : "You don't have permission to view this page." %></p>
+  <a class="btn btn-primary" href="/">Go home</a>
+</div>
+<%- include('../partials/footer') %>

@@ -1,0 +1,47 @@
+<%- include('../../partials/header', { title: 'Students' }) %>
+<div class="page-header">
+  <h1 class="mt-0">Students</h1>
+  <a class="btn btn-primary" href="/admin/students/new">+ New student account</a>
+</div>
+
+<div class="card">
+  <form method="GET" action="/admin/students" class="filter-bar">
+    <label>School
+      <select name="school_id">
+        <option value="">All schools</option>
+        <% schools.forEach(function (school) { %>
+          <option value="<%= school.id %>" <%= schoolId === school.id ? 'selected' : '' %>><%= school.name %></option>
+        <% }) %>
+      </select>
+    </label>
+    <label>Class year
+      <input type="number" name="class_year" value="<%= classYear || '' %>" placeholder="e.g. 2027">
+    </label>
+    <div><button type="submit" class="btn">Filter</button></div>
+    <% if (schoolId || classYear) { %><div><a class="btn" href="/admin/students">Clear</a></div><% } %>
+  </form>
+</div>
+
+<div class="card">
+  <% if (students.length === 0) { %>
+    <p class="muted">No students match these filters.</p>
+  <% } else { %>
+  <table>
+    <thead><tr><th>Name</th><th>Username</th><th>School</th><th>Class year</th><th>Progress</th><th></th></tr></thead>
+    <tbody>
+      <% students.forEach(function (row) { %>
+        <% var school = schools.find(function (s) { return s.id === row.student.school_id; }); %>
+        <tr>
+          <td><%= row.student.full_name %></td>
+          <td><%= row.student.username %></td>
+          <td><%= school ? school.name : '—' %></td>
+          <td><%= row.student.class_year || '—' %></td>
+          <td><%= row.summary.passed %>/<%= row.summary.total %> passed (<%= row.summary.percent %>%)</td>
+          <td class="text-right"><a class="btn btn-small" href="/admin/students/<%= row.student.id %>">View</a></td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+  <% } %>
+</div>
+<%- include('../../partials/footer') %>

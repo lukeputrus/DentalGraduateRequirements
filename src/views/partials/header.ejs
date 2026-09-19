@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title><%= typeof title !== 'undefined' && title ? title + ' · Dental Grad Requirements' : 'Dental Grad Requirements' %></title>
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="/">Dental Grad Requirements</a>
+    <% if (locals.currentUser) { %>
+    <nav class="main-nav">
+      <% if (currentUser.role === 'admin') { %>
+        <a href="/admin/dashboard">Dashboard</a>
+        <a href="/admin/students">Students</a>
+        <a href="/admin/competencies">Competencies</a>
+        <a href="/admin/schools">Schools</a>
+      <% } else { %>
+        <a href="/student/dashboard">My Checklist</a>
+      <% } %>
+      <a href="/account/profile">Profile (<%= currentUser.full_name %>)</a>
+      <form action="/logout" method="POST" class="inline-form">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        <button type="submit" class="link-button">Log out</button>
+      </form>
+    </nav>
+    <% } %>
+  </div>
+</header>
+<main class="container">
+<%- include('flash') %>

@@ -1,0 +1,36 @@
+<%- include('../../partials/header', { title: 'New Student' }) %>
+<h1>New Student Account</h1>
+<p class="muted">A temporary password is generated automatically and shown once after you create the account — copy it down to give to the student. They'll be required to set their own password on first login.</p>
+<% if (error) { %><div class="flash flash-error"><%= error %></div><% } %>
+
+<div class="card">
+  <form method="POST" action="/admin/students">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    <div class="form-row">
+      <label>Full name
+        <input type="text" name="full_name" value="<%= form.full_name || '' %>" required autofocus>
+      </label>
+      <label>Username
+        <input type="text" name="username" value="<%= form.username || '' %>" required pattern="[a-zA-Z0-9._-]{3,32}">
+      </label>
+    </div>
+    <label>Email (optional)
+      <input type="email" name="email" value="<%= form.email || '' %>">
+    </label>
+    <div class="form-row">
+      <label>Dental school
+        <select name="school_id" required>
+          <option value="">Select a school&hellip;</option>
+          <% schools.forEach(function (school) { %>
+            <option value="<%= school.id %>" <%= String(form.school_id) === String(school.id) ? 'selected' : '' %>><%= school.name %></option>
+          <% }) %>
+        </select>
+      </label>
+      <label>Expected graduation year
+        <input type="number" name="class_year" min="2000" max="2100" value="<%= form.class_year || '' %>" required>
+      </label>
+    </div>
+    <button type="submit" class="btn btn-primary">Create student account</button>
+  </form>
+</div>
+<%- include('../../partials/footer') %>
