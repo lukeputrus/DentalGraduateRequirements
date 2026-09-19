@@ -383,6 +383,7 @@ router.post('/students', verifyCsrfToken, (req, res) => {
   const email = (req.body.email || '').trim();
   const schoolId = parseInt(req.body.school_id, 10);
   const classYear = parseInt(req.body.class_year, 10);
+  const customPassword = req.body.password || '';
 
   const fail = (error) =>
     res.status(400).render('admin/students/new', { schools, error, form: req.body });
@@ -393,11 +394,12 @@ router.post('/students', verifyCsrfToken, (req, res) => {
   }
   if (!schoolId || !schools.some((s) => s.id === schoolId)) return fail('Please select a valid dental school.');
   if (!Number.isInteger(classYear) || classYear < 2000 || classYear > 2100) return fail('Please enter a valid graduation year.');
+  if (customPassword && customPassword.length < 8) return fail('Temporary password must be at least 8 characters (or leave it blank to auto-generate one).');
 
   const existing = db.prepare('SELECT id FROM users WHERE lower(username) = ?').get(username);
   if (existing) return fail('That username is already taken.');
 
-  const tempPassword = generateTempPassword();
+  const tempPassword = customPassword || generateTempPassword();
   db.prepare(
     `INSERT INTO users (username, password_hash, role, full_name, email, school_id, class_year, must_change_password)
      VALUES (?, ?, 'student', ?, ?, ?, ?, 1)`
@@ -468,7 +470,13 @@ router.post('/students/:id/reset-password', verifyCsrfToken, (req, res) => {
   const student = db.prepare("SELECT * FROM users WHERE id = ? AND role = 'student'").get(id);
   if (!student) return res.status(404).render('errors/404');
 
-  const tempPassword = generateTempPassword();
+  const customPassword = req.body.password || '';
+  if (customPassword && customPassword.length < 8) {
+    req.flash('error', 'Temporary password must be at least 8 characters (or leave it blank to auto-generate one).');
+    return res.redirect(`/admin/students/${id}`);
+  }
+
+  const tempPassword = customPassword || generateTempPassword();
   db.prepare(
     `UPDATE users SET password_hash = ?, must_change_password = 1, updated_at = datetime('now') WHERE id = ?`
   ).run(hashPassword(tempPassword), id);

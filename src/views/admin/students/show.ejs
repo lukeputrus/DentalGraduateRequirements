@@ -38,10 +38,13 @@
 
 <div class="card">
   <h2 class="mt-0">Password</h2>
-  <p class="muted">If the student lost their password, generate a new temporary one here and share it with them. They'll be required to set their own on next login.</p>
-  <form method="POST" action="/admin/students/<%= student.id %>/reset-password" data-confirm="Generate a new temporary password for <%= student.full_name %>? Their current password will stop working immediately.">
+  <p class="muted">If the student lost their password, set a new temporary one here and share it with them (or leave it blank to auto-generate one). They'll be required to set their own on next login.</p>
+  <form method="POST" action="/admin/students/<%= student.id %>/reset-password" data-confirm="Reset the password for <%= student.full_name %>? Their current password will stop working immediately.">
     <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-    <button type="submit" class="btn">Generate new temporary password</button>
+    <label>New temporary password (optional)
+      <input type="text" name="password" minlength="8" placeholder="Leave blank to auto-generate one">
+    </label>
+    <button type="submit" class="btn">Reset password</button>
   </form>
 </div>
 
