@@ -4,6 +4,9 @@
   "description": "Track dental school graduation requirements for students, with admin management of per-school requirements and student accounts.",
   "private": true,
   "main": "src/server.js",
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "start": "node src/server.js",
     "dev": "nodemon src/server.js",
@@ -12,7 +15,7 @@
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.32.1",
-    "better-sqlite3": "^11.3.0",
+    "better-sqlite3": "^13.0.3",
     "bcryptjs": "^2.4.3",
     "dotenv": "^16.4.5",
     "ejs": "^3.1.10",
