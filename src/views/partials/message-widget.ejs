@@ -1,6 +1,7 @@
 <div id="msg-root" data-csrf="<%= csrfToken %>">
   <button id="msg-toggle" class="assistant-toggle" type="button" aria-label="Message your program admin">
-    ✉️<span id="msg-dot" class="msg-dot" hidden></span>
+    <svg class="icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22 6 12 13 2 6"></polyline></svg>
+    <span id="msg-dot" class="msg-dot" hidden></span>
   </button>
   <div id="msg-panel" class="assistant-panel">
     <div class="assistant-header">
@@ -10,13 +11,18 @@
     <div id="msg-messages" class="assistant-messages"></div>
     <form id="msg-form" class="assistant-form">
       <div class="assistant-file-row">
-        <button type="button" id="msg-attach-btn">📎 Attach file</button>
+        <button type="button" id="msg-attach-btn">
+          <svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path></svg>
+          Attach file
+        </button>
         <span id="msg-file-name"></span>
         <input type="file" id="msg-file-input" accept=".pdf,image/png,image/jpeg,image/webp,image/gif" hidden>
       </div>
       <div class="assistant-input-row">
         <input type="text" id="msg-text-input" placeholder="Type a message for your admin…" maxlength="4000" autocomplete="off">
-        <button type="submit" class="assistant-send-btn" aria-label="Send">&#10148;</button>
+        <button type="submit" class="assistant-send-btn" aria-label="Send">
+          <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+        </button>
       </div>
     </form>
   </div>
