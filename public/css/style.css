@@ -90,7 +90,6 @@ body {
 main.container { padding-top: 24px; padding-bottom: 90px; }
 
 a { color: var(--color-primary); }
-a:visited { color: var(--color-primary); }
 
 h1 { font-size: 1.6rem; margin-bottom: 4px; font-weight: 700; letter-spacing: -0.01em; }
 h2 { font-size: 1.2rem; font-weight: 700; }
