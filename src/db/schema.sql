@@ -70,12 +70,18 @@ CREATE TABLE IF NOT EXISTS competency_progress (
   UNIQUE (student_id, competency_id)
 );
 
-CREATE TABLE IF NOT EXISTS chat_messages (
+-- A single ongoing message thread per student with the admin team. sender
+-- is who wrote it; read_at is set once the OTHER party has seen it (null =
+-- unread by its recipient).
+CREATE TABLE IF NOT EXISTS messages (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   student_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-  role TEXT NOT NULL CHECK (role IN ('user', 'assistant')),
-  content TEXT NOT NULL,
+  sender TEXT NOT NULL CHECK (sender IN ('student', 'admin')),
+  body TEXT NOT NULL,
   attachment_name TEXT,
+  attachment_path TEXT,
+  attachment_mime TEXT,
+  read_at TEXT,
   created_at TEXT NOT NULL DEFAULT (datetime('now'))
 );
 
@@ -84,4 +90,4 @@ CREATE INDEX IF NOT EXISTS idx_competencies_lookup ON competencies(school_id, cl
 CREATE INDEX IF NOT EXISTS idx_competency_items_competency ON competency_items(competency_id);
 CREATE INDEX IF NOT EXISTS idx_item_progress_student ON item_progress(student_id);
 CREATE INDEX IF NOT EXISTS idx_competency_progress_student ON competency_progress(student_id);
-CREATE INDEX IF NOT EXISTS idx_chat_messages_student ON chat_messages(student_id, created_at);
+CREATE INDEX IF NOT EXISTS idx_messages_student ON messages(student_id, created_at);

@@ -1,0 +1,23 @@
+<div id="msg-root" data-csrf="<%= csrfToken %>">
+  <button id="msg-toggle" class="assistant-toggle" type="button" aria-label="Message your program admin">
+    ✉️<span id="msg-dot" class="msg-dot" hidden></span>
+  </button>
+  <div id="msg-panel" class="assistant-panel">
+    <div class="assistant-header">
+      <span>Message Admin</span>
+      <button id="msg-close" type="button" aria-label="Close">&times;</button>
+    </div>
+    <div id="msg-messages" class="assistant-messages"></div>
+    <form id="msg-form" class="assistant-form">
+      <div class="assistant-file-row">
+        <button type="button" id="msg-attach-btn">📎 Attach file</button>
+        <span id="msg-file-name"></span>
+        <input type="file" id="msg-file-input" accept=".pdf,image/png,image/jpeg,image/webp,image/gif" hidden>
+      </div>
+      <div class="assistant-input-row">
+        <input type="text" id="msg-text-input" placeholder="Type a message for your admin…" maxlength="4000" autocomplete="off">
+        <button type="submit" class="assistant-send-btn" aria-label="Send">&#10148;</button>
+      </div>
+    </form>
+  </div>
+</div>

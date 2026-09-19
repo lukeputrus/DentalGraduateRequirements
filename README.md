@@ -7,12 +7,12 @@ A web app for dental students to track the clinical competencies they need to pa
 - **Admin accounts** manage dental schools, define competencies (with prerequisite items — one-time steps or repeated case counts) per school and graduating class year, create and edit student accounts, reset passwords, and record official exam outcomes (passed / needs retest).
 - **Student accounts** select their dental school and graduating class year from a dropdown, see their personal competency checklist grouped by category, check off prerequisites or log case counts with a stepper, search/filter their list, and see a live progress ring + stat breakdown (passed / eligible / prereqs in progress / not started / needs retest).
 - **Per-class-year requirements**: competencies belong to a specific school + graduating class year, so updating requirements for an incoming class never changes what current students see. Admins can copy an entire competency set forward to a new class year as a starting point.
-- **AI assistant widget** (bottom-right, student accounts only): students can ask questions about their own requirements or attach a document/image, answered by Claude with their live progress as context.
+- **"Message Admin" widget** (bottom-right, student accounts only): students can send a question — optionally with a PDF/image attached — straight to a per-student inbox admins see under Admin → Messages, with unread badges on both sides. No AI, no external API, no cost.
 - Seeded with ~70 CODA-accredited U.S. dental schools (admin-editable) and a real, fully-populated example dataset: University of Detroit Mercy School of Dentistry, Class of 2028 (52 competencies / 117 items, extracted from the school's own competency manual — see **Detroit Mercy seed data** below).
 
 ## Tech stack
 
-Node.js + Express, server-rendered EJS views, SQLite via Node's built-in `node:sqlite` module (no native dependency to install or compile — this is why `npm install` never needs a C++ toolchain, Python, or a matching prebuilt binary for your platform), session-based auth (`express-session`), `bcryptjs` for password hashing, `helmet` for security headers, hand-rolled CSRF protection, and the `@anthropic-ai/sdk` for the AI assistant. No frontend build step — plain CSS and a few small vanilla-JS enhancement files. Requires Node 22+ (`node:sqlite` is still marked experimental upstream — you'll see a harmless one-line warning on startup; the API itself has been solid).
+Node.js + Express, server-rendered EJS views, SQLite via Node's built-in `node:sqlite` module (no native dependency to install or compile — this is why `npm install` never needs a C++ toolchain, Python, or a matching prebuilt binary for your platform), session-based auth (`express-session`), `bcryptjs` for password hashing, `helmet` for security headers, hand-rolled CSRF protection, and `multer` for message attachments. No frontend build step, no external API dependency — plain CSS and a few small vanilla-JS enhancement files. Requires Node 22+ (`node:sqlite` is still marked experimental upstream — you'll see a harmless one-line warning on startup; the API itself has been solid).
 
 ## Getting started
 
@@ -48,14 +48,13 @@ Covers the competency status/summary logic directly, plus integration tests (via
 
 Admins manage all of this from **Admin → Competencies**: pick a school + class year, add competencies and their items (each competency's editor is collapsible so a 50+ item list stays manageable), or copy a whole set forward to a new class year in one step.
 
-## The AI assistant
+## Messaging
 
-Set `ANTHROPIC_API_KEY` in `.env` to enable it (get a key at https://console.anthropic.com/). Without a key, the widget still appears for students but replies with a message explaining it isn't configured yet — nothing breaks.
+Students click the ✉️ widget (bottom-right of any student page) to send a message to the program admin, optionally attaching a PDF or image (15MB max). Admins see every student's thread under **Admin → Messages**, with an unread-count badge in the nav, and reply from there (also with an optional attachment). Each student has one ongoing thread — simple, free, and no external service involved.
 
-- Calls the Claude API (`claude-opus-5`) with the student's live competency progress summarized into the system prompt, so it can actually answer "what do I still need to do for Oral Surgery?"
-- Supports attaching a PDF or image (PNG/JPEG/WEBP/GIF, 15MB max) to a question; the file is sent directly to Claude for that turn and is **not stored** on the server — only its filename is kept in the conversation history.
-- Conversation history is stored per student (`chat_messages` table) so it persists across visits; only the last ~20 messages are replayed to the model to bound cost.
-- Every request runs on your own Anthropic account and bills accordingly. For a class-wide rollout, consider the cost per message before enabling it broadly — `MODEL` and `output_config.effort` in `src/utils/anthropic.js` are the two easiest levers if you want to trade quality for cost.
+- Attachments are stored on disk under `data/uploads/` (gitignored) with server-generated filenames — never derived from the uploaded file's own name — and served back with `Content-Disposition: attachment` so nothing renders inline in the browser.
+- A student can only ever see or download their own thread's attachments; enforced server-side on every request, not just hidden in the UI.
+- The widget polls a small unread-count endpoint every 45 seconds so the red dot shows up without a page reload; opening the widget or the admin thread view marks the other side's messages read.
 
 ## Detroit Mercy seed data
 
@@ -72,5 +71,5 @@ Set `ANTHROPIC_API_KEY` in `.env` to enable it (get a key at https://console.ant
 - Passwords are hashed with `bcryptjs`; the seeded temp admin password is hashed too and must be changed before the account can do anything else.
 - CSRF tokens are required on every state-changing request (session-bound, checked server-side).
 - `helmet` sets a strict Content-Security-Policy (no inline scripts/styles, no external origins); all interactivity is in same-origin `.js` files under `public/js/`.
-- A student can only ever read or modify their own competency progress and chat history — every item/competency ID in a request is checked server-side against the logged-in student's own school + class year.
+- A student can only ever read or modify their own competency progress and message thread — every item/competency/message ID in a request is checked server-side against the logged-in student's own account.
 - Login attempts are rate-limited.

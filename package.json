@@ -14,7 +14,6 @@
     "test": "node --test tests/*.test.js"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.32.1",
     "bcryptjs": "^2.4.3",
     "dotenv": "^16.4.5",
     "ejs": "^3.1.10",

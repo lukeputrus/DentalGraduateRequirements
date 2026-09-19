@@ -11,7 +11,7 @@ const authRoutes = require('./routes/auth');
 const accountRoutes = require('./routes/account');
 const adminRoutes = require('./routes/admin');
 const studentRoutes = require('./routes/student');
-const assistantRoutes = require('./routes/assistant');
+const messageRoutes = require('./routes/messages');
 
 const app = express();
 
@@ -69,7 +69,7 @@ app.get('/', (req, res) => {
 app.use(accountRoutes);
 app.use('/admin', adminRoutes);
 app.use('/student', studentRoutes);
-app.use('/student', assistantRoutes);
+app.use('/student', messageRoutes);
 
 app.use((req, res) => {
   res.status(404).render('errors/404');

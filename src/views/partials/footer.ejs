@@ -1,12 +1,12 @@
 </main>
 <% if (locals.currentUser && currentUser.role === 'student') { %>
-<%- include('assistant-widget') %>
+<%- include('message-widget') %>
 <% } %>
 <script src="/js/confirm.js"></script>
 <script src="/js/progress.js"></script>
 <script src="/js/filter.js"></script>
 <% if (locals.currentUser && currentUser.role === 'student') { %>
-<script src="/js/assistant.js"></script>
+<script src="/js/messages.js"></script>
 <% } %>
 </body>
 </html>

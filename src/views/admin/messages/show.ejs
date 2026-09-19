@@ -1,0 +1,43 @@
+<%- include('../../partials/header', { title: student.full_name }) %>
+<div class="page-header">
+  <h1 class="mt-0">Messages with <%= student.full_name %></h1>
+  <div class="form-row" style="max-width: 320px;">
+    <a class="btn" href="/admin/messages">&larr; All messages</a>
+    <a class="btn" href="/admin/students/<%= student.id %>">View student</a>
+  </div>
+</div>
+
+<div class="card">
+  <div class="requirement-list">
+    <% if (thread.length === 0) { %>
+      <p class="muted">No messages yet.</p>
+    <% } %>
+    <% thread.forEach(function (m) { %>
+      <div class="requirement-item">
+        <div class="requirement-main">
+          <strong><%= m.sender === 'student' ? student.full_name : 'You' %></strong>
+          <span class="muted"><%= m.created_at %></span>
+        </div>
+        <p class="mt-0"><%= m.body %></p>
+        <% if (m.attachment_name) { %>
+          <p><a href="/admin/messages/attachment/<%= m.id %>">📎 <%= m.attachment_name %></a></p>
+        <% } %>
+      </div>
+    <% }) %>
+  </div>
+</div>
+
+<div class="card">
+  <h2 class="mt-0">Reply</h2>
+  <form method="POST" action="/admin/messages/<%= student.id %>/reply" enctype="multipart/form-data">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    <label>Message
+      <textarea name="message" rows="3" placeholder="Type your reply…"></textarea>
+    </label>
+    <label>Attach a file (optional)
+      <input type="file" name="attachment" accept=".pdf,image/png,image/jpeg,image/webp,image/gif">
+    </label>
+    <button type="submit" class="btn btn-primary">Send reply</button>
+  </form>
+</div>
+<%- include('../../partials/footer') %>

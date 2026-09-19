@@ -1,0 +1,28 @@
+<%- include('../../partials/header', { title: 'Messages' }) %>
+<h1>Messages</h1>
+<p class="muted">Questions students have sent from their dashboard's "Message Admin" widget.</p>
+
+<div class="card">
+  <% if (threads.length === 0) { %>
+    <p class="muted">No messages yet.</p>
+  <% } else { %>
+  <table>
+    <thead><tr><th>Student</th><th>Last message</th><th>From</th><th>When</th><th></th></tr></thead>
+    <tbody>
+      <% threads.forEach(function (t) { %>
+        <tr>
+          <td>
+            <%= t.full_name %>
+            <% if (t.unread_count > 0) { %><span class="nav-badge"><%= t.unread_count %> new</span><% } %>
+          </td>
+          <td><%= t.last_body.length > 80 ? t.last_body.slice(0, 80) + '…' : t.last_body %></td>
+          <td><%= t.last_sender === 'student' ? 'Student' : 'You' %></td>
+          <td class="muted"><%= t.last_at %></td>
+          <td class="text-right"><a class="btn btn-small" href="/admin/messages/<%= t.student_id %>">Open</a></td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+  <% } %>
+</div>
+<%- include('../../partials/footer') %>

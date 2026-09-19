@@ -17,6 +17,7 @@
         <a href="/admin/students">Students</a>
         <a href="/admin/competencies">Competencies</a>
         <a href="/admin/schools">Schools</a>
+        <a href="/admin/messages">Messages<% if (locals.unreadMessageCount) { %> <span class="nav-badge"><%= unreadMessageCount %></span><% } %></a>
       <% } else { %>
         <a href="/student/dashboard">My Checklist</a>
       <% } %>

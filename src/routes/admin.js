@@ -1,4 +1,5 @@
 const express = require('express');
+const multer = require('multer');
 const db = require('../db');
 const { requireAdmin } = require('../middleware/auth');
 const { verifyCsrfToken } = require('../middleware/csrf');
@@ -10,10 +11,31 @@ const {
   summarize,
   setExamStatus,
 } = require('../utils/competencies');
+const {
+  ALLOWED_MIME_TYPES,
+  getThread,
+  getUnreadForAdmin,
+  markReadForAdmin,
+  sendAttachment,
+  insertMessage,
+} = require('../utils/messages');
 
 const router = express.Router();
 
 router.use(requireAdmin);
+router.use((req, res, next) => {
+  res.locals.unreadMessageCount = getUnreadForAdmin();
+  next();
+});
+
+const messageUpload = multer({
+  storage: multer.memoryStorage(),
+  limits: { fileSize: 15 * 1024 * 1024 },
+  fileFilter(req, file, cb) {
+    if (ALLOWED_MIME_TYPES[file.mimetype]) return cb(null, true);
+    cb(new Error('UNSUPPORTED_FILE_TYPE'));
+  },
+});
 
 function getSchools() {
   return db.prepare('SELECT * FROM schools ORDER BY name').all();
@@ -513,6 +535,69 @@ router.post('/students/:id/competencies/:competencyId/exam', verifyCsrfToken, (r
   setExamStatus(id, competencyId, examStatus, notes);
   req.flash('success', `Marked "${competency.title}" as ${examStatus.replace('_', ' ')}.`);
   res.redirect(`/admin/students/${id}#comp-${competencyId}`);
+});
+
+// ---------- Messages ----------
+
+router.get('/messages', (req, res) => {
+  const threads = db
+    .prepare(
+      `SELECT u.id AS student_id, u.full_name, u.username,
+        (SELECT body FROM messages m WHERE m.student_id = u.id ORDER BY m.id DESC LIMIT 1) AS last_body,
+        (SELECT sender FROM messages m WHERE m.student_id = u.id ORDER BY m.id DESC LIMIT 1) AS last_sender,
+        (SELECT created_at FROM messages m WHERE m.student_id = u.id ORDER BY m.id DESC LIMIT 1) AS last_at,
+        (SELECT COUNT(*) FROM messages m WHERE m.student_id = u.id AND m.sender = 'student' AND m.read_at IS NULL) AS unread_count
+       FROM users u
+       WHERE u.role = 'student' AND EXISTS (SELECT 1 FROM messages m WHERE m.student_id = u.id)
+       ORDER BY last_at DESC`
+    )
+    .all();
+  res.render('admin/messages/index', { threads });
+});
+
+router.get('/messages/:studentId', (req, res) => {
+  const studentId = parseInt(req.params.studentId, 10);
+  const student = db.prepare("SELECT * FROM users WHERE id = ? AND role = 'student'").get(studentId);
+  if (!student) return res.status(404).render('errors/404');
+
+  const thread = getThread(studentId);
+  markReadForAdmin(studentId);
+  res.render('admin/messages/show', { student, thread });
+});
+
+router.post('/messages/:studentId/reply', (req, res) => {
+  messageUpload.single('attachment')(req, res, (uploadErr) => {
+    const studentId = parseInt(req.params.studentId, 10);
+    const student = db.prepare("SELECT * FROM users WHERE id = ? AND role = 'student'").get(studentId);
+    if (!student) return res.status(404).render('errors/404');
+
+    if (uploadErr) {
+      req.flash('error', uploadErr.message === 'UNSUPPORTED_FILE_TYPE'
+        ? 'Only PDF and image files (PNG, JPEG, WEBP, GIF) are supported.'
+        : 'That file is too large (15MB max) or could not be uploaded.');
+      return res.redirect(`/admin/messages/${studentId}`);
+    }
+    if (!req.body._csrf || req.body._csrf !== req.session.csrfToken) {
+      return res.status(403).render('errors/403', { message: 'Your session expired. Please go back and try again.' });
+    }
+
+    const body = (req.body.message || '').trim();
+    const file = req.file;
+    if (!body && !file) {
+      req.flash('error', 'Type a message or attach a file first.');
+      return res.redirect(`/admin/messages/${studentId}`);
+    }
+
+    insertMessage({ studentId, sender: 'admin', body: body || '(sent an attachment)', file });
+    req.flash('success', 'Reply sent.');
+    res.redirect(`/admin/messages/${studentId}`);
+  });
+});
+
+router.get('/messages/attachment/:id', (req, res) => {
+  const message = db.prepare('SELECT * FROM messages WHERE id = ?').get(parseInt(req.params.id, 10));
+  if (!message) return res.status(404).end();
+  sendAttachment(res, message);
 });
 
 module.exports = router;
