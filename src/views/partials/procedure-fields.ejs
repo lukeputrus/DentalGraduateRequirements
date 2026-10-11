@@ -1,0 +1,23 @@
+<%# Tracking mode + D3/D4 requirement inputs for the competency add/edit
+    forms. Expects comp (an existing competency, or {} for a new one). %>
+<div class="form-row">
+  <label>Tracked by
+    <select name="tracking">
+      <option value="items" <%= comp.tracking !== 'procedure' ? 'selected' : '' %>>Prerequisite items + exam</option>
+      <option value="procedure" <%= comp.tracking === 'procedure' ? 'selected' : '' %>>Procedure counts (D3 / D4)</option>
+    </select>
+  </label>
+  <label class="narrow">D3 req
+    <input type="number" name="d3_required" min="0" value="<%= comp.d3_required != null ? comp.d3_required : '' %>">
+  </label>
+  <label class="narrow">D4 req
+    <input type="number" name="d4_required" min="0" value="<%= comp.d4_required != null ? comp.d4_required : '' %>">
+  </label>
+  <label class="narrow">D3+D4 req
+    <input type="number" name="combined_required" min="0" value="<%= comp.combined_required != null ? comp.combined_required : '' %>">
+  </label>
+  <label>Group (optional)
+    <input type="text" name="requirement_group" value="<%= comp.requirement_group || '' %>" placeholder="e.g. Overdenture">
+  </label>
+</div>
+<p class="muted small-note">Requirement numbers only apply to procedure counts; leave any blank for no minimum. Procedure rows sharing a group name in the same category only count as complete once every row in the group is complete.</p>

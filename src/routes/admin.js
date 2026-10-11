@@ -10,6 +10,7 @@ const {
   groupByCategory,
   summarize,
   setExamStatus,
+  setProcedureProgress,
 } = require('../utils/competencies');
 const {
   ALLOWED_MIME_TYPES,
@@ -49,6 +50,27 @@ function clampTargetCount(itemType, raw) {
   if (itemType === 'check') return 1;
   const n = parseInt(raw, 10);
   return Number.isInteger(n) && n > 0 ? n : 1;
+}
+
+function optionalCount(raw) {
+  const n = parseInt(raw, 10);
+  return Number.isInteger(n) && n >= 0 ? n : null;
+}
+
+// The tracking mode and D3/D4 requirement fields shared by the add and
+// edit competency forms.
+function procedureFields(body) {
+  const tracking = body.tracking === 'procedure' ? 'procedure' : 'items';
+  if (tracking !== 'procedure') {
+    return { tracking, d3_required: null, d4_required: null, combined_required: null, requirement_group: null };
+  }
+  return {
+    tracking,
+    d3_required: optionalCount(body.d3_required),
+    d4_required: optionalCount(body.d4_required),
+    combined_required: optionalCount(body.combined_required),
+    requirement_group: (body.requirement_group || '').trim() || null,
+  };
 }
 
 // ---------- Dashboard ----------
@@ -170,10 +192,12 @@ router.post('/competencies', verifyCsrfToken, (req, res) => {
   const maxOrder = db
     .prepare('SELECT COALESCE(MAX(sort_order), 0) AS m FROM competencies WHERE school_id = ? AND class_year = ?')
     .get(schoolId, classYear).m;
+  const proc = procedureFields(req.body);
 
   db.prepare(
-    `INSERT INTO competencies (school_id, class_year, dental_year, category, title, description, due_label, source_page, sort_order)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`
+    `INSERT INTO competencies (school_id, class_year, dental_year, category, title, description, due_label, source_page, sort_order,
+       tracking, d3_required, d4_required, combined_required, requirement_group)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
   ).run(
     schoolId,
     classYear,
@@ -183,10 +207,18 @@ router.post('/competencies', verifyCsrfToken, (req, res) => {
     description || null,
     dueLabel || null,
     Number.isInteger(sourcePage) ? sourcePage : null,
-    maxOrder + 10
+    maxOrder + 10,
+    proc.tracking,
+    proc.d3_required,
+    proc.d4_required,
+    proc.combined_required,
+    proc.requirement_group
   );
 
-  req.flash('success', 'Competency added. Add its prerequisite items below.');
+  req.flash(
+    'success',
+    proc.tracking === 'procedure' ? 'Procedure requirement added.' : 'Competency added. Add its prerequisite items below.'
+  );
   res.redirect(`/admin/competencies?school_id=${schoolId}&class_year=${classYear}`);
 });
 
@@ -217,8 +249,9 @@ router.post('/competencies/copy', verifyCsrfToken, (req, res) => {
   const itemStmt = db.prepare('SELECT * FROM competency_items WHERE competency_id = ? ORDER BY sort_order, id');
 
   const insertCompetency = db.prepare(
-    `INSERT INTO competencies (school_id, class_year, dental_year, category, title, description, due_label, source_page, sort_order)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`
+    `INSERT INTO competencies (school_id, class_year, dental_year, category, title, description, due_label, source_page, sort_order,
+       tracking, d3_required, d4_required, combined_required, requirement_group)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
   );
   const insertItem = db.prepare(
     `INSERT INTO competency_items (competency_id, label, item_type, target_count, sort_order) VALUES (?, ?, ?, ?, ?)`
@@ -235,7 +268,12 @@ router.post('/competencies/copy', verifyCsrfToken, (req, res) => {
         row.description,
         row.due_label,
         row.source_page,
-        row.sort_order
+        row.sort_order,
+        row.tracking,
+        row.d3_required,
+        row.d4_required,
+        row.combined_required,
+        row.requirement_group
       );
       const newCompetencyId = result.lastInsertRowid;
       for (const item of itemStmt.all(row.id)) {
@@ -270,9 +308,11 @@ router.post('/competencies/:id', verifyCsrfToken, (req, res) => {
     return res.redirect(`/admin/competencies?school_id=${existing.school_id}&class_year=${existing.class_year}`);
   }
 
+  const proc = procedureFields(req.body);
   db.prepare(
     `UPDATE competencies SET title = ?, category = ?, dental_year = ?, description = ?, due_label = ?, source_page = ?,
-       sort_order = ?, updated_at = datetime('now')
+       sort_order = ?, tracking = ?, d3_required = ?, d4_required = ?, combined_required = ?, requirement_group = ?,
+       updated_at = datetime('now')
      WHERE id = ?`
   ).run(
     title,
@@ -282,6 +322,11 @@ router.post('/competencies/:id', verifyCsrfToken, (req, res) => {
     dueLabel || null,
     Number.isInteger(sourcePage) ? sourcePage : null,
     Number.isInteger(sortOrder) ? sortOrder : existing.sort_order,
+    proc.tracking,
+    proc.d3_required,
+    proc.d4_required,
+    proc.combined_required,
+    proc.requirement_group,
     id
   );
 
@@ -534,6 +579,21 @@ router.post('/students/:id/competencies/:competencyId/exam', verifyCsrfToken, (r
 
   setExamStatus(id, competencyId, examStatus, notes);
   req.flash('success', `Marked "${competency.title}" as ${examStatus.replace('_', ' ')}.`);
+  res.redirect(`/admin/students/${id}#comp-${competencyId}`);
+});
+
+router.post('/students/:id/procedures/:competencyId', verifyCsrfToken, (req, res) => {
+  const id = parseInt(req.params.id, 10);
+  const competencyId = parseInt(req.params.competencyId, 10);
+  const student = db.prepare("SELECT * FROM users WHERE id = ? AND role = 'student'").get(id);
+  const competency = db.prepare("SELECT * FROM competencies WHERE id = ? AND tracking = 'procedure'").get(competencyId);
+  if (!student || !competency || competency.school_id !== student.school_id || competency.class_year !== student.class_year) {
+    req.flash('error', 'That requirement does not apply to this student.');
+    return res.redirect(`/admin/students/${id}`);
+  }
+
+  setProcedureProgress(id, competencyId, parseInt(req.body.d3_count, 10), parseInt(req.body.d4_count, 10));
+  req.flash('success', `Updated counts for "${competency.title}".`);
   res.redirect(`/admin/students/${id}#comp-${competencyId}`);
 });
 

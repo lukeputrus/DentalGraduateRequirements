@@ -1,0 +1,263 @@
+[
+  {
+    "category": "Operative",
+    "title": "Operative Class I/V",
+    "d3_required": null,
+    "d4_required": null,
+    "combined_required": null,
+    "requirement_group": null,
+    "description": null
+  },
+  {
+    "category": "Operative",
+    "title": "Operative Class II",
+    "d3_required": null,
+    "d4_required": null,
+    "combined_required": null,
+    "requirement_group": null,
+    "description": null
+  },
+  {
+    "category": "Operative",
+    "title": "Operative Class III/IV",
+    "d3_required": null,
+    "d4_required": null,
+    "combined_required": null,
+    "requirement_group": null,
+    "description": null
+  },
+  {
+    "category": "Operative",
+    "title": "Operative Bleaching",
+    "d3_required": null,
+    "d4_required": null,
+    "combined_required": null,
+    "requirement_group": null,
+    "description": null
+  },
+  {
+    "category": "Fixed Prosthodontics",
+    "title": "Fixed Crowns",
+    "d3_required": null,
+    "d4_required": null,
+    "combined_required": 75,
+    "requirement_group": null,
+    "description": null
+  },
+  {
+    "category": "Fixed Prosthodontics",
+    "title": "Fixed Implant Crowns",
+    "d3_required": null,
+    "d4_required": null,
+    "combined_required": 15,
+    "requirement_group": null,
+    "description": null
+  },
+  {
+    "category": "Fixed Prosthodontics",
+    "title": "Fixed Bridges",
+    "d3_required": null,
+    "d4_required": null,
+    "combined_required": 30,
+    "requirement_group": null,
+    "description": null
+  },
+  {
+    "category": "Fixed Prosthodontics",
+    "title": "Fixed Digital Diagnostic Scan",
+    "d3_required": null,
+    "d4_required": null,
+    "combined_required": null,
+    "requirement_group": null,
+    "description": null
+  },
+  {
+    "category": "Fixed Prosthodontics",
+    "title": "Fixed Surgical Stent",
+    "d3_required": null,
+    "d4_required": null,
+    "combined_required": null,
+    "requirement_group": null,
+    "description": null
+  },
+  {
+    "category": "Removable Prosthodontics",
+    "title": "Removable CD",
+    "d3_required": null,
+    "d4_required": null,
+    "combined_required": 40,
+    "requirement_group": null,
+    "description": null
+  },
+  {
+    "category": "Removable Prosthodontics",
+    "title": "Removable RPD",
+    "d3_required": null,
+    "d4_required": null,
+    "combined_required": 50,
+    "requirement_group": null,
+    "description": null
+  },
+  {
+    "category": "Removable Prosthodontics",
+    "title": "Removable Other",
+    "d3_required": null,
+    "d4_required": null,
+    "combined_required": null,
+    "requirement_group": null,
+    "description": null
+  },
+  {
+    "category": "Removable Prosthodontics",
+    "title": "Removable OD",
+    "d3_required": null,
+    "d4_required": null,
+    "combined_required": 10,
+    "requirement_group": "Overdenture",
+    "description": "Part of the Overdenture group: NYU marks overdenture PPE complete only when the whole group is complete."
+  },
+  {
+    "category": "Removable Prosthodontics",
+    "title": "Removable OD Assist",
+    "d3_required": null,
+    "d4_required": 10,
+    "combined_required": 10,
+    "requirement_group": "Overdenture",
+    "description": "Part of the Overdenture group: NYU marks overdenture PPE complete only when the whole group is complete."
+  },
+  {
+    "category": "Removable Prosthodontics",
+    "title": "Removable OD Recall",
+    "d3_required": null,
+    "d4_required": 10,
+    "combined_required": 10,
+    "requirement_group": "Overdenture",
+    "description": "Part of the Overdenture group: NYU marks overdenture PPE complete only when the whole group is complete."
+  },
+  {
+    "category": "Periodontics",
+    "title": "Perio SRP",
+    "d3_required": 12,
+    "d4_required": 12,
+    "combined_required": 24,
+    "requirement_group": null,
+    "description": null
+  },
+  {
+    "category": "Periodontics",
+    "title": "Perio OHI",
+    "d3_required": 6,
+    "d4_required": 6,
+    "combined_required": 12,
+    "requirement_group": null,
+    "description": null
+  },
+  {
+    "category": "Periodontics",
+    "title": "Perio Outcome of Care",
+    "d3_required": 2,
+    "d4_required": 1,
+    "combined_required": 3,
+    "requirement_group": null,
+    "description": null
+  },
+  {
+    "category": "Periodontics",
+    "title": "Perio Surgical Assists",
+    "d3_required": 2,
+    "d4_required": 1,
+    "combined_required": 3,
+    "requirement_group": null,
+    "description": null
+  },
+  {
+    "category": "Periodontics",
+    "title": "Perio Diagnostic Case Report",
+    "d3_required": 1,
+    "d4_required": 0,
+    "combined_required": 1,
+    "requirement_group": null,
+    "description": null
+  },
+  {
+    "category": "Oral Surgery",
+    "title": "OS Consult Experience",
+    "d3_required": 3,
+    "d4_required": 3,
+    "combined_required": null,
+    "requirement_group": null,
+    "description": null
+  },
+  {
+    "category": "Oral Surgery",
+    "title": "OS Extraction Experience",
+    "d3_required": 4,
+    "d4_required": 15,
+    "combined_required": null,
+    "requirement_group": null,
+    "description": null
+  },
+  {
+    "category": "Oral Surgery",
+    "title": "OS Other Surgical Experience",
+    "d3_required": null,
+    "d4_required": null,
+    "combined_required": null,
+    "requirement_group": null,
+    "description": null
+  },
+  {
+    "category": "Oral Surgery",
+    "title": "OS Post-Op Experience",
+    "d3_required": 3,
+    "d4_required": 3,
+    "combined_required": null,
+    "requirement_group": null,
+    "description": null
+  },
+  {
+    "category": "Oral Surgery",
+    "title": "OS N2O/O2 Administration Exp.",
+    "d3_required": 7,
+    "d4_required": 7,
+    "combined_required": null,
+    "requirement_group": "N2O/O2",
+    "description": null
+  },
+  {
+    "category": "Oral Surgery",
+    "title": "OS N2O/O2 Sim. Administration Exp.",
+    "d3_required": null,
+    "d4_required": null,
+    "combined_required": null,
+    "requirement_group": "N2O/O2",
+    "description": null
+  },
+  {
+    "category": "Oral Surgery",
+    "title": "OS N2O/O2 Science and Safety Exp.",
+    "d3_required": 1,
+    "d4_required": 0,
+    "combined_required": null,
+    "requirement_group": null,
+    "description": null
+  },
+  {
+    "category": "Endodontics",
+    "title": "Endodontics",
+    "d3_required": 1,
+    "d4_required": 6,
+    "combined_required": 7,
+    "requirement_group": null,
+    "description": "NYU's report also lists a number in parentheses next to each Endodontics requirement: D3 (1), D4 (3), D3+D4 (4)."
+  },
+  {
+    "category": "Recalls",
+    "title": "Recalls",
+    "d3_required": null,
+    "d4_required": null,
+    "combined_required": null,
+    "requirement_group": null,
+    "description": null
+  }
+]

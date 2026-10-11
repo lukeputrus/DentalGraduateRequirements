@@ -1,0 +1,26 @@
+<%# Shared D3/D4 count table for a 'procedure' competency. Expects comp,
+    action (form URL) and csrfToken. %>
+<% const req = function (n) { return n == null ? '–' : n; }; %>
+<form method="POST" action="<%= action %>" class="procedure-form">
+  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+  <table class="procedure-table">
+    <thead>
+      <tr><th></th><th>D3</th><th>D4</th><th>D3 + D4</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">Required</th>
+        <td><%= req(comp.d3_required) %></td>
+        <td><%= req(comp.d4_required) %></td>
+        <td><%= req(comp.combined_required) %></td>
+      </tr>
+      <tr>
+        <th scope="row">Completed</th>
+        <td><input type="number" name="d3_count" min="0" max="9999" value="<%= comp.d3_count %>" aria-label="D3 completed"></td>
+        <td><input type="number" name="d4_count" min="0" max="9999" value="<%= comp.d4_count %>" aria-label="D4 completed"></td>
+        <td><strong><%= comp.d3_count + comp.d4_count %></strong></td>
+      </tr>
+    </tbody>
+  </table>
+  <button type="submit" class="btn btn-small">Save counts</button>
+</form>

@@ -56,6 +56,10 @@ Students click the ✉️ widget (bottom-right of any student page) to send a me
 - A student can only ever see or download their own thread's attachments; enforced server-side on every request, not just hidden in the UI.
 - The widget polls a small unread-count endpoint every 45 seconds so the red dot shows up without a page reload; opening the widget or the admin thread view marks the other side's messages read.
 
+## NYU seed data
+
+NYU Dentistry tracks Patient Procedure Experiences (PPE): procedure counts logged in D3 and D4 against D3, D4 and/or combined D3+D4 minimums, rather than exams with prerequisites. These are stored as competencies with **Tracked by: Procedure counts**. A row is "PPE complete" once every minimum it has is met, "D3 PPE complete" when only its D3 minimum is met, and rows with no minimum are logged for reference only. Rows sharing a group name (e.g. the Overdenture group) only count as complete together. The seed adds NYU's 29 PPE rows for the Class of 2027 (`src/data/nyuPpe.json`), taken from the requirement columns of an NYU PPE report; check them against NYU's current numbers.
+
 ## Detroit Mercy seed data
 
 `src/data/detroitMercyClassOf2028.json` was extracted from the University of Detroit Mercy School of Dentistry's own "Class of 2028 Competency Manual" (a 325-page PDF) by having an AI agent read every competency's instructions section and structure it into this app's schema, citing the source page for each entry. It's a strong starting point, not a guarantee — **have the program review it against the current manual before students rely on it**, and use the admin Competencies page to correct anything that's changed. Nine entries (mostly in Periodontal and Radiology, which the manual doesn't subdivide by DS3/DS4) needed a judgment call on the dental year; search the JSON file for `"uncertain"` to see exactly which ones and why.

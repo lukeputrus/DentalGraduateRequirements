@@ -1,6 +1,6 @@
 <%- include('../../partials/header', { title: 'Manage Competencies' }) %>
 <h1>Competencies</h1>
-<p class="muted">Each competency is a gradeable exam a student must pass. It can have prerequisite items — one-time steps ("check") or repeated case counts ("count") — that a student clears before they're eligible to sit the exam. Competencies are set per school and per graduating class year, so an incoming class's changed requirements never affect students already tracking the old set.</p>
+<p class="muted">Each competency is either a gradeable exam a student must pass, with prerequisite items — one-time steps ("check") or repeated case counts ("count") — cleared before they're eligible to sit it, or a procedure count logged across D3 and D4 against D3, D4 and/or combined minimums (the way NYU's Patient Procedure Experiences report works). Competencies are set per school and per graduating class year, so an incoming class's changed requirements never affect students already tracking the old set.</p>
 <% if (error) { %><div class="flash flash-error"><%= error %></div><% } %>
 
 <div class="card">
@@ -56,7 +56,11 @@
     <details class="competency-edit" id="comp-<%= comp.id %>">
       <summary>
         <span class="comp-summary-title"><%= comp.category %> &middot; <%= comp.title %></span>
-        <span class="muted"><%= comp.dental_year || '—' %> &middot; <%= comp.items.length %> item<%= comp.items.length === 1 ? '' : 's' %></span>
+        <% if (comp.tracking === 'procedure') { %>
+          <span class="muted">Procedure counts &middot; D3 <%= comp.d3_required != null ? comp.d3_required : '–' %> / D4 <%= comp.d4_required != null ? comp.d4_required : '–' %> / D3+D4 <%= comp.combined_required != null ? comp.combined_required : '–' %><% if (comp.requirement_group) { %> &middot; <%= comp.requirement_group %> group<% } %></span>
+        <% } else { %>
+          <span class="muted"><%= comp.dental_year || '—' %> &middot; <%= comp.items.length %> item<%= comp.items.length === 1 ? '' : 's' %></span>
+        <% } %>
       </summary>
 
       <form method="POST" action="/admin/competencies/<%= comp.id %>" class="mb-16">
@@ -90,12 +94,14 @@
             <input type="number" name="source_page" value="<%= comp.source_page || '' %>" placeholder="Manual page #">
           </label>
         </div>
+        <%- include('../../partials/procedure-fields', { comp: comp }) %>
         <div class="form-row justify-end">
           <button type="submit" class="btn btn-small no-grow">Save competency</button>
           <button type="submit" formaction="/admin/competencies/<%= comp.id %>/delete" class="btn btn-small btn-danger no-grow" data-confirm="Delete competency '<%= comp.title %>' and all its items? This cannot be undone.">Delete competency</button>
         </div>
       </form>
 
+      <% if (comp.tracking !== 'procedure') { %>
       <h3 class="mb-0">Prerequisite items</h3>
       <% if (comp.items.length === 0) { %>
         <p class="muted">No items yet — this competency is immediately eligible with no prerequisites.</p>
@@ -147,6 +153,7 @@
           </div>
         </div>
       </form>
+      <% } %>
     </details>
     <% }) %>
   </div>
@@ -185,6 +192,7 @@
         <input type="number" name="source_page" placeholder="Manual page #">
       </label>
     </div>
+    <%- include('../../partials/procedure-fields', { comp: {} }) %>
     <button type="submit" class="btn btn-primary">Add competency</button>
   </form>
 </div>

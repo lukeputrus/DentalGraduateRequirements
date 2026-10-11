@@ -8,6 +8,7 @@ const {
   groupByCategory,
   summarize,
   setItemProgress,
+  setProcedureProgress,
 } = require('../utils/competencies');
 
 const router = express.Router();
@@ -77,6 +78,22 @@ router.post('/items/:itemId/decrement', verifyCsrfToken, (req, res) => {
 
 router.post('/items/:itemId/toggle', verifyCsrfToken, (req, res) => {
   handleItemUpdate(req, res, (item) => (item.current_count > 0 ? 0 : item.target_count));
+});
+
+router.post('/procedures/:competencyId', verifyCsrfToken, (req, res) => {
+  const student = req.currentUser;
+  const competencyId = parseInt(req.params.competencyId, 10);
+  const competency = db
+    .prepare(
+      `SELECT id FROM competencies
+       WHERE id = ? AND tracking = 'procedure' AND school_id = ? AND class_year = ?`
+    )
+    .get(competencyId, student.school_id, student.class_year);
+  if (!competency) {
+    return res.status(400).render('errors/403', { message: 'That requirement does not apply to your account.' });
+  }
+  setProcedureProgress(student.id, competency.id, parseInt(req.body.d3_count, 10), parseInt(req.body.d4_count, 10));
+  res.redirect('/student/dashboard#comp-' + competency.id);
 });
 
 module.exports = router;
