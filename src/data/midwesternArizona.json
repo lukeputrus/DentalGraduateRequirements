@@ -1,0 +1,317 @@
+[
+  {
+    "category": "Patient-based Assessments",
+    "title": "Periodontics Competency Evaluation",
+    "dental_year": "DS3",
+    "due_label": "Earliest to challenge: D3 Fall",
+    "description": null,
+    "source_page": null,
+    "items": [
+      {
+        "label": "Recommended before challenging: 6 SRP",
+        "item_type": "count",
+        "target_count": 6
+      }
+    ]
+  },
+  {
+    "category": "Patient-based Assessments",
+    "title": "Comprehensive Examination Competency Evaluation",
+    "dental_year": "DS3",
+    "due_label": "Earliest to challenge: D3 Winter",
+    "description": null,
+    "source_page": null,
+    "items": [
+      {
+        "label": "Recommended before challenging: 8 comprehensive exams",
+        "item_type": "count",
+        "target_count": 8
+      }
+    ]
+  },
+  {
+    "category": "Patient-based Assessments",
+    "title": "Urgent Care Competency Evaluation",
+    "dental_year": "DS3",
+    "due_label": "Earliest to challenge: D3 Winter",
+    "description": null,
+    "source_page": null,
+    "items": [
+      {
+        "label": "Recommended before challenging: 5 limited exams",
+        "item_type": "count",
+        "target_count": 5
+      }
+    ]
+  },
+  {
+    "category": "Patient-based Assessments",
+    "title": "Class II Competency Evaluation",
+    "dental_year": "DS3",
+    "due_label": "Earliest to challenge: D3 Winter",
+    "description": null,
+    "source_page": null,
+    "items": [
+      {
+        "label": "Recommended before challenging: 10 Class II composites",
+        "item_type": "count",
+        "target_count": 10
+      }
+    ]
+  },
+  {
+    "category": "Patient-based Assessments",
+    "title": "Class III Composite Competency Evaluation",
+    "dental_year": "DS3",
+    "due_label": "Earliest to challenge: D3 Winter",
+    "description": null,
+    "source_page": null,
+    "items": [
+      {
+        "label": "Recommended before challenging: 5 Class III composites",
+        "item_type": "count",
+        "target_count": 5
+      }
+    ]
+  },
+  {
+    "category": "Patient-based Assessments",
+    "title": "Endodontic Competency Evaluation",
+    "dental_year": "DS3",
+    "due_label": "Earliest to challenge: D3 Winter",
+    "description": null,
+    "source_page": null,
+    "items": [
+      {
+        "label": "Recommended before challenging: 2 endodontic procedures",
+        "item_type": "count",
+        "target_count": 2
+      }
+    ]
+  },
+  {
+    "category": "Patient-based Assessments",
+    "title": "Fixed Prosthodontic Competency Evaluation: Anterior-crown restoration",
+    "dental_year": "DS3",
+    "due_label": "Earliest to challenge: D3 Winter",
+    "description": null,
+    "source_page": null,
+    "items": [
+      {
+        "label": "Recommended before challenging: 1 anterior crown",
+        "item_type": "count",
+        "target_count": 1
+      }
+    ]
+  },
+  {
+    "category": "Patient-based Assessments",
+    "title": "Fixed Prosthodontic Competency Evaluation: Posterior-crown restoration",
+    "dental_year": "DS3",
+    "due_label": "Earliest to challenge: D3 Winter",
+    "description": null,
+    "source_page": null,
+    "items": [
+      {
+        "label": "Recommended before challenging: 8 posterior crowns",
+        "item_type": "count",
+        "target_count": 8
+      }
+    ]
+  },
+  {
+    "category": "Patient-based Assessments",
+    "title": "Fixed Prosthodontics Competency Evaluation: Implant Restoration",
+    "dental_year": "DS3",
+    "due_label": "Earliest to challenge: D3 Winter",
+    "description": null,
+    "source_page": null,
+    "items": [
+      {
+        "label": "Recommended before challenging: 1 implant crown",
+        "item_type": "count",
+        "target_count": 1
+      }
+    ]
+  },
+  {
+    "category": "Patient-based Assessments",
+    "title": "Removable Prosthodontics Competency Evaluation: Partial Denture",
+    "dental_year": "DS3",
+    "due_label": "Earliest to challenge: D3 Winter",
+    "description": null,
+    "source_page": null,
+    "items": [
+      {
+        "label": "Recommended before challenging: 2 partial dentures",
+        "item_type": "count",
+        "target_count": 2
+      }
+    ]
+  },
+  {
+    "category": "Patient-based Assessments",
+    "title": "Removable Prosthodontics Competency Evaluation: Complete Denture",
+    "dental_year": "DS3",
+    "due_label": "Earliest to challenge: D3 Winter",
+    "description": null,
+    "source_page": null,
+    "items": [
+      {
+        "label": "Recommended before challenging: 2 complete dentures",
+        "item_type": "count",
+        "target_count": 2
+      }
+    ]
+  },
+  {
+    "category": "Patient-based Assessments",
+    "title": "Oral and Maxillofacial Surgery Competency Evaluation: Exodontia",
+    "dental_year": "DS3",
+    "due_label": "Earliest to challenge: D3 Winter",
+    "description": null,
+    "source_page": null,
+    "items": [
+      {
+        "label": "Recommended before challenging: 10 extractions",
+        "item_type": "count",
+        "target_count": 10
+      }
+    ]
+  },
+  {
+    "category": "Patient-based Assessments",
+    "title": "Oral and Maxillofacial Surgery Clinical Competency Evaluation: Socket Preservation",
+    "dental_year": "DS3",
+    "due_label": "Earliest to challenge: D3 Winter",
+    "description": null,
+    "source_page": null,
+    "items": [
+      {
+        "label": "Recommended before challenging: 5 ridge preservations",
+        "item_type": "count",
+        "target_count": 5
+      }
+    ]
+  },
+  {
+    "category": "Patient-based Assessments",
+    "title": "Pediatric Dentistry Competency Evaluation Procedure 1",
+    "dental_year": "DS4",
+    "due_label": "Earliest to challenge: D4 Summer",
+    "description": null,
+    "source_page": null,
+    "items": [
+      {
+        "label": "Recommended before challenging: 2 pediatric procedures",
+        "item_type": "count",
+        "target_count": 2
+      }
+    ]
+  },
+  {
+    "category": "Patient-based Assessments",
+    "title": "Pediatric Dentistry Competency Evaluation Procedure 2",
+    "dental_year": "DS4",
+    "due_label": "Earliest to challenge: D4 Summer",
+    "description": null,
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Written Assessments",
+    "title": "Orthodontic Competency Evaluation Written Exam",
+    "dental_year": "DS3",
+    "due_label": "Earliest to challenge: D3 Summer",
+    "description": null,
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Written Assessments",
+    "title": "Periodontics Competency Evaluation Written Exam",
+    "dental_year": "DS4",
+    "due_label": "Earliest to challenge: D4 Summer",
+    "description": null,
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Written Assessments",
+    "title": "Prosthodontics Competency Evaluation Written Exam",
+    "dental_year": "DS4",
+    "due_label": "Earliest to challenge: D4 Summer",
+    "description": null,
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Written Assessments",
+    "title": "Treatment Planning Competency Evaluation Written Exam",
+    "dental_year": "DS4",
+    "due_label": "Earliest to challenge: D4 Summer",
+    "description": null,
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Written Assessments",
+    "title": "Special Needs Competency Evaluation Written Exam",
+    "dental_year": "DS4",
+    "due_label": "Earliest to challenge: D4 Summer",
+    "description": null,
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Written Assessments",
+    "title": "Models of Oral Health Care Delivery Competency Evaluation Written Exam",
+    "dental_year": "DS4",
+    "due_label": "Earliest to challenge: D4 Summer",
+    "description": null,
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Written Assessments",
+    "title": "Interprofessional Practice Competency Evaluation Written Exam",
+    "dental_year": "DS4",
+    "due_label": "Earliest to challenge: D4 Summer",
+    "description": null,
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Written Assessments",
+    "title": "Medical Emergencies Competency Evaluation Written Exam",
+    "dental_year": "DS4",
+    "due_label": "Earliest to challenge: D4 Fall",
+    "description": null,
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Written Assessments",
+    "title": "Oral Pathology Competency Evaluation Written Exam",
+    "dental_year": "DS4",
+    "due_label": "Earliest to challenge: D4 Winter",
+    "description": null,
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Simulated Typodont Based Assessments",
+    "title": "D-4 Fixed Bridge Competency Evaluation",
+    "dental_year": "DS3",
+    "due_label": "Earliest to challenge: D3 Winter",
+    "description": null,
+    "source_page": null,
+    "items": [
+      {
+        "label": "Recommended before challenging: complete the ADEX",
+        "item_type": "check",
+        "target_count": 1
+      }
+    ]
+  }
+]

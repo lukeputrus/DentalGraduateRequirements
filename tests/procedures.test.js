@@ -122,3 +122,17 @@ test('end-to-end: an NYU student logs D3/D4 counts and sees PPE status', async (
   const forbidden = await agent.post(`/student/procedures/${other.id}`).type('form').send({ d3_count: 1, d4_count: 1, _csrf: csrf });
   assert.equal(forbidden.status, 400);
 });
+
+test('ATSU Arizona and Midwestern Arizona are seeded with their competencies', () => {
+  const count = (name) =>
+    db
+      .prepare('SELECT COUNT(*) AS c FROM competencies c JOIN schools s ON s.id = c.school_id WHERE s.name = ? AND c.class_year = 2027')
+      .get(name).c;
+  assert.equal(count('A.T. Still University Arizona School of Dentistry & Oral Health'), 37);
+  assert.equal(count('Midwestern University College of Dental Medicine – Arizona'), 25);
+  const exo = db.prepare(
+    `SELECT ci.target_count FROM competency_items ci JOIN competencies c ON c.id = ci.competency_id
+     WHERE c.title = 'Oral and Maxillofacial Surgery Competency Evaluation: Exodontia'`
+  ).get();
+  assert.equal(exo.target_count, 10);
+});
