@@ -1,0 +1,575 @@
+[
+  {
+    "category": "Behavioral Sciences",
+    "title": "Patient-Instructor Competency Assessment",
+    "dental_year": null,
+    "due_label": null,
+    "description": "D300-580; uses MIRS form (28 items)",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Dental Emergencies",
+    "title": "Dental Emergency Competency Assessment",
+    "dental_year": "D4",
+    "due_label": null,
+    "description": "D400-649",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Endodontics",
+    "title": "Endodontics: Anterior Typodont-Based Competency Assessment",
+    "dental_year": null,
+    "due_label": null,
+    "description": "D300-642; Year 3 or 4",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Endodontics",
+    "title": "Endodontics: Posterior Typodont-Based Competency Assessment",
+    "dental_year": null,
+    "due_label": null,
+    "description": "D300-642; Year 3 or 4",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Endodontics",
+    "title": "Endodontics: Patient-Based Competency Assessment",
+    "dental_year": null,
+    "due_label": null,
+    "description": "D300/400-642; Year 3 or 4",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Endodontics",
+    "title": "Endodontics: Treatment Outcomes Competency Assessment",
+    "dental_year": null,
+    "due_label": null,
+    "description": "D300/400-642; done at 6-month recall",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Geriatric and Special Care",
+    "title": "Geriatric and Special Care Dentistry Competency Assessment I: Medically Compromised Patient",
+    "dental_year": null,
+    "due_label": null,
+    "description": "D400-040",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Geriatric and Special Care",
+    "title": "Geriatric and Special Care Dentistry Competency Assessment II: Developmental Disabilities",
+    "dental_year": null,
+    "due_label": null,
+    "description": "D400-040",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Infection Control",
+    "title": "Infection Control Clinical Competency Assessment",
+    "dental_year": null,
+    "due_label": null,
+    "description": "D100-140",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Interprofessional Collaborative Care",
+    "title": "Interprofessional Collaborative Care Competency Assessment",
+    "dental_year": null,
+    "due_label": null,
+    "description": "D400-040",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Operative Dentistry",
+    "title": "Operative Caries Removal Competency Assessment",
+    "dental_year": "D3",
+    "due_label": null,
+    "description": "D300-640",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Operative Dentistry",
+    "title": "Operative High Caries Risk Management",
+    "dental_year": "D3",
+    "due_label": null,
+    "description": "D300-640",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Operative Dentistry",
+    "title": "Operative Class II Amalgam Competency Assessment",
+    "dental_year": null,
+    "due_label": null,
+    "description": "D300/400-640; Year 3 or 4 (printed as 'Amalgum')",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Operative Dentistry",
+    "title": "Operative Class II Resin Composite Competency Assessment",
+    "dental_year": null,
+    "due_label": null,
+    "description": "D300/400-640; Year 3 or 4",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Operative Dentistry",
+    "title": "Operative Class III / IV Resin Composite Competency Assessment",
+    "dental_year": null,
+    "due_label": null,
+    "description": "D300/400-640; Year 3 or 4",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Operative Dentistry",
+    "title": "Operative Class V Restoration Competency Assessment",
+    "dental_year": null,
+    "due_label": null,
+    "description": "D300/400-640; Year 3 or 4",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Oral and Maxillofacial Radiology",
+    "title": "Oral and Maxillofacial Radiology Clinical Competency Assessment",
+    "dental_year": null,
+    "due_label": null,
+    "description": "D300/400-641; Years 3 and 4",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Oral and Maxillofacial Surgery",
+    "title": "Oral and Maxillofacial Surgery Clinical Competency Assessment I (Local Anesthesia) Year 3",
+    "dental_year": "D3",
+    "due_label": null,
+    "description": "D300-644",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Oral and Maxillofacial Surgery",
+    "title": "Oral and Maxillofacial Surgery Clinical Competency Assessment II Year 3",
+    "dental_year": "D3",
+    "due_label": null,
+    "description": "D300-644",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Oral and Maxillofacial Surgery",
+    "title": "Oral and Maxillofacial Surgery Clinical Competency Assessment III Year 3",
+    "dental_year": "D3",
+    "due_label": null,
+    "description": "D300-644",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Oral and Maxillofacial Surgery",
+    "title": "Oral and Maxillofacial Surgery Clinical Competency Assessment I Year 4",
+    "dental_year": "D4",
+    "due_label": null,
+    "description": "D300-644",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Oral and Maxillofacial Surgery",
+    "title": "Oral and Maxillofacial Surgery Clinical Competency Assessment II Year 4",
+    "dental_year": "D4",
+    "due_label": null,
+    "description": "D300-644",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Oral and Maxillofacial Surgery",
+    "title": "Oral and Maxillofacial Surgery Nitrous Oxide Administration Competency Assessment",
+    "dental_year": null,
+    "due_label": null,
+    "description": "D300-644; completed after 10 hours of nitrous oxide administration",
+    "source_page": null,
+    "items": [
+      {
+        "label": "Hours of nitrous oxide administration",
+        "item_type": "count",
+        "target_count": 10
+      },
+      {
+        "label": "Nitrous Oxide Administration Competency Assessment",
+        "item_type": "check",
+        "target_count": 1
+      }
+    ]
+  },
+  {
+    "category": "Oral Medicine/Oral Pathology",
+    "title": "Oral Medicine / Oral Pathology Composite Competency Assessment",
+    "dental_year": null,
+    "due_label": null,
+    "description": "D300/400-643; rotation 1 week in Year 3, 2 weeks in Year 4",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Orthodontics",
+    "title": "Orthodontic Assessment, Diagnosis and Treatment Planning",
+    "dental_year": "D4",
+    "due_label": null,
+    "description": "D400-645; administered online",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Pediatric Dentistry",
+    "title": "Pediatric Dentistry Exam and Diagnosis Clinical Competency Assessment (Year 3)",
+    "dental_year": "D3",
+    "due_label": null,
+    "description": "D300-646",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Pediatric Dentistry",
+    "title": "Pediatric Dentistry Simple Treatment Plan-Simulated Competency Assessment",
+    "dental_year": "D3",
+    "due_label": null,
+    "description": "D300-646",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Pediatric Dentistry",
+    "title": "Pediatric Dentistry Simple Restorative Competency Assessment",
+    "dental_year": "D3",
+    "due_label": null,
+    "description": "D300-646",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Pediatric Dentistry",
+    "title": "Pediatric Dentistry Exam and Diagnosis Clinical Competency Assessment (Year 4)",
+    "dental_year": "D4",
+    "due_label": null,
+    "description": "D300-646",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Pediatric Dentistry",
+    "title": "Pediatric Dentistry Complex Treatment Plan-Simulated Competency Assessment",
+    "dental_year": "D4",
+    "due_label": null,
+    "description": "D300-646",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Pediatric Dentistry",
+    "title": "Pediatric Dentistry Complex Restorative Competency Assessment",
+    "dental_year": "D4",
+    "due_label": null,
+    "description": "D300-646",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Pediatric Dentistry",
+    "title": "Pediatric Management of Emergencies and Conditions Affecting the Pulp",
+    "dental_year": "D4",
+    "due_label": null,
+    "description": "D300-646",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Periodontics",
+    "title": "Periodontics: Examination and Diagnosis Competency Assessment",
+    "dental_year": "D3",
+    "due_label": null,
+    "description": "D300-647",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Periodontics",
+    "title": "Periodontics: Scaling and Root Planing Competency Assessment",
+    "dental_year": null,
+    "due_label": null,
+    "description": "D300/400-647; 2 in Year 3 and 2 in Year 4",
+    "source_page": null,
+    "items": [
+      {
+        "label": "SRP competency assessments - Year 3",
+        "item_type": "count",
+        "target_count": 2
+      },
+      {
+        "label": "SRP competency assessments - Year 4",
+        "item_type": "count",
+        "target_count": 2
+      }
+    ]
+  },
+  {
+    "category": "Periodontics",
+    "title": "Periodontics: Assessment of Outcomes of Phase 1 Therapy Competency Assessment",
+    "dental_year": null,
+    "due_label": null,
+    "description": "D300/400-647; done at 6-week recall",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Periodontics",
+    "title": "Periodontics: Examination, Diagnosis and Treatment Planning Competency Assessment",
+    "dental_year": "D4",
+    "due_label": null,
+    "description": "D400-647",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Prosthodontics",
+    "title": "Prosthodontics: Fixed Partial Denture Preparation and Provisionalization Competency Assessment I",
+    "dental_year": "D3",
+    "due_label": null,
+    "description": "D300/400-648; typodont #19 cast crown, #21 PFM",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Prosthodontics",
+    "title": "Prosthodontics: Fixed Partial Denture Preparation and Provisionalization Competency Assessment II",
+    "dental_year": "D4",
+    "due_label": null,
+    "description": "D300/400-648; typodont #6-8 PFM",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Prosthodontics",
+    "title": "Prosthodontics: Online Clinical Removable Competency Assessment",
+    "dental_year": "D4",
+    "due_label": null,
+    "description": "D300/400-648; due by March 1 of 4th year",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Prosthodontics",
+    "title": "Prosthodontics: Single Crown Portfolio Assessment",
+    "dental_year": null,
+    "due_label": null,
+    "description": "D300/400-648",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Prosthodontics",
+    "title": "Phase II Completion",
+    "dental_year": null,
+    "due_label": null,
+    "description": "Phase II Completion #1 and #2",
+    "source_page": null,
+    "items": [
+      {
+        "label": "Phase II completions",
+        "item_type": "count",
+        "target_count": 2
+      }
+    ]
+  },
+  {
+    "category": "Prosthodontics",
+    "title": "Prosthodontics: Laboratory Global Student Assessment",
+    "dental_year": null,
+    "due_label": null,
+    "description": "D300/400-648",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Prosthodontics",
+    "title": "Prosthodontics: Clinical Program Assessment",
+    "dental_year": null,
+    "due_label": null,
+    "description": "D300/400-648",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Prosthodontics",
+    "title": "Prosthodontics: Treatment Outcomes Competency Assessment",
+    "dental_year": null,
+    "due_label": null,
+    "description": "D300/400-648",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Treatment Planning",
+    "title": "Treatment Planning Competency Assessment I",
+    "dental_year": "D3",
+    "due_label": null,
+    "description": "D300-651; administered online",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Treatment Planning",
+    "title": "Treatment Planning Competency Assessment II",
+    "dental_year": "D4",
+    "due_label": null,
+    "description": "D400-651; administered online",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Other Competencies",
+    "title": "Dental Public Health Policy Written Exam",
+    "dental_year": null,
+    "due_label": null,
+    "description": "Listed in competency matrix",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Other Competencies",
+    "title": "Ethics, Law and Behavior Case Based Exam",
+    "dental_year": null,
+    "due_label": null,
+    "description": "Listed in competency matrix",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Other Competencies",
+    "title": "Evidence-Based Decision Making Literature Review Assessment",
+    "dental_year": null,
+    "due_label": null,
+    "description": "Listed in competency matrix",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Other Competencies",
+    "title": "Human Systems Narrative Assessment of Professionalism",
+    "dental_year": null,
+    "due_label": null,
+    "description": "Listed in competency matrix",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Clinical Care Guidelines",
+    "title": "Operative patient care",
+    "dental_year": null,
+    "due_label": null,
+    "description": "10 Type 1 or 2 patients, at least 3 of them Type 2",
+    "source_page": null,
+    "items": [
+      {
+        "label": "Type 1 or 2 operative patients",
+        "item_type": "count",
+        "target_count": 10
+      },
+      {
+        "label": "of which Type 2 patients (minimum)",
+        "item_type": "count",
+        "target_count": 3
+      }
+    ]
+  },
+  {
+    "category": "Clinical Care Guidelines",
+    "title": "Comprehensive treatment plans",
+    "dental_year": null,
+    "due_label": null,
+    "description": "At least 15 comprehensive treatment plans",
+    "source_page": null,
+    "items": [
+      {
+        "label": "Comprehensive treatment plans",
+        "item_type": "count",
+        "target_count": 15
+      },
+      {
+        "label": "Of which include Type 3, 4, 5 or 6 care (minimum)",
+        "item_type": "count",
+        "target_count": 3
+      }
+    ]
+  },
+  {
+    "category": "Clinical Care Guidelines",
+    "title": "Prosthodontic patient care",
+    "dental_year": null,
+    "due_label": null,
+    "description": "1 implant patient; at least 5 Type 3 or 4 patients (at least 1 Type 4); at least 3 Type 5 or 6 patients (at least 1 of each)",
+    "source_page": null,
+    "items": [
+      {
+        "label": "Implant patient",
+        "item_type": "count",
+        "target_count": 1
+      },
+      {
+        "label": "Type 3 or 4 prosthodontic patients",
+        "item_type": "count",
+        "target_count": 5
+      },
+      {
+        "label": "of which Type 4 (minimum)",
+        "item_type": "count",
+        "target_count": 1
+      },
+      {
+        "label": "Type 5 or 6 prosthodontic patients",
+        "item_type": "count",
+        "target_count": 3
+      },
+      {
+        "label": "Type 5 patient (minimum)",
+        "item_type": "count",
+        "target_count": 1
+      },
+      {
+        "label": "Type 6 patient (minimum)",
+        "item_type": "count",
+        "target_count": 1
+      }
+    ]
+  },
+  {
+    "category": "Clinical Care Guidelines",
+    "title": "Experiential credits/RVUs",
+    "dental_year": null,
+    "due_label": null,
+    "description": "Minimal Essential Experiences, p.10.",
+    "source_page": 10,
+    "items": [
+      {
+        "label": "Experiential credits/RVUs",
+        "item_type": "count",
+        "target_count": 1100
+      }
+    ]
+  }
+]

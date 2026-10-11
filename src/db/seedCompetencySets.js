@@ -33,6 +33,57 @@ const SETS = [
     classYear: 2027,
     rows: require('../data/midwesternArizona.json'),
   },
+  // Class of 2030 (entering 2026) sets from public documents; see
+  // docs/school-requirements-sources.md for sources and caveats.
+  {
+    // Annual Assessment Report to the IUPUI Program Review and Assessment Committee: Doctor of Dental Surgery Program (Table 1: IUSD Institutional Competency Statements Mapped to Competency Assessments) (2022-23 academic year assessment report).
+    // https://planning.indianapolis.iu.edu/assessment/prac-files/school-reports/2022-23/dentistry_dds22-23.pdf
+    school: 'Indiana University School of Dentistry',
+    classYear: 2030,
+    rows: require('../data/classOf2030/indianaUniversitySchoolOfDentistry2030.json'),
+  },
+  {
+    // MUSC Bulletin - Dental Medicine course descriptions; CDM Doctor of Dental Medicine curriculum page (Current MUSC Bulletin / DMD curriculum webpage (accessed Oct 2026; edition year not stated)).
+    // https://bulletin.musc.edu/course-descriptions/dental-medicine
+    school: 'Medical University of South Carolina College of Dental Medicine',
+    classYear: 2030,
+    rows: require('../data/classOf2030/medicalUniversityOfSouthCarolinaCollegeOfDentalMedicine2030.json'),
+  },
+  {
+    // College of Dental Medicine Student Handbook 2025-2026 (2025-2026 Student Handbook).
+    // https://www.roseman.edu/app/uploads/2025/06/CODM-Student-Handbook-2025-2026.pdf
+    school: 'Roseman University of Health Sciences College of Dental Medicine',
+    classYear: 2030,
+    rows: require('../data/classOf2030/rosemanUniversityOfHealthSciencesCollegeOfDentalMedicine2030.json'),
+  },
+  {
+    // UConn School of Dental Medicine Competency Manual (Academic Year 2015-2016 Competency Manual (most recent publicly posted)).
+    // https://dentalmedicine.uconn.edu/wp-content/uploads/sites/1605/2017/01/manual_competency.pdf
+    school: 'University of Connecticut School of Dental Medicine',
+    classYear: 2030,
+    rows: require('../data/classOf2030/universityOfConnecticutSchoolOfDentalMedicine2030.json'),
+  },
+  {
+    // School of Dentistry Competency Statements and Competency Examinations (2025-2026 academic year (D2-D4 competency exam list)).
+    // https://www.dental.umaryland.edu/sod-2026/current-students/competencies/
+    school: 'University of Maryland School of Dentistry',
+    classYear: 2030,
+    rows: require('../data/classOf2030/universityOfMarylandSchoolOfDentistry2030.json'),
+  },
+  {
+    // UNLV SDM Predoctoral Course Objectives / Clinical Competency Assessment (Learning outcome) Map (Undated (posted on UNLV DMD degree page; current as of 2026 web listing)).
+    // https://www.unlv.edu/sites/default/files/degrees/downloads/CourseObjectives-Dental-PreDoc_0.pdf
+    school: 'University of Nevada, Las Vegas, School of Dental Medicine',
+    classYear: 2030,
+    rows: require('../data/classOf2030/universityOfNevadaLasVegasSchoolOfDentalMedicine2030.json'),
+  },
+  {
+    // OU College of Dentistry Clinical Requirements (ClnRequirements-1-16-19) (Dated 1/16/2019 (2018-2019 academic year; DS2-DS4)).
+    // https://dentistry.ouhsc.edu/Portals/1328/assets/Documents/Current%20Students/Manuals/ClnRequirements-1-16-19.pdf
+    school: 'University of Oklahoma College of Dentistry',
+    classYear: 2030,
+    rows: require('../data/classOf2030/universityOfOklahomaCollegeOfDentistry2030.json'),
+  },
 ];
 
 function seedSet({ school: schoolName, classYear, tracking = 'items', rows }) {

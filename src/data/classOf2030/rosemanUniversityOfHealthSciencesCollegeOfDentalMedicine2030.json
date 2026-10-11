@@ -1,0 +1,67 @@
+[
+  {
+    "category": "Monitored Procedures",
+    "title": "Procedures monitored before graduation",
+    "dental_year": null,
+    "due_label": "Before graduation",
+    "description": "Handbook: 'the following procedures are monitored to ensure all students have experience before graduation.'",
+    "source_page": 25,
+    "items": [
+      {
+        "label": "Fixed Partial Denture",
+        "item_type": "count",
+        "target_count": 1
+      },
+      {
+        "label": "Removable Partial Denture (arch)",
+        "item_type": "count",
+        "target_count": 1
+      },
+      {
+        "label": "Removable Complete Denture (arch)",
+        "item_type": "count",
+        "target_count": 1
+      },
+      {
+        "label": "Implant Restoration",
+        "item_type": "count",
+        "target_count": 1
+      },
+      {
+        "label": "Digital Crown",
+        "item_type": "count",
+        "target_count": 5
+      }
+    ]
+  },
+  {
+    "category": "Team Leader",
+    "title": "Team Leader Competency",
+    "dental_year": null,
+    "due_label": "Each year",
+    "description": "Complete 2 Team Leader FPEs each year; each student must be evaluated as team leader during the DMD7403, DMD8401 and DMD8402 clinic blocks.",
+    "source_page": 26,
+    "items": [
+      {
+        "label": "Team Leader Formative Performance Experiences (per year)",
+        "item_type": "count",
+        "target_count": 2
+      },
+      {
+        "label": "Team Leader evaluation - DMD7403 clinic block",
+        "item_type": "check",
+        "target_count": 1
+      },
+      {
+        "label": "Team Leader evaluation - DMD8401 clinic block",
+        "item_type": "check",
+        "target_count": 1
+      },
+      {
+        "label": "Team Leader evaluation - DMD8402 clinic block",
+        "item_type": "check",
+        "target_count": 1
+      }
+    ]
+  }
+]

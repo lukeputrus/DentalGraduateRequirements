@@ -1,0 +1,326 @@
+[
+  {
+    "category": "Cariology",
+    "title": "Caries Diagnosis Risk Assessment and Management",
+    "dental_year": null,
+    "due_label": null,
+    "description": null,
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Emergency Care",
+    "title": "Dental Emergency Clinical",
+    "dental_year": null,
+    "due_label": null,
+    "description": null,
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Endodontics",
+    "title": "Endodontic Clinical",
+    "dental_year": null,
+    "due_label": null,
+    "description": null,
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Endodontics",
+    "title": "Endodontic Emergency",
+    "dental_year": null,
+    "due_label": null,
+    "description": null,
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Operative Dentistry",
+    "title": "Operative Dentistry",
+    "dental_year": null,
+    "due_label": null,
+    "description": null,
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Oral and Maxillofacial Surgery",
+    "title": "Oral and Maxillofacial Surgery",
+    "dental_year": null,
+    "due_label": null,
+    "description": null,
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Diagnosis and Treatment Planning",
+    "title": "Oral Diagnosis and Treatment Planning",
+    "dental_year": null,
+    "due_label": null,
+    "description": null,
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Diagnosis and Treatment Planning",
+    "title": "Outcomes of Treatment",
+    "dental_year": null,
+    "due_label": null,
+    "description": null,
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Oral Pathology / Medicine",
+    "title": "Oral Mucosal and Osseous Disorders",
+    "dental_year": null,
+    "due_label": null,
+    "description": null,
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Oral Pathology / Medicine",
+    "title": "Screening and Risk Assessment for Head and Neck Cancer",
+    "dental_year": null,
+    "due_label": null,
+    "description": null,
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Radiology",
+    "title": "Radiology",
+    "dental_year": null,
+    "due_label": null,
+    "description": null,
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Orthodontics",
+    "title": "Orthodontic Malocclusion",
+    "dental_year": null,
+    "due_label": null,
+    "description": null,
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Special Needs",
+    "title": "Patients with Special Needs",
+    "dental_year": null,
+    "due_label": null,
+    "description": null,
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Pediatric Dentistry",
+    "title": "Pediatric Behavior Guidance",
+    "dental_year": null,
+    "due_label": null,
+    "description": null,
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Pediatric Dentistry",
+    "title": "Pediatric Comprehensive Patient Management",
+    "dental_year": null,
+    "due_label": null,
+    "description": null,
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Pediatric Dentistry",
+    "title": "Pediatric Case Selection & Space Maintainer",
+    "dental_year": null,
+    "due_label": null,
+    "description": null,
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Pediatric Dentistry",
+    "title": "Pediatric Operative Class II Restoration",
+    "dental_year": null,
+    "due_label": null,
+    "description": null,
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Pediatric Dentistry",
+    "title": "Pediatric Operative Stainless Steel Crown",
+    "dental_year": null,
+    "due_label": null,
+    "description": null,
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Pediatric Dentistry",
+    "title": "Pediatric Pulpotomy",
+    "dental_year": null,
+    "due_label": null,
+    "description": null,
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Periodontics",
+    "title": "Periodontics D3-Diagnosis and Management of a Gingivitis or Successfully Stable Periodontitis Case",
+    "dental_year": "D3",
+    "due_label": null,
+    "description": null,
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Periodontics",
+    "title": "Periodontics D4-Comprehensive Treatment Planning and Management of a Stage-Grade Periodontitis Case",
+    "dental_year": "D4",
+    "due_label": null,
+    "description": null,
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Prosthodontics",
+    "title": "Prosthodontic Restoration of Teeth-Crown PAC",
+    "dental_year": null,
+    "due_label": null,
+    "description": null,
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Prosthodontics",
+    "title": "Prosthodontic Restoration of Teeth-Crown VPAC",
+    "dental_year": null,
+    "due_label": null,
+    "description": null,
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Prosthodontics",
+    "title": "Prosthodontic Replacement of Teeth-Complete Denture PAC",
+    "dental_year": null,
+    "due_label": null,
+    "description": null,
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Prosthodontics",
+    "title": "Prosthodontic Replacement of Teeth-Complete Denture VPAC",
+    "dental_year": null,
+    "due_label": null,
+    "description": null,
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Prosthodontics",
+    "title": "Prosthodontic Replacement of Teeth-Fixed Bridge SPAC",
+    "dental_year": null,
+    "due_label": null,
+    "description": null,
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Prosthodontics",
+    "title": "Prosthodontic Replacement of Teeth-Implant SPAC",
+    "dental_year": null,
+    "due_label": null,
+    "description": null,
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Prosthodontics",
+    "title": "Prosthodontic Replacement of Teeth-Implant VPAC",
+    "dental_year": null,
+    "due_label": null,
+    "description": null,
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Prosthodontics",
+    "title": "Prosthodontic Replacement of Teeth-Removable Partial Denture PAC",
+    "dental_year": null,
+    "due_label": null,
+    "description": null,
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Prosthodontics",
+    "title": "Prosthodontic Replacement of Teeth-Removable Partial Denture VPAC",
+    "dental_year": null,
+    "due_label": null,
+    "description": null,
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Behavioral Science / Ethics / Communication",
+    "title": "Behavioral Science, Communication, Cultural Competence and Ethics OSCE Part I",
+    "dental_year": null,
+    "due_label": null,
+    "description": null,
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Behavioral Science / Ethics / Communication",
+    "title": "Behavioral Science, Communication, Cultural Competence and Ethics OSCE Part II",
+    "dental_year": null,
+    "due_label": null,
+    "description": null,
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Behavioral Science / Ethics / Communication",
+    "title": "Standardized Patient Simulation",
+    "dental_year": null,
+    "due_label": null,
+    "description": null,
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Practice Management",
+    "title": "Practice Administration",
+    "dental_year": null,
+    "due_label": null,
+    "description": null,
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Evidence-Based Dentistry",
+    "title": "Critical Thinking and Evidence-Based Dentistry",
+    "dental_year": null,
+    "due_label": null,
+    "description": null,
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Comprehensive Care",
+    "title": "Readiness to Practice",
+    "dental_year": null,
+    "due_label": null,
+    "description": null,
+    "source_page": null,
+    "items": []
+  }
+]
