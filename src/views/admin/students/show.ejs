@@ -58,7 +58,7 @@
     <div class="progress-bar" role="progressbar" aria-valuenow="<%= summary.percent %>" aria-valuemin="0" aria-valuemax="100">
       <div class="progress-bar-fill" data-percent="<%= summary.percent %>"></div>
     </div>
-    <div class="muted mb-16"><%= summary.passed %> of <%= summary.total %> competencies passed (<%= summary.percent %>%) &middot; <%= summary.eligible %> eligible &middot; <%= summary.prereqs_in_progress %> in progress &middot; <%= summary.not_started %> not started<% if (summary.needs_retest > 0) { %> &middot; <%= summary.needs_retest %> need retest<% } %></div>
+    <div class="muted mb-16"><%= summary.passed %> of <%= summary.total %> requirements complete (<%= summary.percent %>%) &middot; <%= summary.eligible %> eligible &middot; <%= summary.prereqs_in_progress %> in progress &middot; <%= summary.not_started %> not started<% if (summary.needs_retest > 0) { %> &middot; <%= summary.needs_retest %> need retest<% } %></div>
 
     <% groups.forEach(function (group) { %>
       <h3><%= group.category %></h3>
@@ -66,9 +66,10 @@
         <% group.items.forEach(function (comp) { %>
           <div class="requirement-item" id="comp-<%= comp.id %>">
             <div class="requirement-main">
-              <span class="status-badge status-<%= comp.status %>"><%= statusLabels[comp.status] %></span>
+              <span class="status-badge status-<%= comp.status %>"><%= comp.status_label || statusLabels[comp.status] %></span>
               <strong><%= comp.title %></strong>
               <% if (comp.dental_year) { %><span class="muted">(<%= comp.dental_year %>)</span><% } %>
+              <% if (comp.requirement_group) { %><span class="muted">(<%= comp.requirement_group %> group)</span><% } %>
             </div>
             <% if (comp.description) { %><p class="muted"><%= comp.description %></p><% } %>
             <% if (comp.items.length > 0) { %>
@@ -78,6 +79,9 @@
               <% }) %>
             </ul>
             <% } %>
+            <% if (comp.tracking === 'procedure') { %>
+              <%- include('../../partials/procedure-counts', { comp: comp, action: '/admin/students/' + student.id + '/procedures/' + comp.id, csrfToken: csrfToken }) %>
+            <% } else { %>
             <form method="POST" action="/admin/students/<%= student.id %>/competencies/<%= comp.id %>/exam" class="requirement-form">
               <input type="hidden" name="_csrf" value="<%= csrfToken %>">
               <label class="inline-label">Exam outcome
@@ -92,6 +96,7 @@
               </label>
               <button type="submit" class="btn btn-small">Save</button>
             </form>
+            <% } %>
           </div>
         <% }) %>
       </div>

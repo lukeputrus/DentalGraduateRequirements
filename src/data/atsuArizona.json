@@ -1,0 +1,375 @@
+[
+  {
+    "category": "Pain Management",
+    "title": "Local Anesthesia",
+    "dental_year": null,
+    "due_label": null,
+    "description": null,
+    "source_page": 12,
+    "items": []
+  },
+  {
+    "category": "Pain Management",
+    "title": "Nitrous Assessment",
+    "dental_year": null,
+    "due_label": null,
+    "description": "Patient-based (adult or pediatric patient).",
+    "source_page": 13,
+    "items": []
+  },
+  {
+    "category": "Clinical Patient Management",
+    "title": "Exit Exams",
+    "dental_year": null,
+    "due_label": null,
+    "description": "Five exit exams.",
+    "source_page": 14,
+    "items": [
+      {
+        "label": "Complete exit exams",
+        "item_type": "count",
+        "target_count": 5
+      }
+    ]
+  },
+  {
+    "category": "Clinical Patient Management",
+    "title": "Chart Audit Summary Report",
+    "dental_year": null,
+    "due_label": null,
+    "description": "Needs to meet at least 75% on each section.",
+    "source_page": 16,
+    "items": []
+  },
+  {
+    "category": "Clinical Patient Management",
+    "title": "Patient Record Management",
+    "dental_year": null,
+    "due_label": null,
+    "description": "Assessed regularly by the student and formally by the CCU Director at semester progress meetings.",
+    "source_page": 18,
+    "items": []
+  },
+  {
+    "category": "Clinical Patient Management",
+    "title": "Treatment Completion Review",
+    "dental_year": null,
+    "due_label": null,
+    "description": null,
+    "source_page": 19,
+    "items": []
+  },
+  {
+    "category": "Radiology",
+    "title": "Radiology Technique and Interpretation",
+    "dental_year": null,
+    "due_label": null,
+    "description": null,
+    "source_page": 20,
+    "items": []
+  },
+  {
+    "category": "Orthodontics",
+    "title": "Orthodontic Case Based Exam",
+    "dental_year": null,
+    "due_label": null,
+    "description": null,
+    "source_page": 23,
+    "items": []
+  },
+  {
+    "category": "Orthodontics",
+    "title": "Orthodontic Patient Examination",
+    "dental_year": null,
+    "due_label": null,
+    "description": null,
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Pediatric Dentistry",
+    "title": "Space Maintainer (Simulated)",
+    "dental_year": null,
+    "due_label": null,
+    "description": null,
+    "source_page": 24,
+    "items": []
+  },
+  {
+    "category": "Pediatric Dentistry",
+    "title": "Primary Molar Class II (Simulated)",
+    "dental_year": null,
+    "due_label": null,
+    "description": null,
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Pediatric Dentistry",
+    "title": "Pediatric Pulpotomy/SSC (Simulated)",
+    "dental_year": null,
+    "due_label": null,
+    "description": null,
+    "source_page": 28,
+    "items": []
+  },
+  {
+    "category": "Pediatric Dentistry",
+    "title": "Pediatric Examination",
+    "dental_year": null,
+    "due_label": null,
+    "description": null,
+    "source_page": 30,
+    "items": []
+  },
+  {
+    "category": "Pediatric Dentistry",
+    "title": "Pediatric Case Presentation",
+    "dental_year": null,
+    "due_label": null,
+    "description": "One pediatric case presentation.",
+    "source_page": 32,
+    "items": []
+  },
+  {
+    "category": "Complete Denture",
+    "title": "Complete Denture",
+    "dental_year": null,
+    "due_label": null,
+    "description": "Both arches must be completed concurrently: maxillary CD, immediate or overdenture together with mandibular CD, immediate, overdenture or bilateral extension partial denture.",
+    "source_page": 34,
+    "items": [
+      {
+        "label": "Denture (Competency Prerequisite)",
+        "item_type": "check",
+        "target_count": 1
+      }
+    ]
+  },
+  {
+    "category": "Crown",
+    "title": "Crown",
+    "dental_year": null,
+    "due_label": null,
+    "description": "May not be on teeth with a previous crown; adjacent contact(s) and occlusion required.",
+    "source_page": 37,
+    "items": [
+      {
+        "label": "Analog Crown (Competency Prerequisite)",
+        "item_type": "check",
+        "target_count": 1
+      },
+      {
+        "label": "Digital Crown (Competency Prerequisite)",
+        "item_type": "check",
+        "target_count": 1
+      }
+    ]
+  },
+  {
+    "category": "Fixed / Removable",
+    "title": "FPD (Simulated)",
+    "dental_year": null,
+    "due_label": null,
+    "description": null,
+    "source_page": 65,
+    "items": []
+  },
+  {
+    "category": "Fixed / Removable",
+    "title": "RPD Design (Simulated)",
+    "dental_year": null,
+    "due_label": null,
+    "description": null,
+    "source_page": 67,
+    "items": []
+  },
+  {
+    "category": "Fixed / Removable",
+    "title": "Fixed / Removable Lab Communication",
+    "dental_year": null,
+    "due_label": null,
+    "description": null,
+    "source_page": 69,
+    "items": []
+  },
+  {
+    "category": "Implant Crown",
+    "title": "Implant Crown (Patient/Simulated)",
+    "dental_year": null,
+    "due_label": null,
+    "description": null,
+    "source_page": 46,
+    "items": [
+      {
+        "label": "Implant Crown (Competency Prerequisite)",
+        "item_type": "check",
+        "target_count": 1
+      }
+    ]
+  },
+  {
+    "category": "Oral Surgery",
+    "title": "OS Surgical Flap Design / Suture (Suture Pad)",
+    "dental_year": null,
+    "due_label": null,
+    "description": null,
+    "source_page": 49,
+    "items": []
+  },
+  {
+    "category": "Oral Surgery",
+    "title": "OS Extraction (Simple or Surgical)",
+    "dental_year": null,
+    "due_label": null,
+    "description": null,
+    "source_page": 49,
+    "items": []
+  },
+  {
+    "category": "Endodontics",
+    "title": "RCT",
+    "dental_year": null,
+    "due_label": null,
+    "description": "Eight extracted-tooth RCTs must be completed before providing direct patient care.",
+    "source_page": 51,
+    "items": [
+      {
+        "label": "Extracted-tooth RCT cases (Competency Prerequisite)",
+        "item_type": "count",
+        "target_count": 8
+      },
+      {
+        "label": "Initial patient RCT case (Competency Prerequisite)",
+        "item_type": "check",
+        "target_count": 1
+      }
+    ]
+  },
+  {
+    "category": "Restorative",
+    "title": "Class II Amalgam (Simulated)",
+    "dental_year": null,
+    "due_label": null,
+    "description": null,
+    "source_page": 53,
+    "items": []
+  },
+  {
+    "category": "Restorative",
+    "title": "Restorative / Pedo Rubber Dam",
+    "dental_year": null,
+    "due_label": null,
+    "description": "Isolation to the contralateral side.",
+    "source_page": 55,
+    "items": []
+  },
+  {
+    "category": "Restorative",
+    "title": "Restorative Preparation (Internal / External Form)",
+    "dental_year": null,
+    "due_label": null,
+    "description": "Adjacent contact and occlusion required.",
+    "source_page": 56,
+    "items": []
+  },
+  {
+    "category": "Restorative",
+    "title": "Restorative Restoration (Contact / Contour / Occlusion / Finish)",
+    "dental_year": null,
+    "due_label": null,
+    "description": "Adjacent contact and occlusion required.",
+    "source_page": 58,
+    "items": []
+  },
+  {
+    "category": "Restorative",
+    "title": "Restorative - Class II Composite",
+    "dental_year": null,
+    "due_label": null,
+    "description": "Adjacent contact and occlusion required.",
+    "source_page": 59,
+    "items": []
+  },
+  {
+    "category": "Restorative",
+    "title": "Restorative - Class III/IV Composite",
+    "dental_year": null,
+    "due_label": null,
+    "description": "Adjacent contact and occlusion required.",
+    "source_page": 59,
+    "items": []
+  },
+  {
+    "category": "Perio / OS",
+    "title": "Perio / OS Surgery Using Guide",
+    "dental_year": null,
+    "due_label": null,
+    "description": null,
+    "source_page": 43,
+    "items": []
+  },
+  {
+    "category": "Periodontics",
+    "title": "Periodontal Maintenance",
+    "dental_year": null,
+    "due_label": null,
+    "description": "Exam (comprehensive or POE) must be current and include a current perio diagnosis; completion of the Qualtrics survey.",
+    "source_page": 62,
+    "items": []
+  },
+  {
+    "category": "Periodontics",
+    "title": "Perio Scaling",
+    "dental_year": null,
+    "due_label": null,
+    "description": "Exam (comprehensive or POE) must be current and include a current perio diagnosis. Minimum of 6 teeth per quadrant, 8 surfaces with heavy subgingival calculus (6 of them on posterior teeth); completion of the Qualtrics survey.",
+    "source_page": 64,
+    "items": []
+  },
+  {
+    "category": "CCU / DIC",
+    "title": "Sealant",
+    "dental_year": null,
+    "due_label": null,
+    "description": null,
+    "source_page": 70,
+    "items": []
+  },
+  {
+    "category": "Comprehensive Care",
+    "title": "Emergency Patient (Comprehensive Competency)",
+    "dental_year": null,
+    "due_label": null,
+    "description": null,
+    "source_page": 74,
+    "items": []
+  },
+  {
+    "category": "Comprehensive Care",
+    "title": "Comprehensive Exam, Part I (Comprehensive Competency)",
+    "dental_year": null,
+    "due_label": null,
+    "description": null,
+    "source_page": 76,
+    "items": []
+  },
+  {
+    "category": "Comprehensive Care",
+    "title": "Treatment Plan Presentation, Part II (Comprehensive Competency)",
+    "dental_year": null,
+    "due_label": null,
+    "description": null,
+    "source_page": 78,
+    "items": []
+  },
+  {
+    "category": "Comprehensive Care",
+    "title": "Treatment Completion Review, Part III (Comprehensive Competency)",
+    "dental_year": null,
+    "due_label": null,
+    "description": "Case must have complex dental, periodontal or special needs components.",
+    "source_page": 79,
+    "items": []
+  }
+]

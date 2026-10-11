@@ -31,6 +31,17 @@ CREATE TABLE IF NOT EXISTS competencies (
   source_page INTEGER,
   due_label TEXT,
   sort_order INTEGER NOT NULL DEFAULT 0,
+  -- 'items': cleared via prerequisite items + an exam outcome (Detroit Mercy
+  -- style). 'procedure': a running count of patient procedures logged in D3
+  -- and D4 against D3, D4 and/or combined D3+D4 minimums (NYU PPE style).
+  tracking TEXT NOT NULL DEFAULT 'items' CHECK (tracking IN ('items', 'procedure')),
+  d3_required INTEGER,
+  d4_required INTEGER,
+  combined_required INTEGER,
+  -- Procedure rows sharing a group name (within a category) only count as
+  -- complete once every row in the group is complete, e.g. NYU's Overdenture
+  -- group.
+  requirement_group TEXT,
   created_at TEXT NOT NULL DEFAULT (datetime('now')),
   updated_at TEXT NOT NULL DEFAULT (datetime('now'))
 );
@@ -70,6 +81,17 @@ CREATE TABLE IF NOT EXISTS competency_progress (
   UNIQUE (student_id, competency_id)
 );
 
+-- How many of a 'procedure' competency a student has done in each year.
+CREATE TABLE IF NOT EXISTS procedure_progress (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  student_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  competency_id INTEGER NOT NULL REFERENCES competencies(id) ON DELETE CASCADE,
+  d3_count INTEGER NOT NULL DEFAULT 0,
+  d4_count INTEGER NOT NULL DEFAULT 0,
+  updated_at TEXT NOT NULL DEFAULT (datetime('now')),
+  UNIQUE (student_id, competency_id)
+);
+
 -- A single ongoing message thread per student with the admin team. sender
 -- is who wrote it; read_at is set once the OTHER party has seen it (null =
 -- unread by its recipient).
@@ -90,4 +112,5 @@ CREATE INDEX IF NOT EXISTS idx_competencies_lookup ON competencies(school_id, cl
 CREATE INDEX IF NOT EXISTS idx_competency_items_competency ON competency_items(competency_id);
 CREATE INDEX IF NOT EXISTS idx_item_progress_student ON item_progress(student_id);
 CREATE INDEX IF NOT EXISTS idx_competency_progress_student ON competency_progress(student_id);
+CREATE INDEX IF NOT EXISTS idx_procedure_progress_student ON procedure_progress(student_id);
 CREATE INDEX IF NOT EXISTS idx_messages_student ON messages(student_id, created_at);

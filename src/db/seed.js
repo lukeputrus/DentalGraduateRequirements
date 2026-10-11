@@ -1,7 +1,7 @@
 const db = require('./index');
 const dentalSchools = require('../data/dentalSchools');
 const { hashPassword } = require('../utils/password');
-const seedDetroitMercyCompetencies = require('./seedDetroitMercy');
+const seedCompetencySets = require('./seedCompetencySets');
 
 function seedSchools() {
   const insert = db.prepare('INSERT OR IGNORE INTO schools (name) VALUES (?)');
@@ -28,5 +28,5 @@ function seedTempAdmin() {
 
 seedSchools();
 seedTempAdmin();
-seedDetroitMercyCompetencies();
+seedCompetencySets();
 console.log('Seed complete.');

@@ -24,7 +24,7 @@
         <div class="ring-sub">Passed</div>
       </div>
     </div>
-    <div class="ring-caption"><b><%= summary.passed %></b> of <b><%= summary.total %></b> competencies passed</div>
+    <div class="ring-caption"><b><%= summary.passed %></b> of <b><%= summary.total %></b> requirements complete</div>
   </div>
 
   <div class="stat-grid">
@@ -71,12 +71,17 @@
         <% group.items.forEach(function (comp) { %>
           <div class="requirement-item competency-card" id="comp-<%= comp.id %>" data-status="<%= comp.status %>" data-search="<%= (comp.title + ' ' + comp.category).toLowerCase() %>">
             <div class="requirement-main">
-              <span class="status-badge status-<%= comp.status %>"><%= statusLabels[comp.status] %></span>
+              <span class="status-badge status-<%= comp.status %>"><%= comp.status_label || statusLabels[comp.status] %></span>
               <strong><%= comp.title %></strong>
               <% if (comp.dental_year) { %><span class="dsyear-badge"><%= comp.dental_year %></span><% } %>
+              <% if (comp.requirement_group) { %><span class="dsyear-badge"><%= comp.requirement_group %> group</span><% } %>
             </div>
             <% if (comp.description) { %><p class="muted"><%= comp.description %></p><% } %>
             <% if (comp.due_label) { %><div class="due-label"><%= comp.due_label %></div><% } %>
+
+            <% if (comp.tracking === 'procedure') { %>
+              <%- include('../partials/procedure-counts', { comp: comp, action: '/student/procedures/' + comp.id, csrfToken: csrfToken }) %>
+            <% } %>
 
             <% if (comp.items.length > 0) { %>
             <div class="item-list">

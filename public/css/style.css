@@ -609,3 +609,12 @@ details.competency-edit hr { border: none; border-top: 1px solid var(--color-bor
 .assistant-typing { font-size: 0.78rem; color: var(--color-faint); font-style: italic; }
 
 .icon { display: inline-block; vertical-align: middle; }
+
+/* ---------- Procedure counts (D3 / D4) ---------- */
+.procedure-form { margin-top: 10px; }
+.procedure-table { width: auto; max-width: 100%; margin-bottom: 8px; }
+.procedure-table th, .procedure-table td { padding: 6px 12px; text-align: center; }
+.procedure-table th[scope="row"] { text-align: left; }
+.procedure-table input[type="number"] { width: 80px; margin: 0; }
+.small-note { font-size: 0.8rem; margin-top: -4px; }
+.status-tracking_only { background: var(--color-surface-sunken); color: var(--color-muted); }
