@@ -1,0 +1,506 @@
+[
+  {
+    "category": "Treatment Planning",
+    "title": "Comprehensive Treatment Planning of a Simulated Patient Competency Exam",
+    "dental_year": "D2",
+    "due_label": "D2 Spring end date",
+    "description": "Competency exam #49 (TXPL course)",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Comprehensive Care / Practice Management",
+    "title": "Global Practice Assessment 1: Mid Year Progress Toward Competency",
+    "dental_year": "D3",
+    "due_label": "D3 Fall end date",
+    "description": "Competency exam #1 (CCPM course)",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Comprehensive Care / Practice Management",
+    "title": "Global Practice Assessment 2: End of Year Progress Toward Competency",
+    "dental_year": "D3",
+    "due_label": "D3 Spring end date",
+    "description": "Competency exam #2 (CCPM course)",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Oral Diagnosis",
+    "title": "Examination of Soft Tissues Competency Exam",
+    "dental_year": "D3",
+    "due_label": "D3 Spring end date",
+    "description": "Competency exam #7 (DSCP course)",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Endodontics",
+    "title": "Diagnostic Competency Exam (non-patient based)",
+    "dental_year": "D3",
+    "due_label": "D3 Spring end date",
+    "description": "Competency exam #13 (ENDO course)",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Implants",
+    "title": "Computerized Case-Based Competency Exam",
+    "dental_year": "D3",
+    "due_label": "D3 Spring end date",
+    "description": "Competency exam #17 (IMPL course)",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Orthodontics",
+    "title": "Orthodontic Evaluation Competency Exam",
+    "dental_year": "D3",
+    "due_label": "D3 Spring end date",
+    "description": "Competency exam #18 (ORTH course)",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Pediatric Dentistry",
+    "title": "Oral Health Promotion & Disease Control Competency Examination",
+    "dental_year": "D3",
+    "due_label": "D3 Spring end date",
+    "description": "Competency exam #19 (PEDS course)",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Pediatric Dentistry",
+    "title": "Radiology in Pediatric Dentistry Competency (web-based, QuestionMark)",
+    "dental_year": "D3",
+    "due_label": "D3 Spring end date",
+    "description": "Competency exam #20 (PEDS course)",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Pediatric Dentistry",
+    "title": "Pediatric Dentistry Class II Clinical Simulation Competency Exam",
+    "dental_year": "D3",
+    "due_label": "D3 Spring end date",
+    "description": "Competency exam #21 (PEDS course)",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Periodontics",
+    "title": "Periodontal Patient Education and Oral Hygiene Instruction",
+    "dental_year": "D3",
+    "due_label": "D3 Fall (end of September)",
+    "description": "Competency exam #23 (PERI course)",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Periodontics",
+    "title": "Periodontal Instrumentation Skill Assessment",
+    "dental_year": "D3",
+    "due_label": "D3 Fall end date (December)",
+    "description": "Competency exam #24 (PERI course)",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Periodontics",
+    "title": "Periodontal Assessment Competency Exam",
+    "dental_year": "D3",
+    "due_label": "D3 Spring (before spring break)",
+    "description": "Competency exam #25 (PERI course)",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Periodontics",
+    "title": "Periodontics Treatment Plan Competency Exam 1",
+    "dental_year": "D3",
+    "due_label": "D3 Spring end date",
+    "description": "Competency exam #26 (PERI course)",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Practice Management",
+    "title": "Competency 1: Practice Option Exercise",
+    "dental_year": "D3",
+    "due_label": "D3 Spring end date",
+    "description": "Competency exam #30 (PRAC course)",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Practice Management",
+    "title": "Competency 2: Cultural Competency Program for Oral Health Professionals",
+    "dental_year": "D3",
+    "due_label": "D3 Spring end date",
+    "description": "Competency exam #31 (PRAC course)",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Professionalism / Ethics",
+    "title": "Ethics Case-Based Competency Exam",
+    "dental_year": "D3",
+    "due_label": "D3 Spring end date",
+    "description": "Competency exam #32 (PROF course)",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Professionalism / Ethics",
+    "title": "Informed Consent Written Competency Examination (law section)",
+    "dental_year": "D3",
+    "due_label": "D3 Spring end date",
+    "description": "Competency exam #33 (PROF course)",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Radiology",
+    "title": "Radiology Clinical Competency Exam",
+    "dental_year": "D3",
+    "due_label": "D3 Spring end date",
+    "description": "Competency exam #34 (RADI course)",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Restorative / Prosthodontics",
+    "title": "Posterior Class II Preparation and Restoration Competency Exam/Clinical Exam",
+    "dental_year": "D3",
+    "due_label": "D3 Spring end date",
+    "description": "Competency exam #36 (REST course)",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Restorative / Prosthodontics",
+    "title": "Anterior Class III Preparation and Restoration; Simulation/Clinical Exam",
+    "dental_year": "D3",
+    "due_label": "D3 Spring end date",
+    "description": "Competency exam #37 (REST course)",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Treatment Planning",
+    "title": "Diagnostic Competency for Class II and Class III Caries",
+    "dental_year": "D3",
+    "due_label": "D3 Spring end date",
+    "description": "Competency exam #39 (TXPL course)",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Restorative / Prosthodontics",
+    "title": "Posterior Crown Preparation #19 - Clinical Simulation Exam",
+    "dental_year": "D3",
+    "due_label": "D3 Fall end date",
+    "description": "Competency exam #41 (REST course)",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Restorative / Prosthodontics",
+    "title": "Removable Partial Denture Case-Based Competency Examination",
+    "dental_year": "D3",
+    "due_label": "D3 Spring end date",
+    "description": "Competency exam #42 (REST course)",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Restorative / Prosthodontics",
+    "title": "Part 3- Implant: Clinical Simulation/ OSCE Examination (Section A)",
+    "dental_year": "D3",
+    "due_label": "D3 Spring end date",
+    "description": "Competency exam #48A (REST course)",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Treatment Planning",
+    "title": "Comprehensive Treatment Planning of a Clinical Patient Competency Exam #1",
+    "dental_year": "D3",
+    "due_label": "D3 Fall end date",
+    "description": "Competency exam #50 (TXPL course)",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Treatment Planning",
+    "title": "Comprehensive Treatment Planning of a Clinical Patient Competency Exam #2",
+    "dental_year": "D3",
+    "due_label": "D3 Spring end date",
+    "description": "Competency exam #51 (TXPL course)",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Comprehensive Care / Practice Management",
+    "title": "OSCE Examination",
+    "dental_year": "D4",
+    "due_label": "D4 Spring semester",
+    "description": "Competency exam #3 (CCPM course)",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Comprehensive Care / Practice Management",
+    "title": "Global Practice Assessment 3: Mid Year Progress Toward Competency",
+    "dental_year": "D4",
+    "due_label": "D4 Fall end date",
+    "description": "Competency exam #4 (CCPM course)",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Comprehensive Care / Practice Management",
+    "title": "Global Practice Assessment 4: Final Certification of Competency",
+    "dental_year": "D4",
+    "due_label": "D4 Spring end date",
+    "description": "Competency exam #5 (CCPM course)",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Comprehensive Care / Practice Management",
+    "title": "Special Care and Geriatrics: Patient-Centered/Clinical Competency Exam",
+    "dental_year": "D4",
+    "due_label": "D4 Spring end date",
+    "description": "Competency exam #6 (CCPM course)",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Oral Diagnosis",
+    "title": "Biopsy Competency Exam",
+    "dental_year": "D4",
+    "due_label": "D4 Spring end date",
+    "description": "Competency exam #8 (DSCP course)",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Oral Surgery",
+    "title": "Urgent Care Competency Exam",
+    "dental_year": "D4",
+    "due_label": "D4 Spring end date",
+    "description": "Competency exam #9 (DSUR course)",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Oral Surgery",
+    "title": "Multi-Tooth Exodontias and Alveoloplasty Competency Exam",
+    "dental_year": "D4",
+    "due_label": "D4 Spring end date",
+    "description": "Competency exam #10 (DSUR course)",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Oral Surgery",
+    "title": "Nitrous Oxide Competency Exam",
+    "dental_year": "D4",
+    "due_label": "D4 Spring end date",
+    "description": "Competency exam #11 (DSUR course)",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Oral Surgery",
+    "title": "Oral Surgery Case 1 Presentation Competency Exam",
+    "dental_year": "D4",
+    "due_label": "D4 Spring end date",
+    "description": "Competency exam #12 (DSUR course)",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Endodontics",
+    "title": "Informed Consent Competency",
+    "dental_year": "D4",
+    "due_label": "D4 Spring end date",
+    "description": "Competency exam #14 (ENDO course)",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Endodontics",
+    "title": "Simple Case Competency Exam",
+    "dental_year": "D4",
+    "due_label": "D4 Spring end date",
+    "description": "Competency exam #15 (ENDO course)",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Endodontics",
+    "title": "Endodontics Recall Competency Exam",
+    "dental_year": "D4",
+    "due_label": "D4 Spring end date",
+    "description": "Competency exam #16 (ENDO course)",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Orthodontics",
+    "title": "Orthodontics: Examination and Diagnostic Competency",
+    "dental_year": "D4",
+    "due_label": "D4 Spring end date",
+    "description": "Competency exam #18A (ORTH course)",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Pediatric Dentistry",
+    "title": "Pediatric Dentistry Comprehensive Care Competency Examination",
+    "dental_year": "D4",
+    "due_label": "D4 Spring end date",
+    "description": "Competency exam #22 (PEDS course)",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Pediatric Dentistry",
+    "title": "Pediatric Dentistry Examination and Treatment Planning Clinical Competency Exam",
+    "dental_year": "D4",
+    "due_label": "D4 Spring end date",
+    "description": "Competency exam #22-A (PEDS course)",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Periodontics",
+    "title": "Periodontics Treatment Plan Competency Exam 1",
+    "dental_year": "D4",
+    "due_label": "August D4 year",
+    "description": "Competency exam #26 (PERI course)",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Periodontics",
+    "title": "Periodontal Diagnosis Competency Exam",
+    "dental_year": "D4",
+    "due_label": "D4 Fall end date (December)",
+    "description": "Competency exam #27 (PERI course)",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Periodontics",
+    "title": "Qualifying Scaling Competency",
+    "dental_year": "D4",
+    "due_label": "D4 Summer (August)",
+    "description": "Competency exam #28 (PERI course)",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Periodontics",
+    "title": "Periodontics Treatment Plan Competency Exam 2",
+    "dental_year": "D4",
+    "due_label": "D4 Spring end date",
+    "description": "Competency exam #29 (PERI course)",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Radiology",
+    "title": "Radiographic Interpretation Competency Examination",
+    "dental_year": "D4",
+    "due_label": "D4 Spring end date",
+    "description": "Competency exam #35 (RADI course)",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Restorative / Prosthodontics",
+    "title": "Caries Management-Pulpal Management Clinical Competency Exam",
+    "dental_year": "D4",
+    "due_label": "D4 Spring end date",
+    "description": "Competency exam #38 (REST course)",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Restorative / Prosthodontics",
+    "title": "Operative Class II Mock Board Competency Exam",
+    "dental_year": "D4",
+    "due_label": "D4 Spring end date",
+    "description": "Competency exam #43 (REST course)",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Restorative / Prosthodontics",
+    "title": "Operative Class III Mock Board Competency Exam",
+    "dental_year": "D4",
+    "due_label": "D4 Spring end date",
+    "description": "Competency exam #44 (REST course)",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Restorative / Prosthodontics",
+    "title": "Fixed Partial Denture #3-5; #9 All Ceramic Crown - Mock Board Simulation Exam",
+    "dental_year": "D4",
+    "due_label": "D4 Spring end date",
+    "description": "Competency exam #45 (REST course)",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Restorative / Prosthodontics",
+    "title": "Complete Crown - Patient Based Competency Exam",
+    "dental_year": "D4",
+    "due_label": "D4 Spring end date",
+    "description": "Competency exam #47 (REST course)",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Restorative / Prosthodontics",
+    "title": "Prosthodontics Removable and Implant Competency Exam",
+    "dental_year": "D4",
+    "due_label": "D4 Spring end date",
+    "description": "Competency exam #48 (REST course)",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Restorative / Prosthodontics",
+    "title": "Part 3- Implant: Clinical Simulation/ OSCE Examination (Section B)",
+    "dental_year": "D4",
+    "due_label": "D4 Spring end date",
+    "description": "Competency exam #48A (REST course)",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Treatment Planning",
+    "title": "Comprehensive Care Treatment Plan Competency",
+    "dental_year": "D4",
+    "due_label": "D4 Spring end date",
+    "description": "Competency exam #52 (TXPL course)",
+    "source_page": null,
+    "items": []
+  },
+  {
+    "category": "Treatment Planning",
+    "title": "Comprehensive Care Outcome Assessment",
+    "dental_year": "D4",
+    "due_label": "D4 Spring end date",
+    "description": "Competency exam #53 (TXPL course)",
+    "source_page": null,
+    "items": []
+  }
+]

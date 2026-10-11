@@ -1,0 +1,302 @@
+[
+  {
+    "category": "Comprehensive Care",
+    "title": "DS4 RVUs for graduation",
+    "dental_year": "D4",
+    "due_label": null,
+    "description": "Recommended RVUs by term: Summer 70, Fall 125, Spring 220.",
+    "source_page": null,
+    "items": [
+      {
+        "label": "Total RVUs required for graduation",
+        "item_type": "count",
+        "target_count": 678
+      }
+    ]
+  },
+  {
+    "category": "Operative Dentistry",
+    "title": "DS3 Operative skills assessments",
+    "dental_year": "D3",
+    "due_label": "Year-long",
+    "description": "Complete 2 of 3: Class II amalgam, Class II resin, Class III resin.",
+    "source_page": null,
+    "items": [
+      {
+        "label": "Operative skills assessments (2 of 3: Class II amalgam, Class II resin, Class III resin)",
+        "item_type": "count",
+        "target_count": 2
+      }
+    ]
+  },
+  {
+    "category": "Operative Dentistry",
+    "title": "DS4 Fall Operative competencies",
+    "dental_year": "D4",
+    "due_label": "Fall",
+    "description": "2 of 3: Class II amalgam, Class II resin, Class III resin.",
+    "source_page": null,
+    "items": [
+      {
+        "label": "Operative competencies (2 of 3: Class II amalgam, Class II resin, Class III resin)",
+        "item_type": "count",
+        "target_count": 2
+      }
+    ]
+  },
+  {
+    "category": "Fixed Prosthodontics",
+    "title": "DS3 Fixed Prosthodontics",
+    "dental_year": "D3",
+    "due_label": "Year-long",
+    "description": null,
+    "source_page": null,
+    "items": [
+      {
+        "label": "Single unit (full gold or metal-ceramic)",
+        "item_type": "count",
+        "target_count": 1
+      }
+    ]
+  },
+  {
+    "category": "Removable Prosthodontics",
+    "title": "DS3 Removable Prosthodontics",
+    "dental_year": "D3",
+    "due_label": "Year-long",
+    "description": "One complete or immediate denture (or combination) on maxillary and mandibular arches on the same patient, OR one RPD with metal framework.",
+    "source_page": null,
+    "items": [
+      {
+        "label": "Complete/immediate denture (max + mand, same patient) or metal-framework RPD",
+        "item_type": "count",
+        "target_count": 1
+      }
+    ]
+  },
+  {
+    "category": "Periodontics",
+    "title": "DS3 Periodontics",
+    "dental_year": "D3",
+    "due_label": "Year-long",
+    "description": "Also requires written reports for the graduate periodontic assist and Phase I re-evaluations.",
+    "source_page": null,
+    "items": [
+      {
+        "label": "Periodontics RVUs",
+        "item_type": "count",
+        "target_count": 50
+      },
+      {
+        "label": "Diagnosis and treatment planning competency",
+        "item_type": "check",
+        "target_count": 1
+      },
+      {
+        "label": "Scaling and root planing competency",
+        "item_type": "check",
+        "target_count": 1
+      },
+      {
+        "label": "Phase I re-evaluation competency",
+        "item_type": "check",
+        "target_count": 1
+      },
+      {
+        "label": "Graduate periodontic surgical assist",
+        "item_type": "check",
+        "target_count": 1
+      }
+    ]
+  },
+  {
+    "category": "Periodontics",
+    "title": "DS4 Fall Periodontics competency",
+    "dental_year": "D4",
+    "due_label": "Fall",
+    "description": "1 of 3: diagnosis and treatment planning, scaling and root planing, or Phase I re-evaluation.",
+    "source_page": null,
+    "items": [
+      {
+        "label": "Periodontics competency (1 of 3)",
+        "item_type": "count",
+        "target_count": 1
+      }
+    ]
+  },
+  {
+    "category": "Mock Boards",
+    "title": "DS4 Spring mock boards",
+    "dental_year": "D4",
+    "due_label": "Spring",
+    "description": null,
+    "source_page": null,
+    "items": [
+      {
+        "label": "Periodontal quadrant mock board",
+        "item_type": "count",
+        "target_count": 1
+      },
+      {
+        "label": "Operative mock board procedures (2 of 3)",
+        "item_type": "count",
+        "target_count": 2
+      }
+    ]
+  },
+  {
+    "category": "Endodontics",
+    "title": "DS3 Endodontics",
+    "dental_year": "D3",
+    "due_label": "Fall D3 through Fall D4",
+    "description": null,
+    "source_page": null,
+    "items": [
+      {
+        "label": "Canals",
+        "item_type": "count",
+        "target_count": 4
+      },
+      {
+        "label": "Clinical diagnosis competency",
+        "item_type": "check",
+        "target_count": 1
+      },
+      {
+        "label": "Clinical working length competency",
+        "item_type": "check",
+        "target_count": 1
+      },
+      {
+        "label": "Clinical obturation competency",
+        "item_type": "check",
+        "target_count": 1
+      }
+    ]
+  },
+  {
+    "category": "Endodontics",
+    "title": "DS4 Endodontics",
+    "dental_year": "D4",
+    "due_label": "Graduation",
+    "description": null,
+    "source_page": null,
+    "items": [
+      {
+        "label": "Canals total for graduation",
+        "item_type": "count",
+        "target_count": 10
+      },
+      {
+        "label": "Clinical diagnosis competency",
+        "item_type": "check",
+        "target_count": 1
+      },
+      {
+        "label": "Clinical treatment competency",
+        "item_type": "check",
+        "target_count": 1
+      }
+    ]
+  },
+  {
+    "category": "Occlusion",
+    "title": "DS3 Occlusion",
+    "dental_year": "D3",
+    "due_label": null,
+    "description": null,
+    "source_page": null,
+    "items": [
+      {
+        "label": "Occlusion workup presentations",
+        "item_type": "count",
+        "target_count": 2
+      }
+    ]
+  },
+  {
+    "category": "Oral Diagnosis",
+    "title": "Clinical Oral Diagnosis I screening competency exam",
+    "dental_year": "D3",
+    "due_label": "Summer/Fall",
+    "description": "Screening competency exam is 20% of course grade.",
+    "source_page": null,
+    "items": [
+      {
+        "label": "Screening competency exam",
+        "item_type": "check",
+        "target_count": 1
+      }
+    ]
+  },
+  {
+    "category": "Radiology",
+    "title": "DS3 Radiology",
+    "dental_year": "D3",
+    "due_label": "Before graduation",
+    "description": "Passing grade 70%.",
+    "source_page": null,
+    "items": [
+      {
+        "label": "Full-mouth series (FMX)",
+        "item_type": "count",
+        "target_count": 8
+      },
+      {
+        "label": "Radiology clinical competency",
+        "item_type": "count",
+        "target_count": 1
+      },
+      {
+        "label": "Panoramic images",
+        "item_type": "count",
+        "target_count": 5
+      }
+    ]
+  },
+  {
+    "category": "Pediatric Dentistry",
+    "title": "Pedodontics competencies",
+    "dental_year": null,
+    "due_label": "Graduation",
+    "description": "All 7 required to graduate; at least 1 completed each semester. Minor restorative: occlusal restoration on primary/permanent tooth or 2+ sealants on permanent teeth. Major restorative: Class II on primary tooth, pulpotomy, or stainless steel crown.",
+    "source_page": null,
+    "items": [
+      {
+        "label": "Comprehensive oral evaluation/case presentation",
+        "item_type": "check",
+        "target_count": 1
+      },
+      {
+        "label": "Recall",
+        "item_type": "check",
+        "target_count": 1
+      },
+      {
+        "label": "Minor restorative",
+        "item_type": "check",
+        "target_count": 1
+      },
+      {
+        "label": "Major restorative",
+        "item_type": "check",
+        "target_count": 1
+      },
+      {
+        "label": "Local anesthesia",
+        "item_type": "check",
+        "target_count": 1
+      },
+      {
+        "label": "Prophylaxis",
+        "item_type": "check",
+        "target_count": 1
+      },
+      {
+        "label": "Caries Risk Assessment",
+        "item_type": "check",
+        "target_count": 1
+      }
+    ]
+  }
+]

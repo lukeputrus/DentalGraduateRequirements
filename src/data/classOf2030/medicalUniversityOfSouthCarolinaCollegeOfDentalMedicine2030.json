@@ -1,0 +1,82 @@
+[
+  {
+    "category": "Competency Assessments",
+    "title": "Preclinical Restorative Competency (GENDT888, Preclinical Skills Assessment)",
+    "dental_year": "D3",
+    "due_label": "Year 3 Summer",
+    "description": "Assesses rising third-year students' competency in basic restorative dentistry; written and manual exam over two consecutive days.",
+    "source_page": null,
+    "items": [
+      {
+        "label": "Written exam",
+        "item_type": "check",
+        "target_count": 1
+      },
+      {
+        "label": "Manual exam",
+        "item_type": "check",
+        "target_count": 1
+      }
+    ]
+  },
+  {
+    "category": "Competency Assessments",
+    "title": "Simulated Dental Patient Competency I (GENDT842)",
+    "dental_year": "D4",
+    "due_label": "Year 4 Summer",
+    "description": "Manual assessment of operative techniques; passing confers operative competency / EPA status in clinic.",
+    "source_page": null,
+    "items": [
+      {
+        "label": "Operative techniques manual competency assessment",
+        "item_type": "check",
+        "target_count": 1
+      }
+    ]
+  },
+  {
+    "category": "Competency Assessments",
+    "title": "Dental Clinical OSCE (GENDT850)",
+    "dental_year": "D4",
+    "due_label": "Year 4 Fall",
+    "description": "Performance-based assessment of clinical reasoning using structured questions on clinical scenarios.",
+    "source_page": null,
+    "items": [
+      {
+        "label": "Dental Clinical OSCE",
+        "item_type": "check",
+        "target_count": 1
+      }
+    ]
+  },
+  {
+    "category": "Competency Assessments",
+    "title": "Simulated Dental Patient Competency II (GENDT843)",
+    "dental_year": "D4",
+    "due_label": "Year 4 Spring",
+    "description": "Manual assessment of endodontic, fixed prosthodontic and implant techniques performed on a typodont.",
+    "source_page": null,
+    "items": [
+      {
+        "label": "Endodontic technique (typodont)",
+        "item_type": "check",
+        "target_count": 1
+      },
+      {
+        "label": "Fixed prosthodontic technique (typodont)",
+        "item_type": "check",
+        "target_count": 1
+      },
+      {
+        "label": "Implant technique (typodont)",
+        "item_type": "check",
+        "target_count": 1
+      },
+      {
+        "label": "Provisional crown on implant stock abutment",
+        "item_type": "check",
+        "target_count": 1
+      }
+    ]
+  }
+]
