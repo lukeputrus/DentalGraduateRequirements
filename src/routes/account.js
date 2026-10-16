@@ -2,6 +2,7 @@ const express = require('express');
 const db = require('../db');
 const { verifyPassword, hashPassword } = require('../utils/password');
 const { verifyCsrfToken } = require('../middleware/csrf');
+const { isDemoAccount } = require('../utils/demo');
 
 const router = express.Router();
 
@@ -54,6 +55,9 @@ router.post('/account/change-password', verifyCsrfToken, (req, res) => {
   const { current_password: currentPassword, new_password: newPassword, confirm_password: confirmPassword } = req.body;
   const forced = !!req.currentUser.must_change_password;
 
+  if (isDemoAccount(req.currentUser)) {
+    return res.status(400).render('account/change-password', { error: "Demo accounts' passwords can't be changed.", forced });
+  }
   if (!verifyPassword(currentPassword || '', req.currentUser.password_hash)) {
     return res.status(400).render('account/change-password', { error: 'Current password is incorrect.', forced });
   }

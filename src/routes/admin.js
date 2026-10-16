@@ -21,6 +21,8 @@ const {
   insertMessage,
 } = require('../utils/messages');
 
+const { isDemoAccount } = require('../utils/demo');
+
 const router = express.Router();
 
 router.use(requireAdmin);
@@ -517,6 +519,7 @@ router.post('/students/:id', verifyCsrfToken, (req, res) => {
   };
 
   if (!fullName || !username) return fail('Full name and username are required.');
+  if (isDemoAccount(student) && username !== student.username) return fail("A demo account's username can't be changed.");
   if (!/^[a-z0-9._-]{3,32}$/.test(username)) {
     return fail('Username must be 3-32 characters: letters, numbers, dot, underscore, or hyphen.');
   }
@@ -540,6 +543,11 @@ router.post('/students/:id/reset-password', verifyCsrfToken, (req, res) => {
   const student = db.prepare("SELECT * FROM users WHERE id = ? AND role = 'student'").get(id);
   if (!student) return res.status(404).render('errors/404');
 
+  if (isDemoAccount(student)) {
+    req.flash('error', "Demo accounts' passwords can't be reset.");
+    return res.redirect(`/admin/students/${id}`);
+  }
+
   const customPassword = req.body.password || '';
   if (customPassword && customPassword.length < 8) {
     req.flash('error', 'Temporary password must be at least 8 characters (or leave it blank to auto-generate one).');
@@ -557,6 +565,10 @@ router.post('/students/:id/reset-password', verifyCsrfToken, (req, res) => {
 
 router.post('/students/:id/delete', verifyCsrfToken, (req, res) => {
   const id = parseInt(req.params.id, 10);
+  if (isDemoAccount(db.prepare('SELECT username FROM users WHERE id = ?').get(id))) {
+    req.flash('error', "Demo accounts can't be removed.");
+    return res.redirect(`/admin/students/${id}`);
+  }
   db.prepare("DELETE FROM users WHERE id = ? AND role = 'student'").run(id);
   req.flash('success', 'Student account removed.');
   res.redirect('/admin/students');

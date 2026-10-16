@@ -2,6 +2,8 @@ const db = require('./index');
 const dentalSchools = require('../data/dentalSchools');
 const { hashPassword } = require('../utils/password');
 const seedCompetencySets = require('./seedCompetencySets');
+const seedDemo = require('./seedDemo');
+const { isDemoMode } = require('../utils/demo');
 
 function seedSchools() {
   const insert = db.prepare('INSERT OR IGNORE INTO schools (name) VALUES (?)');
@@ -27,6 +29,9 @@ function seedTempAdmin() {
 }
 
 seedSchools();
-seedTempAdmin();
 seedCompetencySets();
+// The demo admin counts as an admin, so the temp luke/1234 account (whose
+// password is in the README) is never created on a public demo.
+if (isDemoMode()) seedDemo();
+seedTempAdmin();
 console.log('Seed complete.');

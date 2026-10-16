@@ -39,6 +39,14 @@ npm test
 
 Covers the competency status/summary logic directly, plus integration tests (via `supertest`) for login, CSRF enforcement, and the full admin-builds-a-competency → student-clears-it → admin-marks-it-passed flow.
 
+## Public demo on Render
+
+`render.yaml` deploys a free public demo on [Render](https://render.com): sign in with GitHub, choose **New > Blueprint**, pick this repo and the branch to deploy, and click **Apply**. The site appears at `https://dental-grad-requirements.onrender.com` (or a similar name if that one is taken).
+
+The Blueprint turns on `DEMO_MODE`, which seeds three shared logins (password `demo1234`) and lists them on the login page: `demo-admin`, `demo-student` (Detroit Mercy, Class of 2028, with some progress filled in) and `demo-nyu` (NYU procedure counts, Class of 2027). Their passwords can't be changed and they can't be deleted, so one visitor can't lock the others out. The `luke` / `1234` temp admin is not created in demo mode.
+
+Free Render instances have no persistent disk and go to sleep after about 15 minutes without visits. Every restart rebuilds the database from the seed, so anything visitors add is wiped, and the first visit after a sleep takes up to a minute to load. That's fine for a demo but not for real student data.
+
 ## How the requirements model works
 
 - **Schools** — a flat, admin-editable list (Admin → Schools). Seeded with a broad list of accredited U.S. dental schools; add, rename, or remove any school at any time.
