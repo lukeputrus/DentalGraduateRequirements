@@ -13,5 +13,16 @@
     </label>
     <button type="submit" class="btn btn-primary">Log in</button>
   </form>
+  <% if (locals.demoAccounts) { %>
+  <div class="demo-logins">
+    <p><strong>Demo logins</strong> (password for all: <code><%= demoPassword %></code>)</p>
+    <ul>
+      <% demoAccounts.forEach(function (a) { %>
+        <li><code><%= a.username %></code>: <%= a.label %></li>
+      <% }) %>
+    </ul>
+    <p class="muted">Demo data resets whenever the server restarts.</p>
+  </div>
+  <% } %>
 </div>
 <%- include('../partials/footer') %>

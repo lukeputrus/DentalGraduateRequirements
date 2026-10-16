@@ -1,0 +1,22 @@
+# Render Blueprint: a free public demo of the app. Free instances have no
+# persistent disk, so the SQLite database is rebuilt and reseeded (schools,
+# requirements and demo accounts) every time the service starts.
+services:
+  - type: web
+    name: dental-grad-requirements
+    runtime: node
+    plan: free
+    buildCommand: npm ci --omit=dev
+    startCommand: npm start
+    healthCheckPath: /login
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: NODE_ENV
+        value: production
+      - key: TRUST_PROXY
+        value: "true"
+      - key: DEMO_MODE
+        value: "true"
+      - key: SESSION_SECRET
+        generateValue: true

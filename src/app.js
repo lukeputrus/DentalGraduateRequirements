@@ -6,6 +6,7 @@ const helmet = require('helmet');
 const { loadCurrentUser, requireAuth, enforcePasswordChange } = require('./middleware/auth');
 const { attachCsrfToken } = require('./middleware/csrf');
 const flash = require('./middleware/flash');
+const { DEMO_ACCOUNTS, DEMO_PASSWORD, isDemoMode } = require('./utils/demo');
 
 const authRoutes = require('./routes/auth');
 const accountRoutes = require('./routes/account');
@@ -18,6 +19,11 @@ const app = express();
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.disable('x-powered-by');
+
+// Hosts like Render terminate HTTPS at a proxy. Trusting it lets secure
+// session cookies be set and gives the login rate limiter each visitor's
+// real IP instead of the proxy's.
+if (process.env.TRUST_PROXY === 'true') app.set('trust proxy', 1);
 
 app.use(
   helmet({
@@ -52,6 +58,11 @@ app.use(
 app.use(loadCurrentUser);
 app.use(attachCsrfToken);
 app.use(flash);
+app.use((req, res, next) => {
+  res.locals.demoAccounts = isDemoMode() ? DEMO_ACCOUNTS : null;
+  res.locals.demoPassword = DEMO_PASSWORD;
+  next();
+});
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
 // Public
