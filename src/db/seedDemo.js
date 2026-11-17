@@ -1,6 +1,7 @@
 const db = require('./index');
 const { hashPassword } = require('../utils/password');
 const { DEMO_PASSWORD } = require('../utils/demo');
+const { todayISO } = require('../utils/competencies');
 
 function schoolId(name) {
   const row = db.prepare('SELECT id FROM schools WHERE name = ?').get(name);
@@ -28,20 +29,41 @@ function seedItemProgress(studentId, school, classYear) {
   const items = db.prepare('SELECT id, target_count FROM competency_items WHERE competency_id = ? ORDER BY sort_order, id');
   const setItem = db.prepare('INSERT OR IGNORE INTO item_progress (student_id, item_id, current_count) VALUES (?, ?, ?)');
   const setExam = db.prepare(
-    "INSERT OR IGNORE INTO competency_progress (student_id, competency_id, exam_status) VALUES (?, ?, 'passed')"
+    `INSERT OR IGNORE INTO competency_progress (student_id, competency_id, exam_status, notes, assessed_by, assessed_on)
+     VALUES (?, ?, ?, ?, 'Demo Clinic Lead', date('now', ?))`
+  );
+  const star = db.prepare(
+    'INSERT OR IGNORE INTO student_competency_notes (student_id, competency_id, starred, reminder_on) VALUES (?, ?, 1, ?)'
   );
 
   competencies.slice(0, 18).forEach((c, i) => {
     const rows = items.all(c.id);
     if (i < 10) {
       rows.forEach((item) => setItem.run(studentId, item.id, item.target_count));
-      if (i < 6) setExam.run(studentId, c.id);
+      if (i < 6) setExam.run(studentId, c.id, 'passed', null, `-${(6 - i) * 9} days`);
+      else if (i === 6) {
+        setExam.run(studentId, c.id, 'needs_retest', 'Review the protocol with your clinic lead before rebooking.', '-5 days');
+      } else if (i === 7) star.run(studentId, c.id, null);
+      else if (i === 8) star.run(studentId, c.id, todayISO(new Date(Date.now() + 3 * 864e5)));
     } else {
       rows.forEach((item, j) => {
         if (j % 2 === 0) setItem.run(studentId, item.id, Math.max(1, Math.floor(item.target_count / 2)));
       });
     }
   });
+}
+
+// One required goal from the clinic lead and one the student set.
+function seedGoals(studentId) {
+  const insert = db.prepare(
+    `INSERT INTO goals (student_id, set_by, set_by_name, title, detail, target_date)
+     VALUES (?, ?, ?, ?, ?, date('now', ?))`
+  );
+  insert.run(studentId, 'faculty', 'Demo Clinic Lead', 'Book the competencies you are eligible for',
+    'Every prerequisite is met for these. Schedule the attempts before the term closes.', '+42 days');
+  insert.run(studentId, 'faculty', 'Demo Clinic Lead', 'Rebook the failed competency',
+    'Meet with me first to go over what went wrong.', '+12 days');
+  insert.run(studentId, 'student', null, 'Finish the remaining prerequisite counts', null, '+70 days');
 }
 
 function seedProcedureProgress(studentId, school, classYear) {
@@ -72,6 +94,7 @@ function seedDemo() {
     });
     if (student.created) {
       seedItemProgress(student.id, detroit, 2028);
+      seedGoals(student.id);
       db.prepare("INSERT INTO messages (student_id, sender, body) VALUES (?, 'admin', ?)").run(
         student.id,
         'Welcome! This is your inbox with the program admin. Send a question here and an admin can reply.'

@@ -5,9 +5,9 @@
 const DEMO_PASSWORD = 'demo1234';
 
 const DEMO_ACCOUNTS = [
-  { username: 'demo-admin', role: 'admin', label: 'Admin view' },
-  { username: 'demo-student', role: 'student', label: 'Student (Detroit Mercy, Class of 2028)' },
-  { username: 'demo-nyu', role: 'student', label: 'Student (NYU procedure counts, Class of 2027)' },
+  { username: 'demo-admin', role: 'admin', label: 'Clinic lead (admin)', short: 'Clinic lead' },
+  { username: 'demo-student', role: 'student', label: 'Student (Detroit Mercy, Class of 2028)', short: 'Student, Detroit Mercy' },
+  { username: 'demo-nyu', role: 'student', label: 'Student (NYU procedure counts, Class of 2027)', short: 'Student, NYU' },
 ];
 
 function isDemoMode() {

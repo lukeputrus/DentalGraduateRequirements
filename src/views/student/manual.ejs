@@ -1,0 +1,41 @@
+<%- include('../partials/header') %>
+<div class="phead">
+  <h1>Competency Manual</h1>
+  <p class="sub">Every requirement for <%= school.name %>, Class of <%= currentUser.class_year %>, as it was entered from the school's manual, with page citations where the manual gives them. Where this and the manual disagree, the manual governs.</p>
+</div>
+<div class="toolbar toolbar-solo">
+  <div class="field grow">
+    <label for="manual-search">Find in the manual</label>
+    <input type="search" id="manual-search" placeholder="Competency, discipline or prerequisite" data-live-search="#manual-list">
+  </div>
+</div>
+<div id="manual-list">
+<% groups.forEach(function (g) { %>
+  <section class="manual-sec" data-search-group>
+    <h2 class="sec"><%= g.category %> <span class="muted">· <%= g.items.length %></span></h2>
+    <div class="stack">
+    <% g.items.forEach(function (c) { %>
+      <article class="panel" data-search="<%= (c.title + ' ' + c.category + ' ' + (c.description || '') + ' ' + c.items.map(function (i) { return i.label; }).join(' ')).toLowerCase() %>">
+        <div class="panel-h spread">
+          <h3><a href="/student/competencies/<%= c.id %>"><%= c.title %></a></h3>
+          <span class="note"><%= [c.dental_year, c.source_page ? 'Page ' + c.source_page : null].filter(Boolean).join(' · ') %></span>
+        </div>
+        <div class="panel-b">
+          <% if (c.description) { %><p class="serif"><%= c.description %></p><% } %>
+          <% if (c.items.length) { %>
+            <ul class="manual">
+              <% c.items.forEach(function (i) { %><li><%= i.label %><% if (i.item_type === 'count') { %> (<%= i.target_count %>)<% } %></li><% }) %>
+            </ul>
+          <% } %>
+          <% if (c.tracking === 'procedure') { %>
+            <p class="small muted">Minimums: <%= [c.d3_required != null ? 'D3 ' + c.d3_required : null, c.d4_required != null ? 'D4 ' + c.d4_required : null, c.combined_required != null ? 'D3 + D4 ' + c.combined_required : null].filter(Boolean).join(' · ') || 'none stated (tracking only)' %></p>
+          <% } %>
+          <% if (c.due_label) { %><p class="small muted">Deadline: <%= c.due_label %></p><% } %>
+        </div>
+      </article>
+    <% }) %>
+    </div>
+  </section>
+<% }) %>
+</div>
+<%- include('../partials/footer') %>

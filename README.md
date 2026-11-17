@@ -4,8 +4,10 @@ A web app for dental students to track the clinical competencies they need to pa
 
 ## Features
 
-- **Admin accounts** manage dental schools, define competencies (with prerequisite items — one-time steps or repeated case counts) per school and graduating class year, create and edit student accounts, reset passwords, and record official exam outcomes (passed / needs retest).
-- **Student accounts** select their dental school and graduating class year from a dropdown, see their personal competency checklist grouped by category, check off prerequisites or log case counts with a stepper, search/filter their list, and see a live progress ring + stat breakdown (passed / eligible / prereqs in progress / not started / needs retest).
+- **Clinic lead view (admin accounts)**: a Cohort page with every student's completed / eligible / waiting / remediation counts, a discipline grid (students down, disciplines across) once you pick one school and class year, each student's full record with outcome recording, required semester goals, and their uploaded documents. Admin accounts also manage dental schools, define competencies (with prerequisite items — one-time steps or repeated case counts) per school and graduating class year, create and edit student accounts, reset passwords, and record official exam outcomes (passed / needs retest).
+- **Student accounts** select their dental school and graduating class year, then get six pages: **Requirements** (every competency with status, prerequisite progress and deadline; filter, sort, search and star), a page per competency (purpose from the manual, prerequisites with steppers, status, who recorded the outcome, a reminder date and private notes), **Procedure Record** (every counted prerequisite in one table, plus NYU-style D3/D4 counts), **Semester Goals** (locked goals set by the clinic lead plus the student's own), **Documents** (their own coursework, optionally attached to a competency), **Progress Summary** (printable) and **Competency Manual** (the whole requirement set, searchable).
+- **Design and themes**: the interface follows the Competency Tracker mockup: serif display type, dense hairline tables, and every status shown as a glyph plus a word so it never depends on colour. Each school can have an institution theme (Schools page), and anyone can override it from the top bar. Themes live in `public/css/style.css` as `[data-institution]` blocks plus one line in `src/utils/themes.js`.
+- **Status is derived, never stored**: the only stored facts are prerequisite counts, recorded outcomes, D3/D4 counts, and the student's own stars, notes, reminders, goals and documents. Every status, count and deadline band is worked out when the page loads.
 - **Per-class-year requirements**: competencies belong to a specific school + graduating class year, so updating requirements for an incoming class never changes what current students see. Admins can copy an entire competency set forward to a new class year as a starting point.
 - **"Message Admin" widget** (bottom-right, student accounts only): students can send a question — optionally with a PDF/image attached — straight to a per-student inbox admins see under Admin → Messages, with unread badges on both sides. No AI, no external API, no cost.
 - Seeded with ~70 CODA-accredited U.S. dental schools (admin-editable) and a real, fully-populated example dataset: University of Detroit Mercy School of Dentistry, Class of 2028 (52 competencies / 117 items, extracted from the school's own competency manual — see **Detroit Mercy seed data** below).
@@ -55,6 +57,10 @@ Free Render instances have no persistent disk and go to sleep after about 15 min
 - **Exam outcome** — recorded by an admin on the student's detail page (not_attempted / passed / needs_retest), independent of item progress. A competency's displayed status is computed as: `passed`/`needs_retest` if an admin has recorded one; otherwise `eligible` once every item hits its target, `prereqs_in_progress` once some items are underway, `not_started` otherwise.
 
 Admins manage all of this from **Admin → Competencies**: pick a school + class year, add competencies and their items (each competency's editor is collapsible so a 50+ item list stays manageable), or copy a whole set forward to a new class year in one step.
+
+## Graduation date and deadlines
+
+The app doesn't store graduation dates, so "weeks to graduation" assumes mid-May (15 May) of the class year. Competencies can have an optional hard deadline date (set on the Competencies admin page) next to the free-text due label from the manual; when one is set, the student sees an overdue / weeks-remaining tag and it counts toward "past a stated deadline".
 
 ## Messaging
 

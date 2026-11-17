@@ -1,0 +1,117 @@
+<%- include('../partials/header') %>
+<div class="phead">
+  <h1>Requirements</h1>
+  <p class="sub">All <%= summary.total %> assessable items across <%= categoryCount %> <%= categoryCount === 1 ? 'discipline' : 'disciplines' %>, drawn from <%= school.name %>'s requirements for the Class of <%= currentUser.class_year %>. Status is calculated from your recorded progress and the prerequisites each time this page loads.</p>
+</div>
+
+<% if (summary.total === 0 && competencies.length === 0) { %>
+  <div class="panel"><div class="empty">Your school hasn't published competencies for your graduation year yet. Check back later or message your program admin.</div></div>
+<% } else { %>
+
+<div class="figs">
+  <div class="fig is-ok">
+    <div class="fig-l">Completed</div>
+    <div class="fig-n"><%= summary.passed %> <small>of <%= summary.total %></small></div>
+    <div class="fig-s"><%= summary.percent %> per cent of the programme</div>
+  </div>
+  <div class="fig">
+    <div class="fig-l">Eligible to attempt now</div>
+    <div class="fig-n"><%= summary.eligible %></div>
+    <div class="fig-s">Every prerequisite is met. These need scheduling.</div>
+  </div>
+  <div class="fig is-slate">
+    <div class="fig-l">Waiting on a prerequisite</div>
+    <div class="fig-n"><%= summary.not_started + summary.prereqs_in_progress %></div>
+    <div class="fig-s"><%= summary.prereqs_in_progress %> partly done, <%= summary.not_started %> not started</div>
+  </div>
+  <% if (hasDeadlines) { %>
+  <div class="fig <%= overdue.length ? 'is-bad' : '' %>">
+    <div class="fig-l">Past a stated deadline</div>
+    <div class="fig-n"><%= overdue.length %></div>
+    <div class="fig-s">Deadline has passed and the item is not complete</div>
+  </div>
+  <% } else { %>
+  <div class="fig <%= summary.needs_retest ? 'is-bad' : '' %>">
+    <div class="fig-l">Failed, remediation</div>
+    <div class="fig-n"><%= summary.needs_retest %></div>
+    <div class="fig-s">Recorded as needing a retest</div>
+  </div>
+  <% } %>
+</div>
+
+<% if (summary.needs_retest > 0) { %>
+<div class="notice notice-bad mt-16">
+  <h4>Competencies that need a retest</h4>
+  <%= summary.needs_retest === 1 ? '1 competency was' : summary.needs_retest + ' competencies were' %> recorded as failed and need remediation before a new attempt. <a href="/student/dashboard?show=retest">Show them</a>.
+</div>
+<% } %>
+<% if (reminders.length) { %>
+<div class="notice notice-warn mt-16">
+  <h4>Reminders this week</h4>
+  <% reminders.forEach(function (c, i) { %><%= i ? ' · ' : '' %><a href="/student/competencies/<%= c.id %>"><%= c.title %></a> (<%= fmtDate(c.reminder_on) %>)<% }) %>
+</div>
+<% } %>
+
+<h2 class="sec">All items</h2>
+<form class="toolbar" method="GET" action="/student/dashboard">
+  <div class="field grow">
+    <label for="comp-search">Search</label>
+    <input type="search" id="comp-search" name="q" value="<%= q %>" placeholder="Competency or discipline" data-live-search="#req-table">
+  </div>
+  <div class="field">
+    <label for="show">Show</label>
+    <select id="show" name="show" data-autosubmit>
+      <% Object.keys(filters).forEach(function (k) { %><option value="<%= k %>" <%= show === k ? 'selected' : '' %>><%= filters[k][0] %></option><% }) %>
+    </select>
+  </div>
+  <div class="field">
+    <label for="sort">Order by</label>
+    <select id="sort" name="sort" data-autosubmit>
+      <% Object.keys(sorts).forEach(function (k) { %><option value="<%= k %>" <%= sort === k ? 'selected' : '' %>><%= sorts[k][0] %></option><% }) %>
+    </select>
+  </div>
+  <noscript><button type="submit" class="btn">Apply</button></noscript>
+</form>
+<div class="panel">
+  <div class="scroll">
+  <table id="req-table">
+    <thead><tr>
+      <th class="c" aria-label="Starred"></th>
+      <th>Competency</th>
+      <th>Discipline</th>
+      <th>Status</th>
+      <th>Prerequisites</th>
+      <th>Deadline</th>
+    </tr></thead>
+    <tbody>
+    <% rows.forEach(function (comp) { %>
+      <tr class="competency-card" id="comp-<%= comp.id %>" data-status="<%= comp.status %>" data-search="<%= (comp.title + ' ' + comp.category).toLowerCase() %>">
+        <td class="c">
+          <form method="POST" action="/student/competencies/<%= comp.id %>/star">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <input type="hidden" name="return_to" value="<%= returnTo %>">
+            <button type="submit" class="star" aria-pressed="<%= comp.starred ? 'true' : 'false' %>" aria-label="<%= comp.starred ? 'Unstar' : 'Star' %> <%= comp.title %>"><%= comp.starred ? '★' : '☆' %></button>
+          </form>
+        </td>
+        <td class="nm">
+          <a class="rowlink" href="/student/competencies/<%= comp.id %>"><%= comp.title %></a>
+          <% if (comp.dental_year || comp.requirement_group) { %><div class="sub2"><%= [comp.dental_year, comp.requirement_group ? comp.requirement_group + ' group' : null].filter(Boolean).join(' · ') %></div><% } %>
+        </td>
+        <td class="small muted"><%= comp.category %></td>
+        <td><%- include('../partials/status-chip', { comp: comp }) %></td>
+        <td><%- include('../partials/prereq-cell', { comp: comp }) %></td>
+        <td>
+          <% if (comp.status === 'passed' && comp.due_date) { %><span class="tag tag-ok">Met</span><div class="sub2"><%= fmtDate(comp.due_date) %></div>
+          <% } else if (comp.due_date) { %><span class="tag <%= comp.u.tag %>"><%= comp.u.label %></span><div class="sub2"><%= fmtDate(comp.due_date) %></div>
+          <% } else if (comp.due_label) { %><span class="small"><%= comp.due_label %></span>
+          <% } else { %><span class="muted small">None stated</span><% } %>
+        </td>
+      </tr>
+    <% }) %>
+    </tbody>
+  </table>
+  </div>
+  <div class="empty" id="req-empty" <%= rows.length ? 'hidden' : '' %>>Nothing matches this view.</div>
+</div>
+<% } %>
+<%- include('../partials/footer') %>

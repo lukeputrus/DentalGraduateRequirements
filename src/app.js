@@ -7,18 +7,27 @@ const { loadCurrentUser, requireAuth, enforcePasswordChange } = require('./middl
 const { attachCsrfToken } = require('./middleware/csrf');
 const flash = require('./middleware/flash');
 const { DEMO_ACCOUNTS, DEMO_PASSWORD, isDemoMode } = require('./utils/demo');
+const { loadChrome } = require('./middleware/chrome');
+const { STATUS_DISPLAY, fmtDate, urgency, plural } = require('./utils/competencies');
 
 const authRoutes = require('./routes/auth');
 const accountRoutes = require('./routes/account');
 const adminRoutes = require('./routes/admin');
 const studentRoutes = require('./routes/student');
 const messageRoutes = require('./routes/messages');
+const demoRoutes = require('./routes/demo');
 
 const app = express();
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.disable('x-powered-by');
+
+// Helpers every view can use.
+app.locals.statusDisplay = STATUS_DISPLAY;
+app.locals.fmtDate = fmtDate;
+app.locals.urgency = urgency;
+app.locals.plural = plural;
 
 // Hosts like Render terminate HTTPS at a proxy. Trusting it lets secure
 // session cookies be set and gives the login rate limiter each visitor's
@@ -64,6 +73,7 @@ app.use((req, res, next) => {
   next();
 });
 app.use(express.static(path.join(__dirname, '..', 'public')));
+app.use(loadChrome);
 
 // Public
 app.use(authRoutes);
@@ -78,6 +88,7 @@ app.get('/', (req, res) => {
 });
 
 app.use(accountRoutes);
+app.use(demoRoutes);
 app.use('/admin', adminRoutes);
 app.use('/student', studentRoutes);
 app.use('/student', messageRoutes);

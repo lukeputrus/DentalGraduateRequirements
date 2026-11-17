@@ -1,0 +1,12 @@
+<%# Prerequisite summary for one competency row. Expects comp. %>
+<% if (comp.tracking === 'procedure') { %>
+  <% const parts = []; if (comp.d3_required != null) parts.push('D3 ' + comp.d3_count + '/' + comp.d3_required); if (comp.d4_required != null) parts.push('D4 ' + comp.d4_count + '/' + comp.d4_required); if (comp.combined_required != null) parts.push('Total ' + (comp.d3_count + comp.d4_count) + '/' + comp.combined_required); %>
+  <% if (parts.length) { %><span class="small"><%= parts.join(' · ') %></span><% } else { %><span class="muted small">Logged: <%= comp.d3_count + comp.d4_count %></span><% } %>
+<% } else if (comp.items_total === 0) { %>
+  <span class="muted small">None stated</span>
+<% } else { %>
+  <div class="meter-row">
+    <div class="meter <%= comp.items_met === comp.items_total ? 'is-ok' : 'is-warn' %>"><span data-percent="<%= Math.round(comp.items_met / comp.items_total * 100) %>"></span></div>
+    <span class="num"><%= comp.items_met %> / <%= comp.items_total %></span>
+  </div>
+<% } %>

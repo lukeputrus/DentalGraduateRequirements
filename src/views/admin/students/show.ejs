@@ -1,114 +1,161 @@
-<%- include('../../partials/header', { title: student.full_name }) %>
-<div class="page-header">
-  <h1 class="mt-0"><%= student.full_name %></h1>
-  <a class="btn" href="/admin/students">&larr; Back to students</a>
+<%- include('../../partials/header') %>
+<div class="crumb"><a href="/admin/dashboard">Cohort</a><i>›</i><span><%= student.full_name %></span></div>
+<% const stSchool = schools.find(function (s) { return s.id === student.school_id; }); %>
+<div class="phead with-rule spread">
+  <div>
+    <h1><%= student.full_name %></h1>
+    <p class="sub"><%= [stSchool ? stSchool.name : 'No school set', student.class_year ? 'Class of ' + student.class_year : null, student.username].filter(Boolean).join(' · ') %></p>
+  </div>
+  <div class="btn-row">
+    <a class="btn" href="/admin/messages/<%= student.id %>">Message thread</a>
+    <a class="btn" href="/admin/students">All students</a>
+  </div>
 </div>
 <% if (error) { %><div class="flash flash-error"><%= error %></div><% } %>
 
-<div class="card">
-  <h2 class="mt-0">Account info</h2>
-  <form method="POST" action="/admin/students/<%= student.id %>">
-    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-    <div class="form-row">
-      <label>Full name
-        <input type="text" name="full_name" value="<%= student.full_name %>" required>
-      </label>
-      <label>Username
-        <input type="text" name="username" value="<%= student.username %>" required pattern="[a-zA-Z0-9._-]{3,32}">
-      </label>
-    </div>
-    <label>Email
-      <input type="email" name="email" value="<%= student.email || '' %>">
-    </label>
-    <div class="form-row">
-      <label>Dental school
-        <select name="school_id" required>
-          <% schools.forEach(function (school) { %>
-            <option value="<%= school.id %>" <%= String(student.school_id) === String(school.id) ? 'selected' : '' %>><%= school.name %></option>
-          <% }) %>
-        </select>
-      </label>
-      <label>Expected graduation year
-        <input type="number" name="class_year" min="2000" max="2100" value="<%= student.class_year || '' %>" required>
-      </label>
-    </div>
-    <button type="submit" class="btn btn-primary">Save account info</button>
-  </form>
+<% if (!student.school_id || !student.class_year) { %>
+  <div class="notice notice-flat">This student hasn't been assigned a school and class year yet, so there are no requirements to show.</div>
+<% } else if (groups.length === 0) { %>
+  <div class="notice notice-flat">No competencies have been published yet for this school's Class of <%= student.class_year %>.</div>
+<% } else { %>
+<div class="figs">
+  <div class="fig is-ok">
+    <div class="fig-l">Completed</div>
+    <div class="fig-n"><%= summary.passed %> <small>of <%= summary.total %></small></div>
+    <div class="fig-s"><%= summary.percent %> per cent</div>
+  </div>
+  <div class="fig">
+    <div class="fig-l">Eligible to attempt</div>
+    <div class="fig-n"><%= summary.eligible %></div>
+    <div class="fig-s">Ready to be scheduled</div>
+  </div>
+  <div class="fig is-slate">
+    <div class="fig-l">Waiting on a prerequisite</div>
+    <div class="fig-n"><%= summary.not_started + summary.prereqs_in_progress %></div>
+    <div class="fig-s"><%= summary.prereqs_in_progress %> partly done</div>
+  </div>
+  <div class="fig <%= summary.needs_retest ? 'is-bad' : '' %>">
+    <div class="fig-l">Failed, remediation</div>
+    <div class="fig-n"><%= summary.needs_retest %></div>
+    <div class="fig-s"><%= weeks != null ? weeks + ' weeks to an assumed mid-May graduation' : '' %></div>
+  </div>
 </div>
+<% } %>
 
-<div class="card">
-  <h2 class="mt-0">Password</h2>
-  <p class="muted">If the student lost their password, set a new temporary one here and share it with them (or leave it blank to auto-generate one). They'll be required to set their own on next login.</p>
-  <form method="POST" action="/admin/students/<%= student.id %>/reset-password" data-confirm="Reset the password for <%= student.full_name %>? Their current password will stop working immediately.">
-    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-    <label>New temporary password (optional)
-      <input type="text" name="password" minlength="8" placeholder="Leave blank to auto-generate one">
-    </label>
-    <button type="submit" class="btn">Reset password</button>
-  </form>
-</div>
-
-<div class="card">
-  <h2 class="mt-0">Progress</h2>
-  <% if (!student.school_id || !student.class_year) { %>
-    <p class="muted">This student hasn't been assigned a school and class year yet.</p>
-  <% } else if (groups.length === 0) { %>
-    <p class="muted">No competencies have been published yet for this school's Class of <%= student.class_year %>.</p>
-  <% } else { %>
-    <div class="progress-bar" role="progressbar" aria-valuenow="<%= summary.percent %>" aria-valuemin="0" aria-valuemax="100">
-      <div class="progress-bar-fill" data-percent="<%= summary.percent %>"></div>
-    </div>
-    <div class="muted mb-16"><%= summary.passed %> of <%= summary.total %> requirements complete (<%= summary.percent %>%) &middot; <%= summary.eligible %> eligible &middot; <%= summary.prereqs_in_progress %> in progress &middot; <%= summary.not_started %> not started<% if (summary.needs_retest > 0) { %> &middot; <%= summary.needs_retest %> need retest<% } %></div>
-
+<div class="grid g-side mt-24">
+  <div>
     <% groups.forEach(function (group) { %>
-      <h3><%= group.category %></h3>
-      <div class="requirement-list mb-20">
+      <h2 class="sec"><%= group.category %></h2>
+      <div class="panel"><div class="scroll"><table>
+        <thead><tr><th>Competency</th><th>Status</th><th>Prerequisites</th><th>Record the outcome</th></tr></thead>
+        <tbody>
         <% group.items.forEach(function (comp) { %>
-          <div class="requirement-item" id="comp-<%= comp.id %>">
-            <div class="requirement-main">
-              <span class="status-badge status-<%= comp.status %>"><%= comp.status_label || statusLabels[comp.status] %></span>
-              <strong><%= comp.title %></strong>
-              <% if (comp.dental_year) { %><span class="muted">(<%= comp.dental_year %>)</span><% } %>
-              <% if (comp.requirement_group) { %><span class="muted">(<%= comp.requirement_group %> group)</span><% } %>
-            </div>
-            <% if (comp.description) { %><p class="muted"><%= comp.description %></p><% } %>
-            <% if (comp.items.length > 0) { %>
-            <ul class="item-readonly-list">
-              <% comp.items.forEach(function (item) { %>
-                <li><%= item.label %>: <strong><%= item.current_count %> / <%= item.target_count %></strong></li>
-              <% }) %>
-            </ul>
-            <% } %>
-            <% if (comp.tracking === 'procedure') { %>
-              <%- include('../../partials/procedure-counts', { comp: comp, action: '/admin/students/' + student.id + '/procedures/' + comp.id, csrfToken: csrfToken }) %>
-            <% } else { %>
-            <form method="POST" action="/admin/students/<%= student.id %>/competencies/<%= comp.id %>/exam" class="requirement-form">
-              <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-              <label class="inline-label">Exam outcome
-                <select name="exam_status">
+          <tr id="comp-<%= comp.id %>">
+            <td class="nm"><%= comp.title %>
+              <div class="sub2"><%= [comp.dental_year, comp.requirement_group ? comp.requirement_group + ' group' : null, comp.due_date ? 'Due ' + fmtDate(comp.due_date) : comp.due_label].filter(Boolean).join(' · ') %></div>
+              <% if (comp.assessed_by) { %><div class="sub2">Recorded by <%= comp.assessed_by %><% if (comp.assessed_on) { %>, <%= fmtDate(comp.assessed_on) %><% } %></div><% } %>
+            </td>
+            <td><%- include('../../partials/status-chip', { comp: comp }) %></td>
+            <td>
+              <%- include('../../partials/prereq-cell', { comp: comp }) %>
+              <% if (comp.items.length) { %>
+                <details class="mini"><summary>Items</summary><ul class="item-readonly-list">
+                  <% comp.items.forEach(function (item) { %><li><%= item.label %>: <strong><%= item.current_count %> / <%= item.target_count %></strong></li><% }) %>
+                </ul></details>
+              <% } %>
+            </td>
+            <td>
+              <% if (comp.tracking === 'procedure') { %>
+                <%- include('../../partials/procedure-counts', { comp: comp, action: '/admin/students/' + student.id + '/procedures/' + comp.id }) %>
+              <% } else { %>
+              <form method="POST" action="/admin/students/<%= student.id %>/competencies/<%= comp.id %>/exam" class="outcome-form">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                <select name="exam_status" aria-label="Exam outcome">
                   <option value="not_attempted" <%= comp.exam_status === 'not_attempted' ? 'selected' : '' %>>Not attempted</option>
                   <option value="passed" <%= comp.exam_status === 'passed' ? 'selected' : '' %>>Passed</option>
                   <option value="needs_retest" <%= comp.exam_status === 'needs_retest' ? 'selected' : '' %>>Needs retest</option>
                 </select>
-              </label>
-              <label class="inline-label grow">Notes
-                <input type="text" name="notes" value="<%= comp.exam_notes || '' %>" placeholder="Optional notes" maxlength="500">
-              </label>
-              <button type="submit" class="btn btn-small">Save</button>
-            </form>
-            <% } %>
-          </div>
+                <input type="text" name="notes" value="<%= comp.exam_notes || '' %>" placeholder="Notes for the student" maxlength="500" aria-label="Notes">
+                <button type="submit" class="btn btn-sm">Save</button>
+              </form>
+              <% } %>
+            </td>
+          </tr>
+        <% }) %>
+        </tbody>
+      </table></div></div>
+    <% }) %>
+    <p class="mirror">Everything on this page except the account settings is also on the student's own record. Anything a school keeps about a student is a record that student can read.</p>
+  </div>
+
+  <aside>
+    <div class="panel" id="goals">
+      <div class="panel-h"><h3>Semester goals</h3><span class="note">Required goals are locked for the student</span></div>
+      <div class="rows">
+        <% if (!goals.length) { %><div class="muted small">No goals yet.</div><% } %>
+        <% goals.forEach(function (g) { %><%- include('../../partials/goal-row', { goal: g, adminBase: '/admin/students/' + student.id }) %><% }) %>
+      </div>
+      <div class="panel-b panel-b-top">
+        <form method="POST" action="/admin/students/<%= student.id %>/goals">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+          <div class="field"><label for="g-title">Set a required goal</label><input type="text" id="g-title" name="title" maxlength="200" required placeholder="Reach 65 restorative surfaces"></div>
+          <div class="field"><label for="g-detail">Why (shown to the student)</label><input type="text" id="g-detail" name="detail" maxlength="1000"></div>
+          <div class="field"><label for="g-date">Target date</label><input type="date" id="g-date" name="target_date"></div>
+          <button type="submit" class="btn btn-primary btn-sm">Set goal</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-h"><h3>Documents</h3><span class="note">Uploaded by the student</span></div>
+      <div class="rows">
+        <% if (!documents.length) { %><div class="muted small">None uploaded.</div><% } %>
+        <% documents.forEach(function (d) { %>
+          <div><a href="/admin/documents/<%= d.id %>/download"><%= d.original_name %></a><div class="sub2"><%= d.kind %> · <%= formatSize(d.size_bytes) %><% if (d.competency_title) { %> · <%= d.competency_title %><% } %></div></div>
         <% }) %>
       </div>
-    <% }) %>
-  <% } %>
-</div>
+    </div>
 
-<div class="card">
-  <h2 class="mt-0">Danger zone</h2>
-  <form method="POST" action="/admin/students/<%= student.id %>/delete">
-    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-    <button type="submit" class="btn btn-danger" data-confirm="Permanently delete the account for <%= student.full_name %>? This cannot be undone.">Delete student account</button>
-  </form>
+    <div class="panel">
+      <div class="panel-h"><h3>Account</h3></div>
+      <div class="panel-b">
+        <form method="POST" action="/admin/students/<%= student.id %>">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+          <div class="field"><label for="a-name">Full name</label><input type="text" id="a-name" name="full_name" value="<%= student.full_name %>" required></div>
+          <div class="field"><label for="a-user">Username</label><input type="text" id="a-user" name="username" value="<%= student.username %>" required pattern="[a-zA-Z0-9._-]{3,32}"></div>
+          <div class="field"><label for="a-email">Email</label><input type="email" id="a-email" name="email" value="<%= student.email || '' %>"></div>
+          <div class="field"><label for="a-school">Dental school</label>
+            <select id="a-school" name="school_id" required>
+              <% schools.forEach(function (s) { %><option value="<%= s.id %>" <%= String(student.school_id) === String(s.id) ? 'selected' : '' %>><%= s.name %></option><% }) %>
+            </select>
+          </div>
+          <div class="field"><label for="a-year">Expected graduation year</label><input type="number" id="a-year" name="class_year" min="2000" max="2100" value="<%= student.class_year || '' %>" required></div>
+          <button type="submit" class="btn btn-sm">Save account info</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-h"><h3>Password</h3></div>
+      <div class="panel-b">
+        <p class="small muted">Set a new temporary password, or leave it blank to generate one. The student must choose their own at next login.</p>
+        <form method="POST" action="/admin/students/<%= student.id %>/reset-password" data-confirm="Reset the password for <%= student.full_name %>? Their current password will stop working immediately.">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+          <div class="field"><input type="text" name="password" minlength="8" placeholder="Leave blank to auto-generate" aria-label="New temporary password"></div>
+          <button type="submit" class="btn btn-sm">Reset password</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-h"><h3>Remove account</h3></div>
+      <div class="panel-b">
+        <form method="POST" action="/admin/students/<%= student.id %>/delete">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+          <button type="submit" class="btn btn-sm btn-danger" data-confirm="Permanently delete the account for <%= student.full_name %>? This cannot be undone.">Delete student account</button>
+        </form>
+      </div>
+    </div>
+  </aside>
 </div>
 <%- include('../../partials/footer') %>

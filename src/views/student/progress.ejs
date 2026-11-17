@@ -1,0 +1,82 @@
+<%- include('../partials/header') %>
+<div class="phead spread">
+  <div>
+    <h1>Progress Summary</h1>
+    <p class="sub">Your current position against <%= school.name %>'s requirements for the Class of <%= currentUser.class_year %>. Every figure is a count, a date or a subtraction taken from your own record; nothing here is a forecast.</p>
+  </div>
+  <button type="button" class="btn" data-print>Print this summary</button>
+</div>
+
+<div class="figs">
+  <div class="fig is-ok">
+    <div class="fig-l">Completed</div>
+    <div class="fig-n"><%= summary.passed %> <small>of <%= summary.total %></small></div>
+    <div class="fig-s"><%= plural(summary.total - summary.passed, 'item') %> remaining</div>
+  </div>
+  <div class="fig">
+    <div class="fig-l">Eligible to attempt now</div>
+    <div class="fig-n"><%= summary.eligible %></div>
+    <div class="fig-s">All prerequisites met. These need scheduling.</div>
+  </div>
+  <div class="fig is-slate">
+    <div class="fig-l">Waiting on a prerequisite</div>
+    <div class="fig-n"><%= summary.not_started + summary.prereqs_in_progress %></div>
+    <div class="fig-s"><%= plural(thresholds.length, 'count threshold') %> outstanding</div>
+  </div>
+  <div class="fig">
+    <div class="fig-l">Weeks until graduation</div>
+    <div class="fig-n"><%= weeks %></div>
+    <div class="fig-s">Assuming mid-May <%= currentUser.class_year %></div>
+  </div>
+</div>
+
+<div class="grid g2 mt-24">
+  <div>
+    <h2 class="sec">By discipline</h2>
+    <div class="panel"><div class="panel-b">
+      <div class="bars">
+        <% categories.forEach(function (c) { %>
+          <div class="bar-r">
+            <span><%= c.category %></span>
+            <div class="bar-t"><i class="<%= c.total && c.passed === c.total ? 'is-ok' : '' %>" data-percent="<%= c.percent %>"></i></div>
+            <span class="bar-v"><%= c.passed %> / <%= c.total %></span>
+          </div>
+        <% }) %>
+      </div>
+      <p class="bar-cap">Passed out of assessable items in each discipline.</p>
+    </div></div>
+  </div>
+  <div>
+    <h2 class="sec">Needs attention</h2>
+    <div class="panel rows">
+      <% const attention = competencies.filter(function (c) { return c.status === 'needs_retest' || c.status === 'eligible' || (c.u.band === 'overdue' && c.status !== 'passed'); }).slice(0, 12); %>
+      <% if (!attention.length) { %><div class="empty">Nothing is failed, overdue or ready to attempt right now.</div><% } %>
+      <% attention.forEach(function (c) { %>
+        <div>
+          <a href="/student/competencies/<%= c.id %>"><%= c.title %></a>
+          <div class="inline mt-4"><%- include('../partials/status-chip', { comp: c }) %><% if (c.u.band === 'overdue') { %><span class="tag tag-bad"><%= c.u.label %></span><% } %><span class="small muted"><%= c.category %></span></div>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+</div>
+
+<% if (thresholds.length) { %>
+<h2 class="sec">Prerequisite thresholds outstanding</h2>
+<div class="panel"><div class="scroll">
+  <table>
+    <thead><tr><th>Procedure count</th><th>Required for</th><th>Recorded</th><th class="c">Remaining</th></tr></thead>
+    <tbody>
+    <% thresholds.forEach(function (t) { %>
+      <tr>
+        <td class="nm"><%= t.item.label %><% if (t.comp.source_page) { %><div class="sub2">Manual page <%= t.comp.source_page %></div><% } %></td>
+        <td class="small"><a href="/student/competencies/<%= t.comp.id %>"><%= t.comp.title %></a></td>
+        <td><div class="meter-row"><div class="meter is-warn"><span data-percent="<%= Math.round(t.item.current_count / t.item.target_count * 100) %>"></span></div><span class="num"><%= t.item.current_count %> / <%= t.item.target_count %></span></div></td>
+        <td class="c"><span class="tag tag-warn"><%= t.left %></span></td>
+      </tr>
+    <% }) %>
+    </tbody>
+  </table>
+</div></div>
+<% } %>
+<%- include('../partials/footer') %>

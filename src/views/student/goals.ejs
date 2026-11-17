@@ -1,0 +1,46 @@
+<%- include('../partials/header') %>
+<div class="phead">
+  <h1>Semester Goals</h1>
+  <p class="sub">Two kinds of goal live here. Goals your clinic lead sets are required, and only they can change or remove them. Goals you set are yours to change. The distinction is deliberate: a goal a student can delete is not a directive.</p>
+</div>
+
+<h2 class="sec">Set by faculty — required</h2>
+<% if (!faculty.length) { %>
+  <div class="panel"><div class="empty">Your clinic lead hasn't set any goals for you.</div></div>
+<% } else { %>
+  <div class="panel rows">
+    <% faculty.forEach(function (g) { %><%- include('../partials/goal-row', { goal: g, editable: false }) %><% }) %>
+  </div>
+<% } %>
+
+<h2 class="sec">Set by me</h2>
+<% if (mine.length) { %>
+  <div class="panel rows">
+    <% mine.forEach(function (g) { %><%- include('../partials/goal-row', { goal: g, editable: true }) %><% }) %>
+  </div>
+<% } %>
+
+<div class="panel mt-16">
+  <div class="panel-h"><h3>Add a goal</h3><span class="note">Only you can see and change these</span></div>
+  <div class="panel-b">
+    <form method="POST" action="/student/goals">
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+      <div class="grid g-wide">
+        <div class="field">
+          <label for="goal-title">Goal</label>
+          <input type="text" id="goal-title" name="title" maxlength="200" required placeholder="Finish the endo prerequisites before winter break">
+        </div>
+        <div class="field">
+          <label for="goal-date">Target date</label>
+          <input type="date" id="goal-date" name="target_date">
+        </div>
+      </div>
+      <div class="field">
+        <label for="goal-detail">Detail (optional)</label>
+        <input type="text" id="goal-detail" name="detail" maxlength="1000">
+      </div>
+      <button type="submit" class="btn btn-primary">Add goal</button>
+    </form>
+  </div>
+</div>
+<%- include('../partials/footer') %>

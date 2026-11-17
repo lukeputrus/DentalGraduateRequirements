@@ -1,34 +1,37 @@
+// Small progressive enhancements. Every page works without them.
 document.addEventListener('DOMContentLoaded', function () {
-  const search = document.getElementById('comp-search');
-  const chips = document.querySelectorAll('.filter-chip');
-  const cards = document.querySelectorAll('.competency-card');
-  if (!search && chips.length === 0) return;
-
-  let activeFilter = 'all';
-
-  function applyFilters() {
-    const query = (search && search.value || '').trim().toLowerCase();
-    cards.forEach(function (card) {
-      const matchesStatus = activeFilter === 'all' || card.getAttribute('data-status') === activeFilter;
-      const matchesSearch = !query || (card.getAttribute('data-search') || '').includes(query);
-      card.style.display = matchesStatus && matchesSearch ? '' : 'none';
+  // Selects that apply as soon as they change (filters, theme, role).
+  document.querySelectorAll('select[data-autosubmit]').forEach(function (select) {
+    select.addEventListener('change', function () {
+      if (select.form) select.form.submit();
     });
-    document.querySelectorAll('.competency-category-block').forEach(function (section) {
-      const visible = Array.from(section.querySelectorAll('.competency-card')).some(function (card) {
-        return card.style.display !== 'none';
+  });
+
+  // Live search over [data-search] rows inside the target container.
+  document.querySelectorAll('input[data-live-search]').forEach(function (input) {
+    var target = document.querySelector(input.getAttribute('data-live-search'));
+    if (!target) return;
+    var rows = target.querySelectorAll('[data-search]');
+    var empty = document.getElementById(target.id.replace(/-(table|list)$/, '') + '-empty');
+    function apply() {
+      var q = input.value.trim().toLowerCase();
+      var shown = 0;
+      rows.forEach(function (row) {
+        var hit = !q || (row.getAttribute('data-search') || '').indexOf(q) !== -1;
+        row.hidden = !hit;
+        if (hit) shown++;
       });
-      section.style.display = visible ? '' : 'none';
-    });
-  }
+      target.querySelectorAll('[data-search-group]').forEach(function (group) {
+        group.hidden = !group.querySelector('[data-search]:not([hidden])');
+      });
+      if (empty) empty.hidden = shown > 0;
+    }
+    input.addEventListener('input', apply);
+    // The server already filtered by the submitted query, so live search
+    // only needs to refine what's on the page.
+  });
 
-  if (search) search.addEventListener('input', applyFilters);
-
-  chips.forEach(function (chip) {
-    chip.addEventListener('click', function () {
-      chips.forEach(function (c) { c.classList.remove('active'); });
-      chip.classList.add('active');
-      activeFilter = chip.getAttribute('data-filter');
-      applyFilters();
-    });
+  document.querySelectorAll('[data-print]').forEach(function (button) {
+    button.addEventListener('click', function () { window.print(); });
   });
 });

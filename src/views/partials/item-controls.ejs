@@ -1,0 +1,22 @@
+<%# Stepper or done-toggle for one prerequisite item. Expects item, csrfToken, returnTo. %>
+<% if (item.item_type === 'count') { %>
+  <div class="qty">
+    <form method="POST" action="/student/items/<%= item.item_id %>/decrement">
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+      <input type="hidden" name="return_to" value="<%= returnTo %>">
+      <button type="submit" class="step" aria-label="Decrease" <%= item.current_count <= 0 ? 'disabled' : '' %>>&minus;</button>
+    </form>
+    <span class="num"><%= item.current_count %></span>
+    <form method="POST" action="/student/items/<%= item.item_id %>/increment">
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+      <input type="hidden" name="return_to" value="<%= returnTo %>">
+      <button type="submit" class="step" aria-label="Increase" <%= item.current_count >= item.target_count ? 'disabled' : '' %>>&plus;</button>
+    </form>
+  </div>
+<% } else { %>
+  <form method="POST" action="/student/items/<%= item.item_id %>/toggle">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    <input type="hidden" name="return_to" value="<%= returnTo %>">
+    <button type="submit" class="btn btn-sm check-toggle <%= item.current_count > 0 ? 'done' : '' %>"><%= item.current_count > 0 ? '✓ Done' : 'Mark done' %></button>
+  </form>
+<% } %>

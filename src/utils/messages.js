@@ -91,6 +91,7 @@ function insertMessage({ studentId, sender, body, file }) {
 }
 
 module.exports = {
+  UPLOADS_DIR,
   ALLOWED_MIME_TYPES,
   getThread,
   toClientJson,

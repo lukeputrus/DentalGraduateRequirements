@@ -1,45 +1,120 @@
-<%- include('../partials/header', { title: 'Admin Dashboard' }) %>
-<h1>Admin Dashboard</h1>
-
-<div class="stat-row">
-  <div class="stat-tile">
-    <div class="value"><%= studentCount %></div>
-    <div class="label">Students</div>
+<%- include('../partials/header') %>
+<div class="phead spread">
+  <div>
+    <h1>Cohort</h1>
+    <p class="sub">Every student's position against their own school's requirements, worked out the same way their own Requirements page does. Choose a school and class year to see the discipline grid.</p>
   </div>
-  <div class="stat-tile">
-    <div class="value"><%= schoolCount %></div>
-    <div class="label">Dental schools</div>
-  </div>
-  <div class="stat-tile">
-    <div class="value"><%= competencyCount %></div>
-    <div class="label">Competencies defined</div>
+  <div class="btn-row">
+    <a class="btn btn-primary" href="/admin/students/new">+ New student</a>
+    <a class="btn" href="/admin/competencies">Competencies</a>
   </div>
 </div>
 
-<div class="page-header">
-  <h2 class="mt-0">Quick links</h2>
-</div>
-<div class="form-row mb-24">
-  <a class="btn btn-primary" href="/admin/students/new">+ New student account</a>
-  <a class="btn" href="/admin/competencies">Manage competencies</a>
-  <a class="btn" href="/admin/schools">Manage schools</a>
+<form class="toolbar" method="GET" action="/admin/dashboard">
+  <div class="field">
+    <label for="f-school">School</label>
+    <select id="f-school" name="school_id" data-autosubmit>
+      <option value="">All schools with students</option>
+      <% schoolsWithStudents.forEach(function (s) { %><option value="<%= s.id %>" <%= schoolId === s.id ? 'selected' : '' %>><%= s.name %></option><% }) %>
+    </select>
+  </div>
+  <div class="field">
+    <label for="f-year">Class of</label>
+    <select id="f-year" name="class_year" data-autosubmit>
+      <option value="">All years</option>
+      <% classYears.forEach(function (y) { %><option value="<%= y %>" <%= classYear === y ? 'selected' : '' %>><%= y %></option><% }) %>
+    </select>
+  </div>
+  <div class="field grow">
+    <label for="cohort-search">Find a student</label>
+    <input type="search" id="cohort-search" placeholder="Name or username" data-live-search="#cohort-table">
+  </div>
+  <noscript><button type="submit" class="btn">Apply</button></noscript>
+</form>
+<div class="figs figs-attached">
+  <div class="fig">
+    <div class="fig-l">Students</div>
+    <div class="fig-n"><%= totals.students %></div>
+    <div class="fig-s"><%= schoolCount %> schools and <%= competencyCount %> competencies defined</div>
+  </div>
+  <div class="fig is-ok">
+    <div class="fig-l">Average completion</div>
+    <div class="fig-n"><%= totals.avgPercent %><small> per cent</small></div>
+    <div class="fig-s">Passed out of assessable items</div>
+  </div>
+  <div class="fig">
+    <div class="fig-l">Attempts waiting to be scheduled</div>
+    <div class="fig-n"><%= totals.eligible %></div>
+    <div class="fig-s">Competencies with every prerequisite met</div>
+  </div>
+  <div class="fig <%= totals.retest ? 'is-bad' : '' %>">
+    <div class="fig-l">Students in remediation</div>
+    <div class="fig-n"><%= totals.retest %></div>
+    <div class="fig-s">At least one competency needs a retest</div>
+  </div>
 </div>
 
-<div class="card">
-  <h2 class="mt-0">Students by school</h2>
-  <% if (studentsBySchool.every(function (s) { return s.student_count === 0; })) { %>
-    <p class="muted">No students yet. <a href="/admin/students/new">Create the first student account</a>.</p>
+<h2 class="sec">Students</h2>
+<div class="panel">
+  <% if (!students.length) { %>
+    <div class="empty">No students match. <a href="/admin/students/new">Create a student account</a>.</div>
   <% } else { %>
-  <table>
-    <thead><tr><th>School</th><th>Students</th></tr></thead>
+  <div class="scroll"><table id="cohort-table">
+    <thead><tr>
+      <th>Student</th><th>School</th><th>Completed</th><th class="r">Eligible</th><th class="r">Waiting</th><th class="r">Remediation</th><th class="r">Required goals</th><th class="r">Messages</th>
+    </tr></thead>
     <tbody>
-      <% studentsBySchool.forEach(function (row) { %>
-        <% if (row.student_count > 0) { %>
-        <tr><td><%= row.school_name %></td><td><%= row.student_count %></td></tr>
-        <% } %>
-      <% }) %>
+    <% students.forEach(function (r) { %>
+      <tr data-search="<%= (r.student.full_name + ' ' + r.student.username).toLowerCase() %>">
+        <td class="nm"><a href="/admin/students/<%= r.student.id %>"><%= r.student.full_name %></a><div class="sub2"><%= r.student.username %></div></td>
+        <td class="small"><%= r.student.school_name || '—' %><% if (r.student.class_year) { %><div class="sub2">Class of <%= r.student.class_year %></div><% } %></td>
+        <td>
+          <div class="meter-row"><div class="meter is-ok"><span data-percent="<%= r.summary.percent %>"></span></div><span class="num"><%= r.summary.passed %> / <%= r.summary.total %></span></div>
+        </td>
+        <td class="r"><%= r.summary.eligible %></td>
+        <td class="r"><%= r.summary.not_started + r.summary.prereqs_in_progress %></td>
+        <td class="r"><% if (r.summary.needs_retest) { %><span class="tag tag-bad"><%= r.summary.needs_retest %></span><% } else { %>0<% } %></td>
+        <td class="r"><%= r.goalsOpen %><% if (r.goalsLate) { %> <span class="tag tag-bad"><%= r.goalsLate %> late</span><% } %></td>
+        <td class="r"><% if (r.unread) { %><a class="tag tag-warn" href="/admin/messages/<%= r.student.id %>"><%= r.unread %> new</a><% } else { %><span class="muted">—</span><% } %></td>
+      </tr>
+    <% }) %>
     </tbody>
-  </table>
+  </table></div>
+  <div class="empty" id="cohort-empty" hidden>No student matches that search.</div>
   <% } %>
 </div>
+
+<h2 class="sec">By discipline</h2>
+<% if (!grid) { %>
+  <div class="panel"><div class="empty">The grid compares students against one set of requirements, so it appears once the list above is a single school and class year.</div></div>
+<% } else { %>
+<div class="panel">
+  <div class="scroll">
+  <table class="cohort">
+    <thead><tr>
+      <th class="nmh">Student</th>
+      <% grid.categories.forEach(function (c) { %><th class="rot"><div><%= c %></div></th><% }) %>
+    </tr></thead>
+    <tbody>
+    <% grid.rows.forEach(function (row) { %>
+      <tr>
+        <td class="nm"><a href="/admin/students/<%= row.student.id %>"><%= row.student.full_name %></a></td>
+        <% row.cells.forEach(function (cell, i) { %>
+          <td class="cell lvl-<%= cell.level < 0 ? 'na' : cell.level %>" title="<%= grid.categories[i] %>: <%= cell.passed %> of <%= cell.total %> passed"><div><%= cell.total ? cell.total - cell.passed : '' %></div></td>
+        <% }) %>
+      </tr>
+    <% }) %>
+    </tbody>
+  </table>
+  </div>
+  <div class="legend">
+    <span>Each cell shows how many items in that discipline are still outstanding.</span>
+    <span><i class="lvl-0 sw"></i>Under a quarter passed</span>
+    <span><i class="lvl-2 sw"></i>About half</span>
+    <span><i class="lvl-3 sw"></i>Most</span>
+    <span><i class="lvl-4 sw"></i>All passed</span>
+  </div>
+</div>
+<p class="small muted mt-8">A pale column is one discipline the whole cohort is short in, which is usually a scheduling or patient-mix question rather than an individual one.</p>
+<% } %>
 <%- include('../partials/footer') %>
