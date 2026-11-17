@@ -30,11 +30,11 @@
     <thead><tr><th>Name</th><th>Username</th><th>School</th><th>Class year</th><th>Progress</th><th></th></tr></thead>
     <tbody>
       <% students.forEach(function (row) { %>
-        <% var school = schools.find(function (s) { return s.id === row.student.school_id; }); %>
+        <% var sch = schools.find(function (s) { return s.id === row.student.school_id; }); %>
         <tr>
           <td><%= row.student.full_name %></td>
           <td><%= row.student.username %></td>
-          <td><%= school ? school.name : '—' %></td>
+          <td><%= sch ? sch.name : "—" %></td>
           <td><%= row.student.class_year || '—' %></td>
           <td><%= row.summary.passed %>/<%= row.summary.total %> passed (<%= row.summary.percent %>%)</td>
           <td class="text-right"><a class="btn btn-small" href="/admin/students/<%= row.student.id %>">View</a></td>

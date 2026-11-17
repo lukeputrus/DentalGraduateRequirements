@@ -1,7 +1,7 @@
 <%- include('../../partials/header', { title: student.full_name }) %>
 <div class="page-header">
   <h1 class="mt-0">Messages with <%= student.full_name %></h1>
-  <div class="form-row" style="max-width: 320px;">
+  <div class="form-row narrow-form">
     <a class="btn" href="/admin/messages">&larr; All messages</a>
     <a class="btn" href="/admin/students/<%= student.id %>">View student</a>
   </div>

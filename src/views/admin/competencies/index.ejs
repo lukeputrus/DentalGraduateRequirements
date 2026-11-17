@@ -1,5 +1,5 @@
 <%- include('../../partials/header', { title: 'Manage Competencies' }) %>
-<h1>Competencies</h1>
+<div class="phead"><h1>Competencies</h1></div>
 <p class="muted">Each competency is either a gradeable exam a student must pass, with prerequisite items — one-time steps ("check") or repeated case counts ("count") — cleared before they're eligible to sit it, or a procedure count logged across D3 and D4 against D3, D4 and/or combined minimums (the way NYU's Patient Procedure Experiences report works). Competencies are set per school and per graduating class year, so an incoming class's changed requirements never affect students already tracking the old set.</p>
 <% if (error) { %><div class="flash flash-error"><%= error %></div><% } %>
 
@@ -89,6 +89,9 @@
         <div class="form-row">
           <label>Due (optional, free text)
             <input type="text" name="due_label" value="<%= comp.due_label || '' %>" placeholder="e.g. Due May 2027">
+          </label>
+          <label>Deadline date (optional)
+            <input type="date" name="due_date" value="<%= comp.due_date || '' %>">
           </label>
           <label>Source page (optional)
             <input type="number" name="source_page" value="<%= comp.source_page || '' %>" placeholder="Manual page #">
@@ -187,6 +190,9 @@
     <div class="form-row">
       <label>Due (optional, free text)
         <input type="text" name="due_label" placeholder="e.g. Due May 2027">
+      </label>
+      <label>Deadline date (optional)
+        <input type="date" name="due_date">
       </label>
       <label>Source page (optional)
         <input type="number" name="source_page" placeholder="Manual page #">

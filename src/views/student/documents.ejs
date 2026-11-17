@@ -1,0 +1,70 @@
+<%- include('../partials/header') %>
+<div class="phead">
+  <h1>My Documents</h1>
+  <p class="sub">Your own coursework: rotation goal sheets, competency papers, self-assessments and advising notes. A document can be attached to a competency so it sits alongside the requirement it satisfies.</p>
+</div>
+
+<div class="notice notice-flat">
+  <h4>What belongs here, and what does not</h4>
+  <p>Upload work that is <em>yours</em>: papers, worksheets, reflections, goal sheets. Do not upload anything that identifies a patient: no intraoral or extraoral photographs, no radiographs, no charts, no treatment notes.</p>
+  <p>Where the manual requires patient material to be submitted, it goes through your school's clinical system. This app only records that you submitted it.</p>
+</div>
+
+<h2 class="sec">Uploaded</h2>
+<div class="panel">
+  <% if (!documents.length) { %>
+    <div class="empty">Nothing uploaded yet.</div>
+  <% } else { %>
+  <div class="scroll"><table>
+    <thead><tr><th>Document</th><th>Kind</th><th>Attached to</th><th class="r">Size</th><th>Added</th><th></th></tr></thead>
+    <tbody>
+    <% documents.forEach(function (d) { %>
+      <tr>
+        <td class="nm"><a href="/student/documents/<%= d.id %>/download"><%= d.original_name %></a></td>
+        <td class="small muted"><%= d.kind %></td>
+        <td class="small"><% if (d.competency_id) { %><a href="/student/competencies/<%= d.competency_id %>"><%= d.competency_title %></a><% } else { %><span class="muted">Not attached</span><% } %></td>
+        <td class="r small"><%= formatSize(d.size_bytes) %></td>
+        <td class="small"><%= fmtDate(d.created_at) %></td>
+        <td class="r">
+          <form method="POST" action="/student/documents/<%= d.id %>/delete" data-confirm="Delete <%= d.original_name %>?">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <button type="submit" class="btn btn-sm">Delete</button>
+          </form>
+        </td>
+      </tr>
+    <% }) %>
+    </tbody>
+  </table></div>
+  <% } %>
+</div>
+
+<div class="panel mt-16" id="upload">
+  <div class="panel-h"><h3>Upload a document</h3><span class="note">PDF, Word, text, Markdown or image, up to 15 MB</span></div>
+  <div class="panel-b">
+    <form method="POST" action="/student/documents" enctype="multipart/form-data">
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+      <% if (preselect) { %><input type="hidden" name="return_to_comp" value="1"><% } %>
+      <div class="grid g2">
+        <div class="field">
+          <label for="doc-kind">Kind of document</label>
+          <select id="doc-kind" name="kind">
+            <% kinds.forEach(function (k) { %><option><%= k %></option><% }) %>
+          </select>
+        </div>
+        <div class="field">
+          <label for="doc-comp">Attach to a competency</label>
+          <select id="doc-comp" name="competency_id">
+            <option value="">Not attached</option>
+            <% competencies.forEach(function (c) { %><option value="<%= c.id %>" <%= preselect === c.id ? 'selected' : '' %>><%= c.title %></option><% }) %>
+          </select>
+        </div>
+      </div>
+      <div class="field">
+        <label for="doc-file">File</label>
+        <input type="file" id="doc-file" name="file" required accept=".pdf,.doc,.docx,.txt,.md,.png,.jpg,.jpeg">
+      </div>
+      <button type="submit" class="btn btn-primary">Upload</button>
+    </form>
+  </div>
+</div>
+<%- include('../partials/footer') %>

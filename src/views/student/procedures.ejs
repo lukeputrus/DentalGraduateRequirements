@@ -1,0 +1,76 @@
+<%- include('../partials/header') %>
+<div class="phead">
+  <h1>Procedure Record</h1>
+  <p class="sub">Numeric prerequisites count completed procedures. Record them here and every competency that depends on the count updates its eligibility straight away.</p>
+</div>
+
+<div class="figs">
+  <div class="fig is-ok">
+    <div class="fig-l">Thresholds met</div>
+    <div class="fig-n"><%= met %> <small>of <%= thresholds.length %></small></div>
+    <div class="fig-s">Counted prerequisites that have reached their target</div>
+  </div>
+  <div class="fig <%= thresholds.length - met ? 'is-warn' : '' %>">
+    <div class="fig-l">Thresholds outstanding</div>
+    <div class="fig-n"><%= thresholds.length - met %></div>
+    <div class="fig-s"><%= plural(shortBy, 'procedure') %> short in total</div>
+  </div>
+  <div class="fig">
+    <div class="fig-l">Procedure experiences logged</div>
+    <div class="fig-n"><%= procedureTotal %></div>
+    <div class="fig-s"><%= procedureRows.length ? 'Across ' + plural(procedureRows.length, 'procedure requirement') : 'Your school tracks counts as prerequisites' %></div>
+  </div>
+  <div class="fig is-slate">
+    <div class="fig-l">Competencies waiting on a count</div>
+    <div class="fig-n"><%= waiting.length %></div>
+    <div class="fig-s">Cannot be attempted until a count is reached</div>
+  </div>
+</div>
+
+<% if (thresholds.length) { %>
+<h2 class="sec">Counts against the manual's thresholds</h2>
+<div class="panel"><div class="scroll">
+  <table>
+    <thead><tr><th>Procedure</th><th>Recorded</th><th class="c">Left</th><th class="c">Add</th><th>Required for</th></tr></thead>
+    <tbody>
+    <% thresholds.forEach(function (t) { %>
+      <tr>
+        <td class="nm"><%= t.item.label %></td>
+        <td>
+          <div class="meter-row">
+            <div class="meter <%= t.left ? 'is-warn' : 'is-ok' %>"><span data-percent="<%= Math.round(Math.min(t.item.current_count, t.item.target_count) / t.item.target_count * 100) %>"></span></div>
+            <span class="num"><%= t.item.current_count %> / <%= t.item.target_count %></span>
+          </div>
+        </td>
+        <td class="c"><% if (t.left) { %><span class="tag tag-warn"><%= t.left %></span><% } else { %><span class="tag tag-ok">Met</span><% } %></td>
+        <td class="c"><%- include('../partials/item-controls', { item: t.item }) %></td>
+        <td class="small"><a href="/student/competencies/<%= t.comp.id %>"><%= t.comp.title %></a></td>
+      </tr>
+    <% }) %>
+    </tbody>
+  </table>
+</div></div>
+<% } %>
+
+<% if (procedureRows.length) { %>
+<h2 class="sec">Patient procedure experiences</h2>
+<p class="small muted">Counts by year against the D3, D4 and combined minimums. Rows with no minimum are logged for your record and do not count toward completion.</p>
+<div class="stack">
+<% procedureRows.forEach(function (comp) { %>
+  <div class="panel" id="comp-<%= comp.id %>">
+    <div class="panel-h spread">
+      <div class="inline"><h3><a href="/student/competencies/<%= comp.id %>"><%= comp.title %></a></h3><span class="note"><%= comp.category %><% if (comp.requirement_group) { %> · <%= comp.requirement_group %> group<% } %></span></div>
+      <%- include('../partials/status-chip', { comp: comp }) %>
+    </div>
+    <div class="panel-b">
+      <%- include('../partials/procedure-counts', { comp: comp, action: '/student/procedures/' + comp.id }) %>
+    </div>
+  </div>
+<% }) %>
+</div>
+<% } %>
+
+<% if (!thresholds.length && !procedureRows.length) { %>
+  <div class="panel"><div class="empty">Your school's requirements don't state any procedure counts.</div></div>
+<% } %>
+<%- include('../partials/footer') %>

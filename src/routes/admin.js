@@ -22,6 +22,10 @@ const {
 } = require('../utils/messages');
 
 const { isDemoAccount } = require('../utils/demo');
+const { THEMES, isTheme } = require('../utils/themes');
+const { listGoals, addGoal } = require('../utils/goals');
+const { listDocuments, sendDocument, formatSize } = require('../utils/documents');
+const { isISODate, todayISO, weeksToGraduation } = require('../utils/competencies');
 
 const router = express.Router();
 
@@ -77,19 +81,90 @@ function procedureFields(body) {
 
 // ---------- Dashboard ----------
 
+// The cohort view: every student in a school + class year (or everyone),
+// with the same derived counts the student sees on their own record.
 router.get('/dashboard', (req, res) => {
-  const schoolCount = db.prepare('SELECT COUNT(*) AS c FROM schools').get().c;
-  const studentCount = db.prepare("SELECT COUNT(*) AS c FROM users WHERE role = 'student'").get().c;
-  const competencyCount = db.prepare('SELECT COUNT(*) AS c FROM competencies').get().c;
-  const studentsBySchool = db
-    .prepare(
-      `SELECT s.name AS school_name, COUNT(u.id) AS student_count
-       FROM schools s LEFT JOIN users u ON u.school_id = s.id AND u.role = 'student'
-       GROUP BY s.id ORDER BY student_count DESC, s.name`
-    )
+  const schools = getSchools();
+  const schoolId = parseInt(req.query.school_id, 10) || null;
+  const classYear = parseInt(req.query.class_year, 10) || null;
+  const today = todayISO();
+
+  let query = "SELECT u.*, s.name AS school_name FROM users u LEFT JOIN schools s ON s.id = u.school_id WHERE u.role = 'student'";
+  const params = [];
+  if (schoolId) {
+    query += ' AND u.school_id = ?';
+    params.push(schoolId);
+  }
+  if (classYear) {
+    query += ' AND u.class_year = ?';
+    params.push(classYear);
+  }
+  query += ' ORDER BY u.full_name';
+
+  const openGoals = db.prepare(
+    "SELECT COUNT(*) AS c, SUM(CASE WHEN target_date < ? THEN 1 ELSE 0 END) AS late FROM goals WHERE student_id = ? AND set_by = 'faculty' AND completed_on IS NULL"
+  );
+  const unread = db.prepare("SELECT COUNT(*) AS c FROM messages WHERE student_id = ? AND sender = 'student' AND read_at IS NULL");
+
+  const students = db.prepare(query).all(...params).map((student) => {
+    const competencies = getStudentCompetencies(student);
+    const goals = openGoals.get(today, student.id);
+    return {
+      student,
+      competencies,
+      summary: summarize(competencies),
+      overdue: competencies.filter((c) => c.due_date && c.due_date < today && c.status !== 'passed' && c.status !== 'tracking_only').length,
+      goalsOpen: goals.c || 0,
+      goalsLate: goals.late || 0,
+      unread: unread.get(student.id).c,
+    };
+  });
+
+  // Discipline grid only makes sense when everyone shares one requirement
+  // set, i.e. one school and one class year.
+  let grid = null;
+  const sets = new Set(students.filter((r) => r.student.school_id && r.student.class_year).map((r) => `${r.student.school_id}:${r.student.class_year}`));
+  if (students.length && sets.size === 1) {
+    const categories = [...new Set(students[0].competencies.map((c) => c.category))];
+    grid = {
+      categories,
+      rows: students.map((r) => ({
+        student: r.student,
+        cells: categories.map((cat) => {
+          const s = summarize(r.competencies.filter((c) => c.category === cat));
+          return { ...s, level: s.total === 0 ? -1 : Math.min(4, Math.floor((s.passed / s.total) * 4)) };
+        }),
+      })),
+    };
+  }
+
+  const totals = {
+    students: students.length,
+    avgPercent: students.length ? Math.round(students.reduce((n, r) => n + r.summary.percent, 0) / students.length) : 0,
+    eligible: students.reduce((n, r) => n + r.summary.eligible, 0),
+    retest: students.filter((r) => r.summary.needs_retest > 0).length,
+  };
+  const classYears = db
+    .prepare("SELECT DISTINCT class_year FROM users WHERE role = 'student' AND class_year IS NOT NULL ORDER BY class_year")
+    .all()
+    .map((r) => r.class_year);
+  const schoolsWithStudents = db
+    .prepare("SELECT DISTINCT s.* FROM schools s JOIN users u ON u.school_id = s.id AND u.role = 'student' ORDER BY s.name")
     .all();
 
-  res.render('admin/dashboard', { schoolCount, studentCount, competencyCount, studentsBySchool });
+  res.render('admin/dashboard', {
+    title: 'Cohort',
+    students,
+    grid,
+    totals,
+    schools,
+    schoolsWithStudents,
+    classYears,
+    schoolId,
+    classYear,
+    competencyCount: db.prepare('SELECT COUNT(*) AS c FROM competencies').get().c,
+    schoolCount: schools.length,
+  });
 });
 
 // ---------- Schools ----------
@@ -103,14 +178,21 @@ router.get('/schools', (req, res) => {
        FROM schools s ORDER BY s.name`
     )
     .all();
-  res.render('admin/schools/index', { schools, error: null });
+  res.render('admin/schools/index', { schools, error: null, themeOptions: THEMES });
+});
+
+router.post('/schools/:id/theme', verifyCsrfToken, (req, res) => {
+  const id = parseInt(req.params.id, 10);
+  db.prepare('UPDATE schools SET theme = ? WHERE id = ?').run(isTheme(req.body.theme) ? req.body.theme : null, id);
+  req.flash('success', 'Theme updated.');
+  res.redirect('/admin/schools');
 });
 
 router.post('/schools', verifyCsrfToken, (req, res) => {
   const name = (req.body.name || '').trim();
   if (!name) {
     const schools = getSchools();
-    return res.status(400).render('admin/schools/index', { schools, error: 'School name is required.' });
+    return res.status(400).render('admin/schools/index', { schools, error: 'School name is required.', themeOptions: THEMES });
   }
   try {
     db.prepare('INSERT INTO schools (name) VALUES (?)').run(name);
@@ -184,6 +266,7 @@ router.post('/competencies', verifyCsrfToken, (req, res) => {
   const dentalYear = (req.body.dental_year || '').trim() || null;
   const description = (req.body.description || '').trim();
   const dueLabel = (req.body.due_label || '').trim();
+  const dueDate = isISODate(req.body.due_date) ? req.body.due_date : null;
   const sourcePage = parseInt(req.body.source_page, 10);
 
   if (!schoolId || !Number.isInteger(classYear) || classYear < 2000 || classYear > 2100 || !title) {
@@ -197,9 +280,9 @@ router.post('/competencies', verifyCsrfToken, (req, res) => {
   const proc = procedureFields(req.body);
 
   db.prepare(
-    `INSERT INTO competencies (school_id, class_year, dental_year, category, title, description, due_label, source_page, sort_order,
+    `INSERT INTO competencies (school_id, class_year, dental_year, category, title, description, due_label, due_date, source_page, sort_order,
        tracking, d3_required, d4_required, combined_required, requirement_group)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
   ).run(
     schoolId,
     classYear,
@@ -208,6 +291,7 @@ router.post('/competencies', verifyCsrfToken, (req, res) => {
     title,
     description || null,
     dueLabel || null,
+    dueDate,
     Number.isInteger(sourcePage) ? sourcePage : null,
     maxOrder + 10,
     proc.tracking,
@@ -302,6 +386,7 @@ router.post('/competencies/:id', verifyCsrfToken, (req, res) => {
   const dentalYear = (req.body.dental_year || '').trim() || null;
   const description = (req.body.description || '').trim();
   const dueLabel = (req.body.due_label || '').trim();
+  const dueDate = isISODate(req.body.due_date) ? req.body.due_date : null;
   const sourcePage = parseInt(req.body.source_page, 10);
   const sortOrder = parseInt(req.body.sort_order, 10);
 
@@ -312,7 +397,7 @@ router.post('/competencies/:id', verifyCsrfToken, (req, res) => {
 
   const proc = procedureFields(req.body);
   db.prepare(
-    `UPDATE competencies SET title = ?, category = ?, dental_year = ?, description = ?, due_label = ?, source_page = ?,
+    `UPDATE competencies SET title = ?, category = ?, dental_year = ?, description = ?, due_label = ?, due_date = ?, source_page = ?,
        sort_order = ?, tracking = ?, d3_required = ?, d4_required = ?, combined_required = ?, requirement_group = ?,
        updated_at = datetime('now')
      WHERE id = ?`
@@ -322,6 +407,7 @@ router.post('/competencies/:id', verifyCsrfToken, (req, res) => {
     dentalYear,
     description || null,
     dueLabel || null,
+    dueDate,
     Number.isInteger(sourcePage) ? sourcePage : null,
     Number.isInteger(sortOrder) ? sortOrder : existing.sort_order,
     proc.tracking,
@@ -481,17 +567,32 @@ router.post('/students', verifyCsrfToken, (req, res) => {
   res.redirect('/admin/students');
 });
 
+// The clinic lead's view of one student. `record` is the stored row when
+// `student` carries unsaved form input, so progress still loads correctly.
+function renderStudentRecord(res, student, error, record = student) {
+  const competencies = getStudentCompetencies(record);
+  res.render('admin/students/show', {
+    title: student.full_name,
+    student,
+    schools: getSchools(),
+    groups: groupByCategory(competencies),
+    summary: summarize(competencies),
+    competencies,
+    goals: listGoals(record.id),
+    documents: listDocuments(record.id),
+    formatSize,
+    weeks: weeksToGraduation(record.class_year),
+    error,
+    statusLabels: STATUS_LABELS,
+  });
+}
+
 router.get('/students/:id', (req, res) => {
   const id = parseInt(req.params.id, 10);
   const student = db.prepare("SELECT * FROM users WHERE id = ? AND role = 'student'").get(id);
   if (!student) return res.status(404).render('errors/404');
 
-  const schools = getSchools();
-  const competencies = getStudentCompetencies(student);
-  const groups = groupByCategory(competencies);
-  const summary = summarize(competencies);
-
-  res.render('admin/students/show', { student, schools, groups, summary, error: null, statusLabels: STATUS_LABELS });
+  renderStudentRecord(res, student, null);
 });
 
 router.post('/students/:id', verifyCsrfToken, (req, res) => {
@@ -506,17 +607,7 @@ router.post('/students/:id', verifyCsrfToken, (req, res) => {
   const schoolId = parseInt(req.body.school_id, 10);
   const classYear = parseInt(req.body.class_year, 10);
 
-  const fail = (error) => {
-    const competencies = getStudentCompetencies(student);
-    return res.status(400).render('admin/students/show', {
-      student: { ...student, ...req.body },
-      schools,
-      groups: groupByCategory(competencies),
-      summary: summarize(competencies),
-      error,
-      statusLabels: STATUS_LABELS,
-    });
-  };
+  const fail = (error) => renderStudentRecord(res.status(400), { ...student, ...req.body }, error, student);
 
   if (!fullName || !username) return fail('Full name and username are required.');
   if (isDemoAccount(student) && username !== student.username) return fail("A demo account's username can't be changed.");
@@ -589,7 +680,7 @@ router.post('/students/:id/competencies/:competencyId/exam', verifyCsrfToken, (r
     : 'not_attempted';
   const notes = (req.body.notes || '').trim();
 
-  setExamStatus(id, competencyId, examStatus, notes);
+  setExamStatus(id, competencyId, examStatus, notes, req.currentUser.full_name);
   req.flash('success', `Marked "${competency.title}" as ${examStatus.replace('_', ' ')}.`);
   res.redirect(`/admin/students/${id}#comp-${competencyId}`);
 });
@@ -607,6 +698,59 @@ router.post('/students/:id/procedures/:competencyId', verifyCsrfToken, (req, res
   setProcedureProgress(id, competencyId, parseInt(req.body.d3_count, 10), parseInt(req.body.d4_count, 10));
   req.flash('success', `Updated counts for "${competency.title}".`);
   res.redirect(`/admin/students/${id}#comp-${competencyId}`);
+});
+
+// ---------- Required goals and student documents ----------
+
+function getStudent(id) {
+  return db.prepare("SELECT * FROM users WHERE id = ? AND role = 'student'").get(id);
+}
+
+router.post('/students/:id/goals', verifyCsrfToken, (req, res) => {
+  const student = getStudent(parseInt(req.params.id, 10));
+  if (!student) return res.status(404).render('errors/404');
+  const title = (req.body.title || '').trim();
+  if (!title) {
+    req.flash('error', 'Give the goal a title.');
+    return res.redirect(`/admin/students/${student.id}#goals`);
+  }
+  addGoal({
+    studentId: student.id,
+    setBy: 'faculty',
+    setByName: req.currentUser.full_name,
+    title,
+    detail: (req.body.detail || '').trim(),
+    targetDate: isISODate(req.body.target_date) ? req.body.target_date : null,
+  });
+  req.flash('success', `Required goal set for ${student.full_name}.`);
+  res.redirect(`/admin/students/${student.id}#goals`);
+});
+
+function getFacultyGoal(req) {
+  return db
+    .prepare("SELECT * FROM goals WHERE id = ? AND student_id = ? AND set_by = 'faculty'")
+    .get(parseInt(req.params.goalId, 10), parseInt(req.params.id, 10));
+}
+
+router.post('/students/:id/goals/:goalId/toggle', verifyCsrfToken, (req, res) => {
+  const goal = getFacultyGoal(req);
+  if (!goal) return res.status(404).render('errors/404');
+  db.prepare('UPDATE goals SET completed_on = ? WHERE id = ?').run(goal.completed_on ? null : todayISO(), goal.id);
+  res.redirect(`/admin/students/${goal.student_id}#goals`);
+});
+
+router.post('/students/:id/goals/:goalId/delete', verifyCsrfToken, (req, res) => {
+  const goal = getFacultyGoal(req);
+  if (!goal) return res.status(404).render('errors/404');
+  db.prepare('DELETE FROM goals WHERE id = ?').run(goal.id);
+  req.flash('success', 'Goal removed.');
+  res.redirect(`/admin/students/${goal.student_id}#goals`);
+});
+
+router.get('/documents/:id/download', (req, res) => {
+  const doc = db.prepare('SELECT * FROM documents WHERE id = ?').get(parseInt(req.params.id, 10));
+  if (!doc) return res.status(404).render('errors/404');
+  sendDocument(res, doc);
 });
 
 // ---------- Messages ----------

@@ -11,6 +11,19 @@ const STATUS_LABELS = {
   tracking_only: 'Tracking only',
 };
 
+// How each status reads on screen. Colour never carries the meaning on its
+// own: every status has a glyph and a word, so it survives greyscale
+// printing and colour-vision differences. `order` sorts the "Status" view
+// with the things that need action first.
+const STATUS_DISPLAY = {
+  needs_retest: { label: 'Failed, remediation', glyph: '✕', cls: 'st-failed', order: 1 },
+  eligible: { label: 'Eligible to attempt', glyph: '▶', cls: 'st-eligible', order: 2 },
+  prereqs_in_progress: { label: 'Prerequisites in progress', glyph: '●', cls: 'st-progress', order: 3 },
+  not_started: { label: 'Prerequisites unmet', glyph: '—', cls: 'st-blocked', order: 4 },
+  passed: { label: 'Passed', glyph: '✓', cls: 'st-passed', order: 5 },
+  tracking_only: { label: 'Tracking only', glyph: '·', cls: 'st-blocked', order: 6 },
+};
+
 function computeStatus(items, examStatus) {
   if (examStatus === 'passed') return 'passed';
   if (examStatus === 'needs_retest') return 'needs_retest';
@@ -75,14 +88,17 @@ function getStudentCompetencies(student) {
   const competencies = db
     .prepare(
       `SELECT c.*, COALESCE(cp.exam_status, 'not_attempted') AS exam_status, cp.notes AS exam_notes,
-              COALESCE(pp.d3_count, 0) AS d3_count, COALESCE(pp.d4_count, 0) AS d4_count
+              cp.assessed_by, cp.assessed_on,
+              COALESCE(pp.d3_count, 0) AS d3_count, COALESCE(pp.d4_count, 0) AS d4_count,
+              COALESCE(sn.starred, 0) AS starred, sn.note AS my_note, sn.reminder_on
        FROM competencies c
        LEFT JOIN competency_progress cp ON cp.competency_id = c.id AND cp.student_id = ?
        LEFT JOIN procedure_progress pp ON pp.competency_id = c.id AND pp.student_id = ?
+       LEFT JOIN student_competency_notes sn ON sn.competency_id = c.id AND sn.student_id = ?
        WHERE c.school_id = ? AND c.class_year = ?
        ORDER BY c.category, c.sort_order, c.id`
     )
-    .all(student.id, student.id, student.school_id, student.class_year);
+    .all(student.id, student.id, student.id, student.school_id, student.class_year);
 
   const itemStmt = db.prepare(
     `SELECT ci.id AS item_id, ci.label, ci.item_type, ci.target_count,
@@ -95,9 +111,18 @@ function getStudentCompetencies(student) {
 
   return applyRequirementGroups(
     competencies.map((c) => {
-      if (c.tracking === 'procedure') return { ...c, items: [], ...computeProcedureStatus(c) };
+      if (c.tracking === 'procedure') {
+        return { ...c, items: [], items_met: 0, items_total: 0, ...computeProcedureStatus(c) };
+      }
       const items = itemStmt.all(student.id, c.id);
-      return { ...c, items, status: computeStatus(items, c.exam_status), status_label: null };
+      return {
+        ...c,
+        items,
+        items_met: items.filter((i) => i.current_count >= i.target_count).length,
+        items_total: items.length,
+        status: computeStatus(items, c.exam_status),
+        status_label: null,
+      };
     })
   );
 }
@@ -133,15 +158,106 @@ function setItemProgress(studentId, item, newCount) {
   return clamped;
 }
 
-function setExamStatus(studentId, competencyId, examStatus, notes) {
+// Records an exam outcome, plus who recorded it and when. Clearing the
+// outcome (not_attempted) clears the assessor too.
+function setExamStatus(studentId, competencyId, examStatus, notes, assessedBy) {
+  const recorded = examStatus !== 'not_attempted';
   db.prepare(
-    `INSERT INTO competency_progress (student_id, competency_id, exam_status, notes, updated_at)
-     VALUES (?, ?, ?, ?, datetime('now'))
+    `INSERT INTO competency_progress (student_id, competency_id, exam_status, notes, assessed_by, assessed_on, updated_at)
+     VALUES (?, ?, ?, ?, ?, ?, datetime('now'))
      ON CONFLICT(student_id, competency_id) DO UPDATE SET
        exam_status = excluded.exam_status,
        notes = excluded.notes,
+       assessed_by = excluded.assessed_by,
+       assessed_on = CASE
+         WHEN excluded.assessed_on IS NULL THEN NULL
+         WHEN competency_progress.exam_status = excluded.exam_status AND competency_progress.assessed_on IS NOT NULL
+           THEN competency_progress.assessed_on
+         ELSE excluded.assessed_on END,
        updated_at = datetime('now')`
-  ).run(studentId, competencyId, examStatus, notes || null);
+  ).run(
+    studentId,
+    competencyId,
+    examStatus,
+    notes || null,
+    recorded ? assessedBy || null : null,
+    recorded ? todayISO() : null
+  );
+}
+
+// ---------- Dates ----------
+
+const DAY_MS = 864e5;
+const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+function todayISO(now = new Date()) {
+  return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+}
+
+function isISODate(s) {
+  return typeof s === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(s) && !Number.isNaN(Date.parse(s + 'T12:00:00'));
+}
+
+function parseISO(s) {
+  return new Date(String(s).slice(0, 10) + 'T12:00:00');
+}
+
+function fmtDate(s) {
+  if (!s) return '';
+  const d = parseISO(s);
+  if (Number.isNaN(d.getTime())) return s;
+  return `${d.getDate()} ${MONTHS[d.getMonth()]} ${d.getFullYear()}`;
+}
+
+function daysUntil(s, today = todayISO()) {
+  return Math.round((parseISO(s) - parseISO(today)) / DAY_MS);
+}
+
+const plural = (n, one, many) => `${n} ${n === 1 ? one : many || one + 's'}`;
+
+// How close a deadline is, as a band plus a label. The bands match the
+// mockup: overdue / within a month / within four months / later.
+function urgency(dueDate, today = todayISO()) {
+  if (!dueDate) return { band: 'none', days: 1e6, label: 'No stated deadline', tag: 'tag-flat' };
+  const days = daysUntil(dueDate, today);
+  if (days < 0) return { band: 'overdue', days, label: `${plural(-days, 'day')} overdue`, tag: 'tag-bad' };
+  if (days <= 31) return { band: 'now', days, label: `${plural(days, 'day')} remaining`, tag: 'tag-bad' };
+  if (days <= 120) return { band: 'soon', days, label: `${plural(Math.round(days / 7), 'week')} remaining`, tag: 'tag-warn' };
+  const d = parseISO(dueDate);
+  return { band: 'later', days, label: `Due ${MONTHS[d.getMonth()].slice(0, 3)} ${d.getFullYear()}`, tag: 'tag-flat' };
+}
+
+// The app doesn't store graduation dates, so it assumes mid-May of the
+// class year (the usual US dental commencement window).
+function graduationDate(classYear) {
+  return classYear ? `${classYear}-05-15` : null;
+}
+
+function weeksToGraduation(classYear, today = todayISO()) {
+  const g = graduationDate(classYear);
+  return g ? Math.max(0, Math.round(daysUntil(g, today) / 7)) : null;
+}
+
+// ---------- Student annotations (star, note, reminder) ----------
+
+function getNotes(studentId, competencyId) {
+  return (
+    db
+      .prepare('SELECT * FROM student_competency_notes WHERE student_id = ? AND competency_id = ?')
+      .get(studentId, competencyId) || { starred: 0, note: null, reminder_on: null }
+  );
+}
+
+function saveNotes(studentId, competencyId, changes) {
+  const current = getNotes(studentId, competencyId);
+  const next = { ...current, ...changes };
+  db.prepare(
+    `INSERT INTO student_competency_notes (student_id, competency_id, starred, note, reminder_on, updated_at)
+     VALUES (?, ?, ?, ?, ?, datetime('now'))
+     ON CONFLICT(student_id, competency_id) DO UPDATE SET
+       starred = excluded.starred, note = excluded.note, reminder_on = excluded.reminder_on,
+       updated_at = datetime('now')`
+  ).run(studentId, competencyId, next.starred ? 1 : 0, next.note || null, next.reminder_on || null);
 }
 
 function setProcedureProgress(studentId, competencyId, d3Count, d4Count) {
@@ -159,6 +275,17 @@ function setProcedureProgress(studentId, competencyId, d3Count, d4Count) {
 module.exports = {
   STATUSES,
   STATUS_LABELS,
+  STATUS_DISPLAY,
+  todayISO,
+  isISODate,
+  fmtDate,
+  daysUntil,
+  urgency,
+  plural,
+  graduationDate,
+  weeksToGraduation,
+  getNotes,
+  saveNotes,
   computeStatus,
   computeProcedureStatus,
   applyRequirementGroups,

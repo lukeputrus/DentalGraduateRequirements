@@ -1,6 +1,8 @@
 CREATE TABLE IF NOT EXISTS schools (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  name TEXT NOT NULL UNIQUE
+  name TEXT NOT NULL UNIQUE,
+  -- Institution theme key (see src/utils/themes.js). NULL = app default.
+  theme TEXT
 );
 
 CREATE TABLE IF NOT EXISTS users (
@@ -13,6 +15,8 @@ CREATE TABLE IF NOT EXISTS users (
   school_id INTEGER REFERENCES schools(id) ON DELETE SET NULL,
   class_year INTEGER,
   must_change_password INTEGER NOT NULL DEFAULT 0,
+  -- The user's own theme choice from the switcher; NULL = their school's.
+  theme TEXT,
   created_at TEXT NOT NULL DEFAULT (datetime('now')),
   updated_at TEXT NOT NULL DEFAULT (datetime('now'))
 );
@@ -30,6 +34,9 @@ CREATE TABLE IF NOT EXISTS competencies (
   description TEXT,
   source_page INTEGER,
   due_label TEXT,
+  -- Optional hard deadline (YYYY-MM-DD). Drives the overdue / weeks
+  -- remaining tags; due_label stays as free text from the manual.
+  due_date TEXT,
   sort_order INTEGER NOT NULL DEFAULT 0,
   -- 'items': cleared via prerequisite items + an exam outcome (Detroit Mercy
   -- style). 'procedure': a running count of patient procedures logged in D3
@@ -77,6 +84,9 @@ CREATE TABLE IF NOT EXISTS competency_progress (
   competency_id INTEGER NOT NULL REFERENCES competencies(id) ON DELETE CASCADE,
   exam_status TEXT NOT NULL DEFAULT 'not_attempted' CHECK (exam_status IN ('not_attempted', 'passed', 'needs_retest')),
   notes TEXT,
+  -- Who recorded the outcome and on what date (set when it's recorded).
+  assessed_by TEXT,
+  assessed_on TEXT,
   updated_at TEXT NOT NULL DEFAULT (datetime('now')),
   UNIQUE (student_id, competency_id)
 );
@@ -107,6 +117,47 @@ CREATE TABLE IF NOT EXISTS messages (
   created_at TEXT NOT NULL DEFAULT (datetime('now'))
 );
 
+-- A student's own annotations on a competency: a star, a private note and
+-- a reminder date. Nothing here affects status.
+CREATE TABLE IF NOT EXISTS student_competency_notes (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  student_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  competency_id INTEGER NOT NULL REFERENCES competencies(id) ON DELETE CASCADE,
+  starred INTEGER NOT NULL DEFAULT 0,
+  note TEXT,
+  reminder_on TEXT,
+  updated_at TEXT NOT NULL DEFAULT (datetime('now')),
+  UNIQUE (student_id, competency_id)
+);
+
+-- Semester goals. set_by = 'faculty' goals are required: only an admin
+-- (clinic lead) can edit or remove them. 'student' goals are the student's.
+CREATE TABLE IF NOT EXISTS goals (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  student_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  set_by TEXT NOT NULL CHECK (set_by IN ('faculty', 'student')),
+  set_by_name TEXT,
+  title TEXT NOT NULL,
+  detail TEXT,
+  target_date TEXT,
+  completed_on TEXT,
+  created_at TEXT NOT NULL DEFAULT (datetime('now'))
+);
+
+-- A student's own coursework (papers, goal sheets, self-assessments),
+-- optionally attached to a competency. Never patient material.
+CREATE TABLE IF NOT EXISTS documents (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  student_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  competency_id INTEGER REFERENCES competencies(id) ON DELETE SET NULL,
+  kind TEXT NOT NULL,
+  original_name TEXT NOT NULL,
+  stored_name TEXT NOT NULL,
+  mime TEXT,
+  size_bytes INTEGER NOT NULL DEFAULT 0,
+  created_at TEXT NOT NULL DEFAULT (datetime('now'))
+);
+
 CREATE INDEX IF NOT EXISTS idx_users_school ON users(school_id);
 CREATE INDEX IF NOT EXISTS idx_competencies_lookup ON competencies(school_id, class_year);
 CREATE INDEX IF NOT EXISTS idx_competency_items_competency ON competency_items(competency_id);
@@ -114,3 +165,6 @@ CREATE INDEX IF NOT EXISTS idx_item_progress_student ON item_progress(student_id
 CREATE INDEX IF NOT EXISTS idx_competency_progress_student ON competency_progress(student_id);
 CREATE INDEX IF NOT EXISTS idx_procedure_progress_student ON procedure_progress(student_id);
 CREATE INDEX IF NOT EXISTS idx_messages_student ON messages(student_id, created_at);
+CREATE INDEX IF NOT EXISTS idx_student_notes_student ON student_competency_notes(student_id);
+CREATE INDEX IF NOT EXISTS idx_goals_student ON goals(student_id);
+CREATE INDEX IF NOT EXISTS idx_documents_student ON documents(student_id);

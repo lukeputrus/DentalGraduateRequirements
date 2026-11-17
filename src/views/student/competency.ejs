@@ -1,0 +1,122 @@
+<%- include('../partials/header') %>
+<div class="crumb"><a href="/student/dashboard">Requirements</a><i>›</i><span><%= comp.title %></span></div>
+<div class="phead with-rule">
+  <h1><%= comp.title %></h1>
+  <div class="inline mt-8">
+    <% if (comp.status === 'passed' && comp.due_date) { %><span class="tag tag-ok">Met</span>
+    <% } else if (comp.due_date) { %><span class="tag <%= comp.u.tag %>"><%= comp.u.label %></span><% } %>
+    <% if (comp.starred) { %><span class="tag tag-req">Starred</span><% } %>
+  </div>
+  <p class="sub"><%= [comp.category, comp.dental_year ? comp.dental_year + ' level' : null, comp.source_page ? 'Manual page ' + comp.source_page : null, comp.due_date ? 'Due ' + fmtDate(comp.due_date) : comp.due_label].filter(Boolean).join(' · ') %></p>
+</div>
+
+<div class="grid g-side">
+  <div>
+    <% if (comp.description) { %>
+    <div class="verbatim">
+      <div class="cite">Purpose<% if (comp.source_page) { %> — manual page <%= comp.source_page %><% } %></div>
+      <p><%= comp.description %></p>
+    </div>
+    <% } %>
+
+    <% if (comp.tracking === 'procedure') { %>
+      <h2 class="sec">Procedure counts</h2>
+      <p class="small muted">Record how many of these you have completed in each year. The requirement is met once every stated minimum is reached<% if (comp.requirement_group) { %>, and every requirement in the <%= comp.requirement_group %> group is met<% } %>.</p>
+      <div class="panel"><div class="panel-b">
+        <%- include('../partials/procedure-counts', { comp: comp, action: '/student/procedures/' + comp.id, returnTo: returnTo }) %>
+      </div></div>
+    <% } else { %>
+      <h2 class="sec">Prerequisites</h2>
+      <% if (comp.items.length === 0) { %>
+        <p class="small muted">No prerequisites are stated for this competency.</p>
+      <% } else { %>
+      <div class="panel"><div class="panel-b rows-flush">
+        <% comp.items.forEach(function (item) { %>
+          <% const met = item.current_count >= item.target_count; %>
+          <div class="check <%= met ? 'done' : '' %>">
+            <div class="check-r">
+              <span class="st <%= met ? 'st-passed' : 'st-blocked' %>" aria-label="<%= met ? 'Met' : 'Not met' %>"><span class="gl"><%= met ? '✓' : '—' %></span></span>
+              <div class="check-t">
+                <b><%= item.label %></b>
+                <% if (item.item_type === 'count') { %>
+                <div class="meter-row mt-8">
+                  <div class="meter <%= met ? 'is-ok' : 'is-warn' %>"><span data-percent="<%= Math.round(Math.min(item.current_count, item.target_count) / item.target_count * 100) %>"></span></div>
+                  <span class="num"><%= item.current_count %> / <%= item.target_count %></span>
+                </div>
+                <% } %>
+              </div>
+              <%- include('../partials/item-controls', { item: item }) %>
+            </div>
+          </div>
+        <% }) %>
+      </div></div>
+      <% } %>
+    <% } %>
+
+    <h2 class="sec">Documents attached to this competency</h2>
+    <% if (documents.length === 0) { %>
+      <p class="small muted">None yet. Papers and worksheets you upload under Documents can be attached here.</p>
+    <% } else { %>
+      <div class="panel"><table>
+        <tbody>
+        <% documents.forEach(function (d) { %>
+          <tr><td class="nm"><a href="/student/documents/<%= d.id %>/download"><%= d.original_name %></a></td><td class="small muted"><%= d.kind %></td><td class="r small"><%= formatSize(d.size_bytes) %></td></tr>
+        <% }) %>
+        </tbody>
+      </table></div>
+    <% } %>
+    <p class="mt-8"><a href="/student/documents?competency_id=<%= comp.id %>">Upload a document for this competency</a></p>
+  </div>
+
+  <aside>
+    <div class="panel">
+      <div class="panel-h spread">
+        <div class="inline"><h3>Status</h3><%- include('../partials/status-chip', { comp: comp }) %></div>
+        <form method="POST" action="/student/competencies/<%= comp.id %>/star">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+          <button type="submit" class="star" aria-pressed="<%= comp.starred ? 'true' : 'false' %>" aria-label="<%= comp.starred ? 'Unstar' : 'Star' %>"><%= comp.starred ? '★' : '☆' %></button>
+        </form>
+      </div>
+      <div class="panel-b">
+        <dl class="kv">
+          <% if (comp.status === 'passed' && comp.tracking !== 'procedure') { %>
+            <dt>Passed</dt><dd><%= comp.assessed_on ? fmtDate(comp.assessed_on) : 'Recorded' %></dd>
+          <% } else if (comp.status === 'needs_retest') { %>
+            <dt>Failed</dt><dd><%= comp.assessed_on ? fmtDate(comp.assessed_on) : 'Recorded' %></dd>
+          <% } else if (comp.tracking !== 'procedure') { %>
+            <dt>Prerequisites</dt><dd><%= comp.items_met %> of <%= comp.items_total %> met</dd>
+          <% } %>
+          <% if (comp.assessed_by) { %><dt>Recorded by</dt><dd><%= comp.assessed_by %></dd><% } %>
+          <% if (comp.exam_notes) { %><dt>Faculty notes</dt><dd><%= comp.exam_notes %></dd><% } %>
+          <% if (comp.due_date) { %><dt>Deadline</dt><dd><%= fmtDate(comp.due_date) %></dd><% } else if (comp.due_label) { %><dt>Deadline</dt><dd><%= comp.due_label %></dd><% } %>
+        </dl>
+        <% if (comp.status === 'eligible') { %><p class="small mt-16">Every prerequisite is met. Book the attempt with your clinic lead; the outcome is recorded by faculty.</p><% } %>
+
+        <h2 class="sec">Reminder</h2>
+        <form method="POST" action="/student/competencies/<%= comp.id %>/reminder" class="inline">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+          <input type="date" name="reminder_on" value="<%= comp.reminder_on || '' %>" aria-label="Reminder date" class="grow-input">
+          <button type="submit" class="btn btn-sm">Set</button>
+          <% if (comp.reminder_on) { %><button type="submit" name="clear" value="1" class="btn btn-sm">Clear</button><% } %>
+        </form>
+        <p class="hint">Shown at the top of your Requirements page in the week it falls due.</p>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-h"><h3>My notes</h3><span class="note">Private to you</span></div>
+      <div class="panel-b">
+        <form method="POST" action="/student/competencies/<%= comp.id %>/notes">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+          <div class="field">
+            <label for="note">What to remember about this competency</label>
+            <textarea id="note" name="note" maxlength="4000" placeholder="Case approach, what the faculty asked last time, what to prepare."><%= comp.my_note || '' %></textarea>
+            <p class="hint">For your own learning notes. Do not record patient names, dates of birth or chart numbers.</p>
+          </div>
+          <button type="submit" class="btn btn-sm">Save note</button>
+        </form>
+      </div>
+    </div>
+  </aside>
+</div>
+<%- include('../partials/footer') %>

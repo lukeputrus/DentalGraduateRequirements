@@ -1,34 +1,98 @@
+<%
+  const isAdmin = locals.currentUser && currentUser.role === 'admin';
+  const navOn = function (prefix) { return currentPath === prefix || currentPath.indexOf(prefix + '/') === 0; };
+  const studentNav = [
+    ['/student/dashboard', 'Requirements', ['/student/dashboard', '/student/competencies']],
+    ['/student/procedures', 'Procedure Record'],
+    ['/student/goals', 'Semester Goals'],
+    ['/student/documents', 'Documents'],
+    ['/student/progress', 'Progress Summary'],
+    ['/student/manual', 'Competency Manual'],
+  ];
+  const adminNav = [
+    ['/admin/dashboard', 'Cohort'],
+    ['/admin/students', 'Students'],
+    ['/admin/competencies', 'Competencies'],
+    ['/admin/schools', 'Schools'],
+    ['/admin/messages', 'Messages'],
+  ];
+  const nav = isAdmin ? adminNav : studentNav;
+%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-institution="<%= locals.theme || 'charcoal' %>">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title><%= typeof title !== 'undefined' && title ? title + ' · Dental Grad Requirements' : 'Dental Grad Requirements' %></title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title><%= typeof title !== 'undefined' && title ? title + ' · Clinical Competencies' : 'Clinical Competencies' %></title>
 <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-<header class="site-header">
-  <div class="container header-inner">
-    <a class="brand" href="/">Dental Grad Requirements</a>
-    <% if (locals.currentUser) { %>
-    <nav class="main-nav">
-      <% if (currentUser.role === 'admin') { %>
-        <a href="/admin/dashboard">Dashboard</a>
-        <a href="/admin/students">Students</a>
-        <a href="/admin/competencies">Competencies</a>
-        <a href="/admin/schools">Schools</a>
-        <a href="/admin/messages">Messages<% if (locals.unreadMessageCount) { %> <span class="nav-badge"><%= unreadMessageCount %></span><% } %></a>
-      <% } else { %>
-        <a href="/student/dashboard">My Checklist</a>
-      <% } %>
-      <a href="/account/profile">Profile (<%= currentUser.full_name %>)</a>
-      <form action="/logout" method="POST" class="inline-form">
-        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-        <button type="submit" class="link-button">Log out</button>
-      </form>
-    </nav>
-    <% } %>
+<% if (locals.currentUser) { %>
+<div class="util"><div class="wrap">
+  <span class="util-inst"><%= school ? school.name : (isAdmin ? 'Program administration' : 'Dental Graduate Requirements') %></span>
+  <span class="util-sp"></span>
+  <% if (chromeStats) { %>
+    <span><%= chromeStats.passed %> of <%= chromeStats.total %> competencies passed<% if (chromeStats.weeks != null) { %> &middot; <%= chromeStats.weeks %> weeks to graduation<% } %></span>
+  <% } %>
+  <% if (roleSwitch) { %>
+  <form method="POST" action="/demo/view-as" class="util-form">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    <label for="view-as">View as</label>
+    <select id="view-as" name="username" data-autosubmit>
+      <% roleSwitch.forEach(function (a) { %>
+        <option value="<%= a.username %>" <%= a.username === currentUser.username ? 'selected' : '' %>><%= a.short || a.label %></option>
+      <% }) %>
+    </select>
+    <noscript><button type="submit" class="btn btn-sm">Go</button></noscript>
+  </form>
+  <% } %>
+  <form method="POST" action="/account/theme" class="util-form">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    <input type="hidden" name="return_to" value="<%= currentPath %>">
+    <label for="theme-pick">Theme</label>
+    <select id="theme-pick" name="theme" data-autosubmit>
+      <option value="" <%= !currentUser.theme ? 'selected' : '' %>>School default<% if (schoolTheme) { %> (<%= (themes.find(function (t) { return t.key === schoolTheme; }) || {}).label %>)<% } %></option>
+      <% themes.forEach(function (t) { %>
+        <option value="<%= t.key %>" <%= currentUser.theme === t.key ? 'selected' : '' %>><%= t.label %></option>
+      <% }) %>
+    </select>
+    <noscript><button type="submit" class="btn btn-sm">Apply</button></noscript>
+  </form>
+</div></div>
+
+<div class="mast"><div class="wrap">
+  <div class="mark" aria-hidden="true"><%= markInitials %></div>
+  <div class="mast-txt">
+    <div class="mast-inst">Clinical Competencies</div>
+    <div class="mast-sys"><% if (isAdmin) { %>Clinic lead view<% } else if (currentUser.class_year) { %>Class of <%= currentUser.class_year %><% } else { %>Student<% } %> &middot; <%= currentUser.full_name %></div>
   </div>
-</header>
-<main class="container">
+  <span class="mast-sp"></span>
+  <div class="whoami">
+    <b><%= currentUser.full_name %></b>
+    <span><%= isAdmin ? 'Clinic lead' : 'Student' %> &middot; <a href="/account/profile">Profile</a> &middot;</span>
+    <form action="/logout" method="POST" class="inline-form">
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+      <button type="submit" class="linkish small">Log out</button>
+    </form>
+  </div>
+</div></div>
+
+<% if (!currentUser.must_change_password) { %>
+<nav class="nav" aria-label="Main"><div class="wrap">
+  <% nav.forEach(function (n) { %>
+    <% const on = (n[2] || [n[0]]).some(navOn); %>
+    <a href="<%= n[0] %>"<%- on ? ' aria-current="page"' : '' %>><%= n[1] %><% if (n[0] === '/admin/messages' && locals.unreadMessageCount) { %> <span class="nav-badge"><%= unreadMessageCount %></span><% } %></a>
+  <% }) %>
+</div></nav>
+<% } %>
+<% } else { %>
+<div class="mast"><div class="wrap">
+  <div class="mark" aria-hidden="true">DG</div>
+  <div class="mast-txt">
+    <div class="mast-inst">Clinical Competencies</div>
+    <div class="mast-sys">Dental Graduate Requirements</div>
+  </div>
+</div></div>
+<% } %>
+<main><div class="wrap">
 <%- include('flash') %>

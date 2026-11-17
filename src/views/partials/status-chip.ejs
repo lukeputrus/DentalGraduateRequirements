@@ -1,0 +1,3 @@
+<%# Expects comp (with status, status_label) and statusDisplay. %>
+<% const sd = statusDisplay[comp.status] || statusDisplay.not_started; %>
+<span class="st <%= sd.cls %> status-<%= comp.status %>"><span class="gl" aria-hidden="true"><%= sd.glyph %></span><%= comp.status_label || sd.label %></span>

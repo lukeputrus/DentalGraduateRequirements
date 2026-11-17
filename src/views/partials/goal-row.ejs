@@ -1,0 +1,39 @@
+<%# One goal. Expects goal, editable (student-owned), and optionally adminActions. %>
+<% const u = urgency(goal.target_date); %>
+<div class="goal <%= goal.completed_on ? 'done' : '' %>">
+  <div class="spread">
+    <div class="inline">
+      <% if (goal.set_by === 'faculty') { %><span class="tag tag-req">Required</span><% if (goal.set_by_name) { %><span class="tag tag-flat">Set by <%= goal.set_by_name %></span><% } %><% } else { %><span class="tag tag-flat">My goal</span><% } %>
+      <% if (goal.completed_on) { %><span class="tag tag-ok">Done <%= fmtDate(goal.completed_on) %></span>
+      <% } else if (goal.target_date) { %><span class="tag <%= u.tag %>"><%= u.label %></span><% } %>
+    </div>
+    <div class="inline">
+      <% if (locals.editable) { %>
+        <form method="POST" action="/student/goals/<%= goal.id %>/toggle">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+          <button type="submit" class="btn btn-sm"><%= goal.completed_on ? 'Reopen' : 'Mark done' %></button>
+        </form>
+        <form method="POST" action="/student/goals/<%= goal.id %>/delete" data-confirm="Remove this goal?">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+          <button type="submit" class="btn btn-sm">Remove</button>
+        </form>
+      <% } else if (locals.adminBase) { %>
+        <% if (goal.set_by === 'faculty') { %>
+        <form method="POST" action="<%= adminBase %>/goals/<%= goal.id %>/toggle">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+          <button type="submit" class="btn btn-sm"><%= goal.completed_on ? 'Reopen' : 'Mark met' %></button>
+        </form>
+        <form method="POST" action="<%= adminBase %>/goals/<%= goal.id %>/delete" data-confirm="Remove this required goal?">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+          <button type="submit" class="btn btn-sm">Remove</button>
+        </form>
+        <% } %>
+      <% } else { %>
+        <span class="tag tag-flat">Locked</span>
+      <% } %>
+    </div>
+  </div>
+  <div class="goal-t"><%= goal.title %></div>
+  <% if (goal.detail) { %><div class="small muted"><%= goal.detail %></div><% } %>
+  <% if (goal.target_date) { %><div class="goal-d">Target date <%= fmtDate(goal.target_date) %></div><% } %>
+</div>

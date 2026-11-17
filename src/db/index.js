@@ -18,16 +18,24 @@ db.exec(schema);
 
 // CREATE TABLE IF NOT EXISTS won't add columns to a database created by an
 // older version of the app, so add any that are missing.
-const COMPETENCY_COLUMNS = {
-  tracking: "TEXT NOT NULL DEFAULT 'items' CHECK (tracking IN ('items', 'procedure'))",
-  d3_required: 'INTEGER',
-  d4_required: 'INTEGER',
-  combined_required: 'INTEGER',
-  requirement_group: 'TEXT',
+const ADDED_COLUMNS = {
+  competencies: {
+    tracking: "TEXT NOT NULL DEFAULT 'items' CHECK (tracking IN ('items', 'procedure'))",
+    d3_required: 'INTEGER',
+    d4_required: 'INTEGER',
+    combined_required: 'INTEGER',
+    requirement_group: 'TEXT',
+    due_date: 'TEXT',
+  },
+  competency_progress: { assessed_by: 'TEXT', assessed_on: 'TEXT' },
+  schools: { theme: 'TEXT' },
+  users: { theme: 'TEXT' },
 };
-const existingColumns = new Set(db.prepare('PRAGMA table_info(competencies)').all().map((c) => c.name));
-for (const [name, definition] of Object.entries(COMPETENCY_COLUMNS)) {
-  if (!existingColumns.has(name)) db.exec(`ALTER TABLE competencies ADD COLUMN ${name} ${definition}`);
+for (const [table, columns] of Object.entries(ADDED_COLUMNS)) {
+  const existing = new Set(db.prepare(`PRAGMA table_info(${table})`).all().map((c) => c.name));
+  for (const [name, definition] of Object.entries(columns)) {
+    if (!existing.has(name)) db.exec(`ALTER TABLE ${table} ADD COLUMN ${name} ${definition}`);
+  }
 }
 
 // better-sqlite3-style helper: wraps fn in BEGIN/COMMIT (ROLLBACK on

@@ -4,6 +4,7 @@ const { hashPassword } = require('../utils/password');
 const seedCompetencySets = require('./seedCompetencySets');
 const seedDemo = require('./seedDemo');
 const { isDemoMode } = require('../utils/demo');
+const { SCHOOL_DEFAULT_THEMES } = require('../utils/themes');
 
 function seedSchools() {
   const insert = db.prepare('INSERT OR IGNORE INTO schools (name) VALUES (?)');
@@ -11,6 +12,10 @@ function seedSchools() {
     for (const name of names) insert.run(name);
   });
   insertMany(dentalSchools);
+  // Give known schools their starting theme, without overriding a theme an
+  // admin has since chosen.
+  const setTheme = db.prepare('UPDATE schools SET theme = ? WHERE name = ? AND theme IS NULL');
+  for (const [name, theme] of Object.entries(SCHOOL_DEFAULT_THEMES)) setTheme.run(theme, name);
   const { count } = db.prepare('SELECT COUNT(*) AS count FROM schools').get();
   console.log(`Schools in database: ${count}`);
 }

@@ -3,6 +3,7 @@ const db = require('../db');
 const { verifyPassword, hashPassword } = require('../utils/password');
 const { verifyCsrfToken } = require('../middleware/csrf');
 const { isDemoAccount } = require('../utils/demo');
+const { isTheme } = require('../utils/themes');
 
 const router = express.Router();
 
@@ -45,6 +46,15 @@ router.post('/account/profile', verifyCsrfToken, (req, res) => {
 
   req.flash('success', 'Profile updated.');
   res.redirect('/account/profile');
+});
+
+// Theme switcher in the top bar. An empty value goes back to the school's
+// own theme.
+router.post('/account/theme', verifyCsrfToken, (req, res) => {
+  const theme = isTheme(req.body.theme) ? req.body.theme : null;
+  db.prepare('UPDATE users SET theme = ? WHERE id = ?').run(theme, req.currentUser.id);
+  const back = req.body.return_to;
+  res.redirect(typeof back === 'string' && /^\/[A-Za-z0-9/_-]*$/.test(back) ? back : '/');
 });
 
 router.get('/account/change-password', (req, res) => {
